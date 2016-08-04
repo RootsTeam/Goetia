@@ -1,4 +1,4 @@
-package TeamRoots.Goetia.common.util;
+package teamroots.goetia.common.util;
 
 /**
  * Created by TeamRoots on 4.8.2016.

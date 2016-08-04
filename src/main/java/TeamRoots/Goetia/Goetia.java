@@ -1,12 +1,17 @@
-package TeamRoots.Goetia;
+package teamroots.goetia;
 
-import TeamRoots.Goetia.lib.LibMain;
-import TeamRoots.Goetia.proxy.IProxy;
+import teamroots.goetia.lib.LibMain;
+import teamroots.goetia.proxy.IProxy;
+import teamroots.goetia.registry.MainRegistry;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Created by TeamRoots on 4.8.2016.
@@ -19,7 +24,18 @@ public class Goetia
 
     @SidedProxy(clientSide = LibMain.LibCore.CLIENT_PROXY_CLASS,serverSide = LibMain.LibCore.SERVER_PROXY_CLASS)
     public static IProxy proxy;
-
+    
+    public static CreativeTabs tab = new CreativeTabs("goetia") {
+    	@Override
+    	public String getTabLabel(){
+    		return "goetia";
+    	}
+		@Override
+		@SideOnly(Side.CLIENT)
+		public Item getTabIconItem(){
+			return Item.getItemFromBlock(MainRegistry.altar);
+		}
+	};
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {

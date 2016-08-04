@@ -1,6 +1,6 @@
-package TeamRoots.Goetia.common.util.handler;
+package teamroots.goetia.common.util.handler;
 
-import TeamRoots.Goetia.lib.LibMain;
+import teamroots.goetia.lib.LibMain;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

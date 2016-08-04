@@ -1,4 +1,4 @@
-package TeamRoots.Goetia.client.gui;
+package teamroots.goetia.client.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;

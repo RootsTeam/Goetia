@@ -1,6 +1,6 @@
-package TeamRoots.Goetia.proxy;
+package teamroots.goetia.proxy;
 
-import TeamRoots.Goetia.registry.MainRegistry;
+import teamroots.goetia.registry.MainRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;

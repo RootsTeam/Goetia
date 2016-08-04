@@ -1,4 +1,4 @@
-package TeamRoots.Goetia.proxy;
+package teamroots.goetia.proxy;
 
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;

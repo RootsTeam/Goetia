@@ -1,4 +1,4 @@
-package TeamRoots.Goetia.lib;
+package teamroots.goetia.lib;
 
 /**
  * Created by TeamRoots on 4.8.2016.
@@ -11,8 +11,8 @@ public class LibMain
         MOD_ID = "goetia",
         MOD_NAME = "Goetia",
         VERSION = "0.1",
-        CLIENT_PROXY_CLASS = "TeamRoots.Goetia.proxy.ClientProxy",
-        SERVER_PROXY_CLASS = "TeamRoots.Goetia.proxy.ServerProxy",
-        GUI_FACTORY_CLASS = "TeamRoots.Goetia.client.gui.GuiFactory";
+        CLIENT_PROXY_CLASS = "teamroots.goetia.proxy.ClientProxy",
+        SERVER_PROXY_CLASS = "teamroots.goetia.proxy.ServerProxy",
+        GUI_FACTORY_CLASS = "teamroots.goetia.client.gui.GuiFactory";
     }
 }
