@@ -2,11 +2,15 @@ package teamroots.goetia.registry;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemSword;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import teamroots.goetia.common.blocks.BlockBase;
+import teamroots.goetia.common.items.base.ItemAbyssalBlade;
 import teamroots.goetia.common.items.base.ItemBase;
+import teamroots.goetia.common.items.base.ItemDemonicSpear;
+import teamroots.goetia.common.items.base.ItemSwordBase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +21,7 @@ import java.util.List;
 public class MainRegistry
 {
     public static List<ItemBase>ITEMS = new ArrayList<ItemBase>();
-
+    public static List<ItemSwordBase>ITEM_SWORD = new ArrayList<ItemSwordBase>();
     public static List<BlockBase>BLOCKS = new ArrayList<BlockBase>();
 
     public static BlockBase altar = new BlockBase("altar",Material.ROCK);
@@ -27,8 +31,8 @@ public class MainRegistry
     public static ItemBase demonHorn = new ItemBase("demonHorn");
     public static ItemBase impTallow = new ItemBase("impTallow");
     public static ItemBase demonHide = new ItemBase("demonHide");
-    public static ItemBase demonHornSpear = new ItemBase("demonHornSpear");
-    public static ItemBase abyssalBlade = new ItemBase("abyssalBlade");
+    public static ItemSwordBase demonHornSpear = new ItemDemonicSpear();
+    public static ItemSwordBase abyssalBlade = new ItemAbyssalBlade();
     public static ItemBase soulFocus = new ItemBase("soulFocus");
     public static ItemBase demonicChalk = new ItemBase("demonicChalk");
     
@@ -44,6 +48,10 @@ public class MainRegistry
     	for (ItemBase itemBase : ITEMS){
     		GameRegistry.register(itemBase);
     	}
+    	for (ItemSwordBase itemSwordBase : ITEM_SWORD)
+        {
+            GameRegistry.register(itemSwordBase);
+        }
     	
         for (BlockBase blockBase : BLOCKS)
         {
@@ -58,6 +66,7 @@ public class MainRegistry
     {
         //Item textures
         ITEMS.forEach(ItemBase::initModelsAndVariants);
+        ITEM_SWORD.forEach(ItemSwordBase::initModelsAndVariants);
         //Block textures
         BLOCKS.forEach(BlockBase::initModels);
     }
