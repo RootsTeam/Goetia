@@ -12,6 +12,7 @@ public class LibMain
         MOD_NAME = "Goetia",
         VERSION = "0.1",
         CLIENT_PROXY_CLASS = "TeamRoots.Goetia.proxy.ClientProxy",
-        SERVER_PROXY_CLASS = "TeamRoots.Goetia.proxy.ServerProxy";
+        SERVER_PROXY_CLASS = "TeamRoots.Goetia.proxy.ServerProxy",
+        GUI_FACTORY_CLASS = "TeamRoots.Goetia.client.gui.GuiFactory";
     }
 }

@@ -1,5 +1,8 @@
 package TeamRoots.Goetia.proxy;
 
+import TeamRoots.Goetia.common.util.handler.ConfigHandler;
+import TeamRoots.Goetia.registry.MainRegistry;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -11,7 +14,9 @@ public abstract class CommonProxy implements IProxy
 {
     @Override
     public void preInit(FMLPreInitializationEvent e) {
-
+        ConfigHandler.init(e.getSuggestedConfigurationFile());
+        MainRegistry.register();
+        registerEvents();
     }
 
     @Override
@@ -22,5 +27,10 @@ public abstract class CommonProxy implements IProxy
     @Override
     public void postInit(FMLPostInitializationEvent e) {
 
+    }
+
+    private void registerEvents()
+    {
+        MinecraftForge.EVENT_BUS.register(new ConfigHandler());
     }
 }
