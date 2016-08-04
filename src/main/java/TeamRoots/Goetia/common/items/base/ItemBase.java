@@ -29,8 +29,8 @@ public class ItemBase extends Item implements IItemVariantHolder<ItemBase>
         setRegistryName(name);
         setUnlocalizedName(name);
         setCreativeTab(Goetia.tab);
-        setMaxStackSize(1);
         setNoRepair();
+        setMaxStackSize(64);
         BaseName = name;
 
         if(variants.length == 0)
@@ -63,6 +63,12 @@ public class ItemBase extends Item implements IItemVariantHolder<ItemBase>
                 subItems.add(new ItemStack(this, 1, meta));
             }
         }
+    }
+
+    public ItemBase setCustomMaxStackSize(int stackSize)
+    {
+        this.maxStackSize = stackSize;
+        return this;
     }
 
     @SideOnly(Side.CLIENT)

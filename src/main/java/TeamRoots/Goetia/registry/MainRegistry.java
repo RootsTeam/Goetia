@@ -7,10 +7,9 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import teamroots.goetia.common.blocks.BlockBase;
-import teamroots.goetia.common.items.base.ItemAbyssalBlade;
-import teamroots.goetia.common.items.base.ItemBase;
-import teamroots.goetia.common.items.base.ItemDemonicSpear;
-import teamroots.goetia.common.items.base.ItemSwordBase;
+import teamroots.goetia.common.blocks.BlockDemonCandle;
+import teamroots.goetia.common.blocks.BlockDemonCandleStand;
+import teamroots.goetia.common.items.base.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,16 +24,16 @@ public class MainRegistry
     public static List<BlockBase>BLOCKS = new ArrayList<BlockBase>();
 
     public static BlockBase altar = new BlockBase("altar",Material.ROCK);
-    public static BlockBase demonCandle = new BlockBase("demonCandle",Material.CLOTH).isOpaqueAndFullCube(false);
-    public static BlockBase demonCandleStand = new BlockBase("demonCandleStand",Material.CLOTH).isOpaqueAndFullCube(false);
+    public static BlockBase demonCandle = new BlockDemonCandle("demonCandle",Material.CLOTH);
+    public static BlockBase demonCandleStand = new BlockDemonCandleStand("demonCandleStand",Material.CLOTH);
 
-    public static ItemBase demonHorn = new ItemBase("demonHorn");
+    public static ItemBase demonHorn = new ItemDemonHorn("demonHorn");
     public static ItemBase impTallow = new ItemBase("impTallow");
     public static ItemBase demonHide = new ItemBase("demonHide");
     public static ItemSwordBase demonHornSpear = new ItemDemonicSpear();
     public static ItemSwordBase abyssalBlade = new ItemAbyssalBlade();
     public static ItemBase soulFocus = new ItemBase("soulFocus");
-    public static ItemBase demonicChalk = new ItemBase("demonicChalk");
+    public static ItemBase demonicChalk = new ItemDemonicChalk("demonicChalk");
     
     public static void register()
     {

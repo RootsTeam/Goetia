@@ -21,9 +21,6 @@ public class BlockBase extends Block
         this(blockName,Material.ROCK);
     }
 
-    public static boolean isOpaque1;
-    public static boolean transulcent;
-
     public BlockBase(String blockName, Material material)
     {
         super(material);
@@ -37,31 +34,5 @@ public class BlockBase extends Block
     public void initModels()
     {
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this),0,new ModelResourceLocation(getRegistryName().toString()))   ;
-    }
-
-    public BlockBase isOpaqueAndFullCube(boolean isOpaqueBlock)
-    {
-        this.isOpaque1 = isOpaqueBlock;
-        return this;
-    }
-
-    public BlockBase isTranslucent(boolean isBlockTanslucent)
-    {
-        this.translucent = isBlockTanslucent;
-        return this;
-    }
-    @Override
-    public boolean isFullCube(IBlockState state) {
-        return this.isOpaque1;
-    }
-
-    @Override
-    public boolean isOpaqueCube(IBlockState state) {
-        return this.isOpaque1;
-    }
-
-    @Override
-    public boolean isTranslucent(IBlockState state) {
-        return transulcent;
     }
 }
