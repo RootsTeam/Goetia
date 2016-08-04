@@ -1,0 +1,16 @@
+[
+{
+  "modid": "goetia",
+  "name": "Goetia",
+  "description": "Example placeholder mod.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["TeamRoots"],
+  "credits": "The team roots and some other people!",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
