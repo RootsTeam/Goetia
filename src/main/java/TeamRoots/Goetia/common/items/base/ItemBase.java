@@ -26,7 +26,7 @@ public class ItemBase extends Item implements IItemVariantHolder<ItemBase>
     {
         super();
         setRegistryName(name);
-        setUnlocalizedName(LibMain.LibCore.MOD_ID + ":" + name);
+        setUnlocalizedName(name);
         setCreativeTab(CreativeTabs.MISC);
         setMaxStackSize(1);
         setNoRepair();
