@@ -1,5 +1,8 @@
 package teamroots.goetia.common.items.base;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.EnumHelper;
 
 /**
@@ -11,6 +14,13 @@ public class ItemAbyssalBlade extends ItemSwordBase {
 
     public ItemAbyssalBlade() {
         super("abyssalBlade", abyssal);
+    }
+
+    @Override
+    public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
+        entity.setFire(3);
+        player.getFoodStats().addStats(-2,0.0f);
+        return false;
     }
 }
 
