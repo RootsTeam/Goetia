@@ -1,16 +1,9 @@
 package teamroots.goetia.common;
 
-import net.minecraft.client.main.Main;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import teamroots.goetia.common.items.base.ItemDemonicSpear;
 import teamroots.goetia.registry.MainRegistry;
 
 /**
