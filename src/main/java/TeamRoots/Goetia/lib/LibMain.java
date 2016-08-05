@@ -15,4 +15,10 @@ public class LibMain
         SERVER_PROXY_CLASS = "teamroots.goetia.proxy.ServerProxy",
         GUI_FACTORY_CLASS = "teamroots.goetia.client.gui.GuiFactory";
     }
+    public class LibNBT
+    {
+        public static final String
+        impurity_tag = "impurity",
+        max_impurity_tag = "maxImpurity";
+    }
 }
