@@ -12,6 +12,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import teamroots.goetia.spellcasting.SpellRegistry;
 
 import java.beans.EventHandler;
 
@@ -27,6 +28,7 @@ public abstract class CommonProxy implements IProxy
         MainRegistry.register();
         GoetiaCapabilityManeger.register();
         GoetiaPacketHandler.registerMessages();
+        SpellRegistry.register();
     }
 
     @Override

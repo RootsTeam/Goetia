@@ -35,7 +35,7 @@ public class MainRegistry
     public static ItemBase demonHide = new ItemBase("demonHide");
     public static ItemSwordBase demonHornSpear = new ItemDemonicSpear();
     public static ItemSwordBase abyssalBlade = new ItemAbyssalBlade();
-    public static ItemBase soulFocus = new ItemBase("soulFocus");
+    public static ItemBase soulFocus = new ItemSoulFocus();
     public static ItemBase demonicChalk = new ItemDemonicChalk("demonicChalk");
     
     public static void register()
@@ -44,9 +44,7 @@ public class MainRegistry
          * Register items
          */
 
-        /**
-         * Register blocks
-         */
+
     	for (ItemBase itemBase : ITEMS){
     		GameRegistry.register(itemBase);
     	}
@@ -54,13 +52,17 @@ public class MainRegistry
         {
             GameRegistry.register(itemSwordBase);
         }
-    	
+        /**
+         * Register blocks
+         */
         for (BlockBase blockBase : BLOCKS)
         {
             GameRegistry.register(blockBase);
             GameRegistry.register(new ItemBlock(blockBase).setRegistryName(blockBase.getRegistryName()));
         }
-
+        /**
+         * recipes
+         */
         recipesRegistry();
 
     }
