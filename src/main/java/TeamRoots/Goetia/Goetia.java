@@ -14,7 +14,7 @@ import teamroots.goetia.registry.MainRegistry;
 /**
  * Created by TeamRoots on 4.8.2016.
  */
-@Mod(modid = LibMain.LibCore.MOD_ID,name = LibMain.LibCore.MOD_NAME,version = LibMain.LibCore.VERSION,guiFactory = LibMain.LibCore.GUI_FACTORY_CLASS,useMetadata = true)
+@Mod(modid = LibMain.LibCore.MOD_ID,name = LibMain.LibCore.MOD_NAME,version = LibMain.LibCore.VERSION,guiFactory = LibMain.LibCore.GUI_FACTORY_CLASS)
 public class Goetia
 {
     @Mod.Instance(LibMain.LibCore.MOD_ID)
