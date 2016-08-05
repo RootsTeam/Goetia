@@ -1,7 +1,5 @@
-package TeamRoots.Goetia.common.items.base;
+package teamroots.goetia.common.items.base;
 
-import TeamRoots.Goetia.lib.LibMain;
-import TeamRoots.Goetia.registry.MainRegistry;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -11,6 +9,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import teamroots.goetia.Goetia;
+import teamroots.goetia.lib.LibMain;
+import teamroots.goetia.registry.MainRegistry;
 
 import java.util.List;
 
@@ -27,9 +28,9 @@ public class ItemBase extends Item implements IItemVariantHolder<ItemBase>
         super();
         setRegistryName(name);
         setUnlocalizedName(name);
-        setCreativeTab(CreativeTabs.MISC);
-        setMaxStackSize(1);
+        setCreativeTab(Goetia.tab);
         setNoRepair();
+        setMaxStackSize(64);
         BaseName = name;
 
         if(variants.length == 0)
@@ -62,6 +63,12 @@ public class ItemBase extends Item implements IItemVariantHolder<ItemBase>
                 subItems.add(new ItemStack(this, 1, meta));
             }
         }
+    }
+
+    public ItemBase setCustomMaxStackSize(int stackSize)
+    {
+        this.maxStackSize = stackSize;
+        return this;
     }
 
     @SideOnly(Side.CLIENT)
