@@ -1,11 +1,14 @@
 package teamroots.goetia.registry;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import teamroots.goetia.common.blocks.BlockBase;
 import teamroots.goetia.common.blocks.BlockDemonCandle;
 import teamroots.goetia.common.blocks.BlockDemonCandleStand;
@@ -58,6 +61,13 @@ public class MainRegistry
             GameRegistry.register(new ItemBlock(blockBase).setRegistryName(blockBase.getRegistryName()));
         }
 
+        recipesRegistry();
+
+    }
+
+    private static void recipesRegistry()
+    {
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(demonHornSpear), true,new Object[]{"  H"," B ","B  ",'H', new ItemStack(demonHorn),'B',new ItemStack(Items.BONE)}));
     }
 
     @SideOnly(Side.CLIENT)
