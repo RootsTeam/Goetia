@@ -1,6 +1,9 @@
 package teamroots.goetia.proxy;
 
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import teamroots.goetia.Goetia;
 import teamroots.goetia.capability.GoetiaCapabilityManeger;
+import teamroots.goetia.client.GuiHandler;
 import teamroots.goetia.common.EventManeger;
 import teamroots.goetia.common.network.GoetiaPacketHandler;
 import teamroots.goetia.common.util.handler.ConfigHandler;
@@ -28,7 +31,7 @@ public abstract class CommonProxy implements IProxy
 
     @Override
     public void init(FMLInitializationEvent e) {
-
+        NetworkRegistry.INSTANCE.registerGuiHandler(Goetia.instance,new GuiHandler());
     }
 
     @Override
