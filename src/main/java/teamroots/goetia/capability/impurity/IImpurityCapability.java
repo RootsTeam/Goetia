@@ -10,7 +10,7 @@ public interface IImpurityCapability
 {
     float getImputity();
     float getMaxImpurity();
-    void setImpurity(EntityPlayer player,float  impurity);
+    void setImpurity(EntityPlayer player, float impurity);
     void setMaxImpurity(float maxImpurity);
     NBTTagCompound saveData();
     void loadNBTData(NBTTagCompound tagCompound);
