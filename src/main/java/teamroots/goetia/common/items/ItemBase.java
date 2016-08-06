@@ -1,4 +1,4 @@
-package teamroots.goetia.common.items.base;
+package teamroots.goetia.common.items;
 
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;

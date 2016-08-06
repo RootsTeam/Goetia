@@ -1,4 +1,4 @@
-package teamroots.goetia.common.items.base;
+package teamroots.goetia.common.items;
 
 /**
  * Created by TeamRoots on 4.8.2016.
