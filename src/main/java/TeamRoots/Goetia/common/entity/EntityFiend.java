@@ -26,7 +26,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import teamroots.goetia.common.util.Utils;
 
-public class EntityFiend extends EntityMob {
+public class EntityFiend extends EntityMob implements IDemonic {
     public static final DataParameter<Boolean> trapped = EntityDataManager.<Boolean>createKey(EntityFiend.class, DataSerializers.BOOLEAN);
 
 	public EntityFiend(World worldIn) {
@@ -81,9 +81,6 @@ public class EntityFiend extends EntityMob {
         		getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, particle.xCoord, particle.yCoord, particle.zCoord, 0, 0, 0, 0);
     		}
     	}
-    	if (getDataManager().get(trapped)){
-    		this.setPosition(prevPosX, prevPosY, prevPosZ);
-    	}
     }
     
     @Override
@@ -97,5 +94,11 @@ public class EntityFiend extends EntityMob {
 	public void writeEntityToNBT(NBTTagCompound compound) {
 		super.writeEntityToNBT(compound);
 		compound.setBoolean("trapped", getDataManager().get(trapped));
+	}
+
+	@Override
+	public void setTrapped() {
+		getDataManager().set(trapped,true);
+		getDataManager().setDirty(trapped);
 	}
 }

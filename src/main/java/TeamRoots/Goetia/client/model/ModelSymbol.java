@@ -43,7 +43,7 @@ public class ModelSymbol extends ModelBase {
         setRotationAngles(f, f1, age, f3, f4, f5);
         GlStateManager.enableBlend();
         GlStateManager.enableAlpha();
-        GlStateManager.color(((ISymbol)entity).isActivated() ? 1.0f : 0.6f, ((ISymbol)entity).isActivated() ? 1.0f : 0.6f, ((ISymbol)entity).isActivated() ? 1.0f : 0.6f, ((ISymbol)entity).getFade(age-(int)age));
+        GlStateManager.color(1.0f*(((ISymbol)entity).isActivated() ? 1.0f : 0.6f), (237f/255f)*(((ISymbol)entity).isActivated() ? 1.0f : 0.6f), (199f/255f)*(((ISymbol)entity).isActivated() ? 1.0f : 0.6f), ((ISymbol)entity).getFade(age-(int)age));
         GlStateManager.translate(0, (((ISymbol)entity).getReady()*-0.5f)+1.35f, 0);
         GlStateManager.rotate(((ISymbol)entity).getAngle(age-(int)age),0,1,0);
         symbol.render(f5);

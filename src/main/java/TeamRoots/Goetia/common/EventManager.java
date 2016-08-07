@@ -18,7 +18,7 @@ public class EventManager
 				event.getEntityPlayer().removeExperienceLevel(((ISymbol)event.getTarget()).getLevelCost());
 				((ISymbol)event.getTarget()).activate();
 			}
-			if (event.getTarget() instanceof IClickableSymbol && ((ISymbol)event.getEntity()).isActivated()){
+			else if (event.getTarget() instanceof IClickableSymbol && ((ISymbol)event.getTarget()).isActivated()){
 				((IClickableSymbol)event.getTarget()).onRightClick(event.getWorld(), event.getTarget(), event.getEntityPlayer());
 			}
 		}

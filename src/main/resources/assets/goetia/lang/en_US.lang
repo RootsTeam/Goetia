@@ -10,4 +10,19 @@ item.impTallow.name=Imp Tallow
 item.soulFocus.name=Soul Focus
 item.lostNotes.name=Lost Scroll
 
+entity.goetia.imp.name=Imp
+entity.goetia.fiend.name=Fiend
+entity.goetia.demon.name=Demon
+
 goetia.knowledge.impSymbol=Summon Imp
+goetia.knowledge.impSymbol.desc=Summons an Imp above the symbol.
+goetia.knowledge.fiendSymbol=Summon Fiend
+goetia.knowledge.fiendSymbol.desc=Summons a Fiend above the symbol.
+goetia.knowledge.demonSymbol=Summon Demon
+goetia.knowledge.demonSymbol.desc=Summons a Demon above the symbol.
+goetia.knowledge.devilsTrap=Devil's Trap
+goetia.knowledge.devilsTrap.desc=Traps sufficiently injured demons.
+
+goetia.tooltip.symbol=Symbol: 
+goetia.tooltip.levelcost=XP Cost: 
+goetia.tooltip.levelcost2= Levels

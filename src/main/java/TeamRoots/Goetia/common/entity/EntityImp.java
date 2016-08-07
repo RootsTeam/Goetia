@@ -25,7 +25,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import teamroots.goetia.common.util.Utils;
 
-public class EntityImp extends EntityMob {
+public class EntityImp extends EntityMob implements IDemonic {
     public static final DataParameter<Boolean> trapped = EntityDataManager.<Boolean>createKey(EntityImp.class, DataSerializers.BOOLEAN);
 
 	public EntityImp(World worldIn) {
@@ -73,9 +73,6 @@ public class EntityImp extends EntityMob {
     		Vec3d particle = Utils.randomPointInAABB(this.getEntityBoundingBox());
     		getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, particle.xCoord, particle.yCoord, particle.zCoord, 0, 0, 0, 0);
     	}
-    	if (getDataManager().get(trapped)){
-    		this.setPosition(prevPosX, prevPosY, prevPosZ);
-    	}
     }
     
     @Override
@@ -89,5 +86,11 @@ public class EntityImp extends EntityMob {
 	public void writeEntityToNBT(NBTTagCompound compound) {
 		super.writeEntityToNBT(compound);
 		compound.setBoolean("trapped", getDataManager().get(trapped));
+	}
+
+	@Override
+	public void setTrapped() {
+		getDataManager().set(trapped,true);
+		getDataManager().setDirty(trapped);
 	}
 }

@@ -2,6 +2,8 @@ package teamroots.goetia.lib;
 
 import java.util.ArrayList;
 
+import net.minecraftforge.common.DungeonHooks;
+
 /**
  * Created by TeamRoots on 4.8.2016.
  */
@@ -26,6 +28,6 @@ public class LibMain
     }
     public static class LibKnowledge
     {
-        public static final String[] validKnowledge = new String[]{"impSymbol"};
+        public static final String[] validKnowledge = new String[]{"impSymbol","fiendSymbol","demonSymbol","devilsTrap"};
     }
 }

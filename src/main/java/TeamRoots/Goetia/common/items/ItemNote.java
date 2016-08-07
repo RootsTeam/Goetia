@@ -43,11 +43,14 @@ public class ItemNote extends ItemBase
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand){
     	if (player.hasCapability(KnowledgeProvider.knowledgeCapability, null) && stack.hasTagCompound()){
-    		if (!KnowledgeProvider.get(player).hasKnowledge(stack.getTagCompound().getString("knowledge"))){
+    		if (!world.isRemote && !KnowledgeProvider.get(player).hasKnowledge(stack.getTagCompound().getString("knowledge"))){
     			KnowledgeProvider.get(player).addKnowledge(player, stack.getTagCompound().getString("knowledge"));
     			player.setItemStackToSlot(hand == EnumHand.MAIN_HAND ? EntityEquipmentSlot.MAINHAND : EntityEquipmentSlot.OFFHAND, null);
     			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
     	    }
+    		if (world.isRemote){
+    			System.out.println(KnowledgeProvider.get(player).getKnowledge().toString());
+    		}
     	}
     	return new ActionResult<ItemStack>(EnumActionResult.FAIL,stack);
     }

@@ -38,12 +38,12 @@ import net.minecraft.world.World;
 import teamroots.goetia.common.symbol.SymbolManager;
 import teamroots.goetia.common.util.Utils;
 
-public class EntitySymbolImp extends EntityFlying implements ISymbol {
-    public static DataParameter<Boolean> activated = EntityDataManager.<Boolean>createKey(EntitySymbolImp.class, DataSerializers.BOOLEAN);
-    public static DataParameter<Float> ready = EntityDataManager.<Float>createKey(EntitySymbolImp.class, DataSerializers.FLOAT);
-    public static DataParameter<Float> fading = EntityDataManager.<Float>createKey(EntitySymbolImp.class, DataSerializers.FLOAT);
+public class EntitySymbolDemon extends EntityFlying implements ISymbol {
+    public static DataParameter<Boolean> activated = EntityDataManager.<Boolean>createKey(EntitySymbolDemon.class, DataSerializers.BOOLEAN);
+    public static DataParameter<Float> ready = EntityDataManager.<Float>createKey(EntitySymbolDemon.class, DataSerializers.FLOAT);
+    public static DataParameter<Float> fading = EntityDataManager.<Float>createKey(EntitySymbolDemon.class, DataSerializers.FLOAT);
     public float angle = 0;
-    public EntitySymbolImp(World worldIn) {
+    public EntitySymbolDemon(World worldIn) {
     	super(worldIn);
     	this.isAirBorne = true;
 		this.setSize(2.0F, 0.5F);
@@ -106,10 +106,10 @@ public class EntitySymbolImp extends EntityFlying implements ISymbol {
     		getDataManager().setDirty(ready);
     		if (getDataManager().get(ready).floatValue() >= 1.0f){
     			if (!getEntityWorld().isRemote){
-	    			EntityImp imp = new EntityImp(getEntityWorld());
-	    			imp.onInitialSpawn(getEntityWorld().getDifficultyForLocation(getPosition()), null);
-	    			imp.setPosition(posX, posY+0.5f, posZ);
-	    			getEntityWorld().spawnEntityInWorld(imp);
+    				EntityDemon demon = new EntityDemon(getEntityWorld());
+	    			demon.onInitialSpawn(getEntityWorld().getDifficultyForLocation(getPosition()), null);
+	    			demon.setPosition(posX, posY+0.5f, posZ);
+	    			getEntityWorld().spawnEntityInWorld(demon);
     			}
     			for (int i = 0; i < 30; i ++){
     				getEntityWorld().spawnParticle(EnumParticleTypes.FLAME, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
@@ -185,11 +185,11 @@ public class EntitySymbolImp extends EntityFlying implements ISymbol {
 
 	@Override
 	public ResourceLocation getTextureLocation() {
-		return new ResourceLocation("goetia:textures/entity/impSymbol.png");
+		return new ResourceLocation("goetia:textures/entity/demonSymbol.png");
 	}
 
 	@Override
 	public String getSymbolName() {
-		return "impSymbol";
+		return "demonSymbol";
 	}
 }
