@@ -1,14 +1,27 @@
 package teamroots.goetia.registry;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemSword;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import teamroots.goetia.Goetia;
+import teamroots.goetia.client.model.ModelManager;
 import teamroots.goetia.common.blocks.BlockBase;
 import teamroots.goetia.common.blocks.BlockDemonCandle;
 import teamroots.goetia.common.blocks.BlockDemonCandleStand;
+import teamroots.goetia.common.entity.EntityDemon;
+import teamroots.goetia.common.entity.EntityFiend;
+import teamroots.goetia.common.entity.EntityImp;
+import teamroots.goetia.common.entity.EntitySymbolImp;
+import teamroots.goetia.common.entity.RenderDemon;
+import teamroots.goetia.common.entity.RenderFiend;
+import teamroots.goetia.common.entity.RenderImp;
+import teamroots.goetia.common.entity.RenderSymbolImp;
 import teamroots.goetia.common.items.base.*;
 
 import java.util.ArrayList;
@@ -59,6 +72,21 @@ public class MainRegistry
         }
 
     }
+    
+	public static void registerEntities(){
+		EntityRegistry.registerModEntity(EntityImp.class, "imp", 0, Goetia.instance, 64, 3, true);
+		EntityRegistry.registerModEntity(EntityFiend.class, "fiend", 1, Goetia.instance, 64, 3, true);
+		EntityRegistry.registerModEntity(EntityDemon.class, "demon", 2, Goetia.instance, 64, 3, true);
+		EntityRegistry.registerModEntity(EntitySymbolImp.class, "symbolImp", 3, Goetia.instance, 64, 3, true);
+	}
+    
+	@SideOnly(Side.CLIENT)
+	public static void registerEntityRenderers(){
+		RenderingRegistry.registerEntityRenderingHandler(EntityImp.class, new RenderImp(Minecraft.getMinecraft().getRenderManager(),ModelManager.entityModels.get("imp"),0.3f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityFiend.class, new RenderFiend(Minecraft.getMinecraft().getRenderManager(),ModelManager.entityModels.get("fiend"),0.5f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityDemon.class, new RenderDemon(Minecraft.getMinecraft().getRenderManager(),ModelManager.entityModels.get("demon"),0.8f));
+		RenderingRegistry.registerEntityRenderingHandler(EntitySymbolImp.class, new RenderSymbolImp(Minecraft.getMinecraft().getRenderManager(),ModelManager.entityModels.get("symbol"),0f));
+	}
 
     @SideOnly(Side.CLIENT)
     public static void initTextures()

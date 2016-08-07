@@ -19,7 +19,7 @@ public class ItemAbyssalBlade extends ItemSwordBase {
     @Override
     public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
         entity.setFire(3);
-        player.getFoodStats().addStats(-2,0.0f);
+        player.getFoodStats().addExhaustion(1.0f);
         return false;
     }
 }

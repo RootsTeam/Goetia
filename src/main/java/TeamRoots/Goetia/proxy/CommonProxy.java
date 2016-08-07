@@ -1,7 +1,7 @@
 package teamroots.goetia.proxy;
 
 import teamroots.goetia.capability.GoetiaCapabilityManeger;
-import teamroots.goetia.common.EventManeger;
+import teamroots.goetia.common.EventManager;
 import teamroots.goetia.common.network.GoetiaPacketHandler;
 import teamroots.goetia.common.util.handler.ConfigHandler;
 import teamroots.goetia.registry.MainRegistry;
@@ -24,6 +24,7 @@ public abstract class CommonProxy implements IProxy
         MainRegistry.register();
         GoetiaCapabilityManeger.register();
         GoetiaPacketHandler.registerMessages();
+        MainRegistry.registerEntities();
     }
 
     @Override
@@ -40,6 +41,6 @@ public abstract class CommonProxy implements IProxy
     {
         MinecraftForge.EVENT_BUS.register(new ConfigHandler());
         MinecraftForge.EVENT_BUS.register(new GoetiaCapabilityManeger());
-        MinecraftForge.EVENT_BUS.register(new EventManeger());
+        MinecraftForge.EVENT_BUS.register(new EventManager());
     }
 }
