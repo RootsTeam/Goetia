@@ -1,4 +1,4 @@
-package teamroots.goetia.common.items.base;
+package teamroots.goetia.common.items;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,7 +10,7 @@ import net.minecraftforge.common.util.EnumHelper;
  */
 public class ItemAbyssalBlade extends ItemSwordBase {
 
-    private static ToolMaterial abyssal = EnumHelper.addToolMaterial("abyssal", 3, 749, 3, 6.0f, 3);
+    private static ToolMaterial abyssal = EnumHelper.addToolMaterial("abyssal", 3, 749, 3, 4.0f, 3);
 
     public ItemAbyssalBlade() {
         super("abyssalBlade", abyssal);

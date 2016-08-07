@@ -9,16 +9,11 @@ import net.minecraft.nbt.NBTTagCompound;
 public class DefaultImpurityCapability implements IImpurityCapability
 {
 
-    public float impurity = 0,maxImpurity = 40;
+    public float impurity = 0;
 
     @Override
-    public float getImputity() {
+    public float getImpurity() {
         return impurity;
-    }
-
-    @Override
-    public float getMaxImpurity() {
-        return maxImpurity;
     }
 
     @Override
@@ -28,16 +23,7 @@ public class DefaultImpurityCapability implements IImpurityCapability
         {
             this.impurity = 0;
         }
-        if(impurity > getMaxImpurity())
-        {
-            this.impurity = getMaxImpurity();
-        }
         dataChanged(player);
-    }
-
-    @Override
-    public void setMaxImpurity(float maxImpurity) {
-            this.maxImpurity = maxImpurity;
     }
 
     @Override

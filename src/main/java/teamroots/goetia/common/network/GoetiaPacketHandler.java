@@ -16,6 +16,7 @@ public class GoetiaPacketHandler
 
     public static void registerMessages()
     {
-        INSTANCE.registerMessage(ImpurityUpdateMessage.CampsMessageHolder.class,ImpurityUpdateMessage.class,id++, Side.CLIENT);
-    }
+        INSTANCE.registerMessage(ImpurityUpdateMessage.CampsMessageHolder.class,ImpurityUpdateMessage.class,3, Side.CLIENT);
+        INSTANCE.registerMessage(KnowledgeUpdateMessage.CampsMessageHolder.class,KnowledgeUpdateMessage.class,4, Side.CLIENT);
+      }
 }

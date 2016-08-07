@@ -19,7 +19,6 @@ public class ImpurityCapabilityStorage implements IStorage<IImpurityCapability>
     public NBTBase writeNBT(Capability<IImpurityCapability> capability, IImpurityCapability instance, EnumFacing side) {
         NBTTagCompound tagCompound = new NBTTagCompound();
         tagCompound.setFloat(LibMain.LibNBT.impurity_tag,((DefaultImpurityCapability)instance).impurity);
-        tagCompound.setFloat(LibMain.LibNBT.max_impurity_tag,((DefaultImpurityCapability)instance).maxImpurity);
         return tagCompound;
     }
 
@@ -27,6 +26,5 @@ public class ImpurityCapabilityStorage implements IStorage<IImpurityCapability>
     public void readNBT(Capability<IImpurityCapability> capability, IImpurityCapability instance, EnumFacing side, NBTBase nbt) {
         NBTTagCompound tag =(NBTTagCompound)nbt;
         ((DefaultImpurityCapability)instance).impurity = tag.getFloat(LibMain.LibNBT.impurity_tag);
-        ((DefaultImpurityCapability)instance).maxImpurity = tag.getFloat(LibMain.LibNBT.max_impurity_tag);
     }
 }

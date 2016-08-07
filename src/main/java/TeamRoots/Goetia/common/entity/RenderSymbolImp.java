@@ -4,6 +4,7 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
+import teamroots.goetia.common.symbol.SymbolManager;
 
 public class RenderSymbolImp extends RenderLiving<EntitySymbolImp> {
 
@@ -18,6 +19,6 @@ public class RenderSymbolImp extends RenderLiving<EntitySymbolImp> {
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntitySymbolImp entity) {
-		return new ResourceLocation("goetia:textures/entity/impSymbol.png");
+		return SymbolManager.symbolTextures.get(entity.getSymbolName());
 	}
 }

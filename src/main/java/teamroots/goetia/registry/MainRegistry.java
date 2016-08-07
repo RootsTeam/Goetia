@@ -22,7 +22,17 @@ import teamroots.goetia.common.entity.RenderDemon;
 import teamroots.goetia.common.entity.RenderFiend;
 import teamroots.goetia.common.entity.RenderImp;
 import teamroots.goetia.common.entity.RenderSymbolImp;
-import teamroots.goetia.common.items.base.*;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import teamroots.goetia.common.blocks.BlockBase;
+import teamroots.goetia.common.blocks.BlockDemonCandle;
+import teamroots.goetia.common.blocks.BlockDemonCandleStand;
+import teamroots.goetia.common.items.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +57,7 @@ public class MainRegistry
     public static ItemSwordBase abyssalBlade = new ItemAbyssalBlade();
     public static ItemBase soulFocus = new ItemBase("soulFocus");
     public static ItemBase demonicChalk = new ItemDemonicChalk("demonicChalk");
+    public static ItemBase lostNotes = new ItemNote("lostNotes");
     
     public static void register()
     {
@@ -71,6 +82,13 @@ public class MainRegistry
             GameRegistry.register(new ItemBlock(blockBase).setRegistryName(blockBase.getRegistryName()));
         }
 
+        recipesRegistry();
+
+    }
+
+    private static void recipesRegistry()
+    {
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(demonHornSpear), true,new Object[]{"  H"," B ","B  ",'H', new ItemStack(demonHorn),'B',new ItemStack(Items.BONE)}));
     }
     
 	public static void registerEntities(){

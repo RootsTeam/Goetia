@@ -1,8 +1,14 @@
 package teamroots.goetia.proxy;
 
-import teamroots.goetia.capability.GoetiaCapabilityManeger;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import teamroots.goetia.Goetia;
+import teamroots.goetia.capability.GoetiaCapabilityManager;
+import teamroots.goetia.common.EventManager;
+import teamroots.goetia.client.GuiHandler;
 import teamroots.goetia.common.EventManager;
 import teamroots.goetia.common.network.GoetiaPacketHandler;
+import teamroots.goetia.common.symbol.SymbolManager;
 import teamroots.goetia.common.util.handler.ConfigHandler;
 import teamroots.goetia.registry.MainRegistry;
 import net.minecraftforge.common.MinecraftForge;
@@ -21,15 +27,16 @@ public abstract class CommonProxy implements IProxy
     public void preInit(FMLPreInitializationEvent e) {
         ConfigHandler.init(e.getSuggestedConfigurationFile());
         registerEvents();
+        SymbolManager.init();
         MainRegistry.register();
-        GoetiaCapabilityManeger.register();
         GoetiaPacketHandler.registerMessages();
         MainRegistry.registerEntities();
     }
 
     @Override
     public void init(FMLInitializationEvent e) {
-
+        GoetiaCapabilityManager.register();
+        NetworkRegistry.INSTANCE.registerGuiHandler(Goetia.instance,new GuiHandler());
     }
 
     @Override
@@ -40,7 +47,7 @@ public abstract class CommonProxy implements IProxy
     private void registerEvents()
     {
         MinecraftForge.EVENT_BUS.register(new ConfigHandler());
-        MinecraftForge.EVENT_BUS.register(new GoetiaCapabilityManeger());
+        MinecraftForge.EVENT_BUS.register(new GoetiaCapabilityManager());
         MinecraftForge.EVENT_BUS.register(new EventManager());
     }
 }

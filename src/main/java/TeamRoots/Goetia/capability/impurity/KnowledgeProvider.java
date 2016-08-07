@@ -13,47 +13,47 @@ import javax.annotation.Nullable;
 /**
  * Created by TeamRoots on 5.8.2016.
  */
-public class ImpurityProvider implements ICapabilityProvider, INBTSerializable<NBTTagCompound>
+public class KnowledgeProvider implements ICapabilityProvider, INBTSerializable<NBTTagCompound>
 {
 
-    private IImpurityCapability ImpureCapability = null;
+    private IKnowledgeCapability KnowledgeCapability = null;
 
-    public ImpurityProvider()
+    public KnowledgeProvider()
     {
-        ImpureCapability = new   DefaultImpurityCapability();
+    	KnowledgeCapability = new DefaultKnowledgeCapability();
     }
 
-    public ImpurityProvider(IImpurityCapability c)
+    public KnowledgeProvider(IKnowledgeCapability c)
     {
-        this.ImpureCapability = c;
+        this.KnowledgeCapability = c;
     }
 
-    @CapabilityInject(IImpurityCapability.class)
-    public static final Capability<IImpurityCapability> impurityCapability = null;
+    @CapabilityInject(IKnowledgeCapability.class)
+    public static final Capability<IKnowledgeCapability> knowledgeCapability = null;
 
     @Override
     public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
-        return capability == impurityCapability;
+        return capability == knowledgeCapability;
     }
 
     @Override
     public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
-        if(impurityCapability != null && capability == impurityCapability)return (T)ImpureCapability;
+        if(knowledgeCapability != null && capability == knowledgeCapability)return (T)KnowledgeCapability;
         return null;
     }
 
-    public static IImpurityCapability get(EntityPlayer player)
+    public static IKnowledgeCapability get(EntityPlayer player)
     {
-        return player != null && player.hasCapability(impurityCapability,null) ? player.getCapability(impurityCapability,null): null;
+        return player != null && player.hasCapability(knowledgeCapability,null) ? player.getCapability(knowledgeCapability,null): null;
     }
 
     @Override
     public NBTTagCompound serializeNBT() {
-        return ImpureCapability.saveData();
+        return KnowledgeCapability.saveData();
     }
 
     @Override
     public void deserializeNBT(NBTTagCompound nbt) {
-        ImpureCapability.loadNBTData(nbt);
+        KnowledgeCapability.loadNBTData(nbt);
     }
 }

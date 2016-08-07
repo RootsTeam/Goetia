@@ -27,6 +27,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import teamroots.goetia.common.symbol.SymbolManager;
@@ -160,5 +161,15 @@ public class EntitySymbolImp extends EntityFlying implements ISymbol {
 	public void activate() {
 		getDataManager().set(activated, true);
 		getDataManager().setDirty(activated);
+	}
+
+	@Override
+	public ResourceLocation getTextureLocation() {
+		return new ResourceLocation("goetia:textures/entity/impSymbol.png");
+	}
+
+	@Override
+	public String getSymbolName() {
+		return "impSymbol";
 	}
 }

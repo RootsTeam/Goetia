@@ -1,5 +1,7 @@
 package teamroots.goetia.lib;
 
+import java.util.ArrayList;
+
 /**
  * Created by TeamRoots on 4.8.2016.
  */
@@ -19,6 +21,11 @@ public class LibMain
     {
         public static final String
         impurity_tag = "impurity",
-        max_impurity_tag = "maxImpurity";
+        max_impurity_tag = "maxImpurity",
+        KNOWLEDGE_TAG = "knowledge";
+    }
+    public static class LibKnowledge
+    {
+        public static final String[] validKnowledge = new String[]{"impSymbol"};
     }
 }
