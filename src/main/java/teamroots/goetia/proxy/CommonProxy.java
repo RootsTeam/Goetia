@@ -12,6 +12,7 @@ import teamroots.goetia.common.symbol.SymbolManager;
 import teamroots.goetia.common.util.handler.ConfigHandler;
 import teamroots.goetia.lib.LibMain;
 import teamroots.goetia.registry.MainRegistry;
+import teamroots.goetia.spellcasting.SpellRegistry;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.common.MinecraftForge;
@@ -35,6 +36,7 @@ public abstract class CommonProxy implements IProxy
         MainRegistry.register();
         GoetiaPacketHandler.registerMessages();
         MainRegistry.registerEntities();
+        SpellRegistry.register();
     }
 
     @Override

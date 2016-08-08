@@ -18,9 +18,11 @@ import net.minecraft.world.storage.loot.functions.LootFunctionManager;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import teamroots.goetia.Goetia;
 import teamroots.goetia.common.entity.EntitySymbolImp;
 import teamroots.goetia.common.entity.IClickableSymbol;
 import teamroots.goetia.common.entity.ISymbol;
+import teamroots.goetia.lib.EnumIDs;
 import teamroots.goetia.lib.LibMain;
 import teamroots.goetia.registry.MainRegistry;
 
@@ -39,6 +41,13 @@ public class EventManager
 			else if (event.getTarget() instanceof IClickableSymbol && ((ISymbol)event.getTarget()).isActivated()){
 				((IClickableSymbol)event.getTarget()).onRightClick(event.getWorld(), event.getTarget(), event.getEntityPlayer());
 			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event){
+		if (event.getWorld().getBlockState(event.getPos()).getBlock() == MainRegistry.altar){
+			event.getEntityPlayer().openGui(Goetia.instance, EnumIDs.GUI_ID_ALTAR.ordinal(), event.getWorld(), (int)event.getEntityPlayer().posX, (int)event.getEntityPlayer().posY, (int)event.getEntityPlayer().posZ);
 		}
 	}
 	

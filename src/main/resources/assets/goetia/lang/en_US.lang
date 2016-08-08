@@ -31,3 +31,8 @@ goetia.tooltip.symbol=Symbol:
 goetia.tooltip.levelcost=XP Cost: 
 goetia.tooltip.levelcost2= Levels
 goetia.tooltip.impurity=Impurity: 
+goetia.tooltip.spell=Spell: 
+goetia.tooltip.spellSteps=Steps: 
+
+goetia.spell.test=Test
+goetia.spell.test.desc=Test Spell

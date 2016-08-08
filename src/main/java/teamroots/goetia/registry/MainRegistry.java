@@ -69,6 +69,7 @@ public class MainRegistry
     public static ItemBase demonicChalk = new ItemDemonicChalk("demonicChalk");
     public static ItemBase lostNotes = new ItemNote("lostNotes");
     public static ItemBase symbolIcon = new ItemSymbolIcon("symbolIcon");
+    public static ItemBase spellIcon = new ItemSpellIcon("spellIcon");
     
     public static void register()
     {

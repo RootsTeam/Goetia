@@ -26,10 +26,4 @@ public class BlockAltar extends BlockBase
         super(blockName,material);
         setHardness(1.0f);
     }
-    
-    @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ){
-    	player.openGui(Goetia.instance, EnumIDs.GUI_ID_ALTAR.ordinal(), world, (int)player.posX, (int)player.posY, (int)player.posZ);
-    	return true;
-    }
 }

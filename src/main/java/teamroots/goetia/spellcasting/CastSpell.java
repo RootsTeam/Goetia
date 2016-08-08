@@ -14,7 +14,7 @@ public class CastSpell
 	public String name;
 	public int impurity;
 	public ItemStack icon;
-	List<Integer> shape = new ArrayList<Integer>();
+	public List<Integer> shape = new ArrayList<Integer>();
 	
 	public CastSpell(String name, int impurity, int[] parShape, ItemStack icon){
 		this.name = name;

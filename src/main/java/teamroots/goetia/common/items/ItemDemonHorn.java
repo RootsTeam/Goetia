@@ -22,6 +22,7 @@ public class ItemDemonHorn extends ItemBase
     
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand){
+    	ImpurityProvider.get(player).setImpurity(player, ImpurityProvider.get(player).getImpurity()+15.0f);
     	return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
     }
 }

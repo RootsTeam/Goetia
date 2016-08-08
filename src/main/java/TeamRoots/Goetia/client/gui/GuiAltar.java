@@ -23,6 +23,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import teamroots.goetia.capability.impurity.ImpurityProvider;
 import teamroots.goetia.capability.impurity.KnowledgeProvider;
+import teamroots.goetia.common.items.ItemSpellIcon;
 import teamroots.goetia.common.items.ItemSymbolIcon;
 import teamroots.goetia.common.network.ChalkUpdateMessage;
 import teamroots.goetia.common.network.GoetiaPacketHandler;
@@ -70,24 +71,42 @@ public class GuiAltar extends GuiScreen{
 		
 		Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("goetia:textures/gui/guiSlot.png"));
 		String text = I18n.format("goetia.tooltip.impurity") + player.getCapability(ImpurityProvider.impurityCapability, null).getImpurity();
-		this.fontRendererObj.drawString(text, (int)width/2-this.fontRendererObj.getStringWidth(text)/2, (int)height/2-this.fontRendererObj.FONT_HEIGHT/2, 0xFF4444);
-		RenderHelper.enableStandardItemLighting();
+		this.fontRendererObj.drawStringWithShadow(text, (int)width/2-this.fontRendererObj.getStringWidth(text)/2, (int)height/2-this.fontRendererObj.FONT_HEIGHT/2+24, 0xFF4444);
 		
 		ArrayList<CastSpell> validSpells = new ArrayList<CastSpell>();
 		
-		Iterator<CastSpell> spellIterator = SpellRegistry.spells.iterator();
-		while (spellIterator.hasNext()){
-			CastSpell spell = spellIterator.next();
-			if (spell.impurity <= ImpurityProvider.get(player).getImpurity()){
-				validSpells.add(spell);
+		for (int i = 0; i < SpellRegistry.spells.size(); i ++){
+			if (SpellRegistry.spells.get(i).impurity <= ImpurityProvider.get(player).getImpurity()){
+				validSpells.add(SpellRegistry.spells.get(i));
 			}
 		}
 		
+		GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+		Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("goetia:textures/gui/guiSlot.png"));
 		for (int i = 0; i < validSpells.size(); i ++){
 			float fract = ((float)i)/((float)validSpells.size());
 			float xPos = width/2.0f + 80f*(float)Math.cos(fract*2.0f*Math.PI-(Math.PI/2.0f));
 			float yPos = height/2.0f+ 80f*(float)Math.sin(fract*2.0f*Math.PI-(Math.PI/2.0f));
 			this.drawTexturedModalRect(xPos-16, yPos-16, 160, 0, 32, 32);
 		}
+		
+		for (int i = 0; i < validSpells.size(); i ++){
+			float fract = ((float)i)/((float)validSpells.size());
+			float xPos = width/2.0f + 80f*(float)Math.cos(fract*2.0f*Math.PI-(Math.PI/2.0f));
+			float yPos = height/2.0f+ 80f*(float)Math.sin(fract*2.0f*Math.PI-(Math.PI/2.0f));
+			this.itemRender.renderItemIntoGUI(validSpells.get(i).icon, (int)xPos-8, (int)yPos-8);
+		}
+		
+		for (int i = 0; i < validSpells.size(); i ++){
+			float fract = ((float)i)/((float)validSpells.size());
+			float xPos = width/2.0f + 80f*(float)Math.cos(fract*2.0f*Math.PI-(Math.PI/2.0f));
+			float yPos = height/2.0f+ 80f*(float)Math.sin(fract*2.0f*Math.PI-(Math.PI/2.0f));
+			if (mouseX >= xPos-16 && mouseY >= yPos-16 && mouseX <= xPos+16 && mouseY <= yPos+16){
+				ItemStack stack = new ItemStack(MainRegistry.spellIcon,1);
+				ItemSpellIcon.createData(stack, validSpells.get(i));
+				this.renderToolTip(stack, mouseX, mouseY);
+			}
+		}
+		RenderHelper.enableStandardItemLighting();
 	}
 }
