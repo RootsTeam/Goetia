@@ -1,0 +1,54 @@
+tile.altar.name=Алтарь
+tile.demonCandle.name=Демонический подсвечник
+tile.demonCandleStand.name=Демоническая свеча
+item.abyssalBlade.name=Клинок бездны
+item.demonHide.name=Демоническая шкурка
+item.demonHorn.name=Демонический рог
+item.demonHornSpear.name=Копьё с демоническим рогом
+item.demonicChalk.name=Демонический мел
+item.impTallow.name=Жир чертёнка
+item.soulFocus.name=Фокус душ
+item.lostNotes.name=Потерянный свиток
+
+entity.goetia.imp.name=Чертёнок
+entity.goetia.fiend.name=Бес
+entity.goetia.demon.name=Демон
+
+goetia.knowledge.impSymbol=Призыв чертёнка
+goetia.knowledge.impSymbol.desc=Призывает чертёнка над символом.
+goetia.knowledge.fiendSymbol=Призыв беса
+goetia.knowledge.fiendSymbol.desc=Призывает беса над символом.
+goetia.knowledge.demonSymbol=Призыв демона
+goetia.knowledge.demonSymbol.desc=Призывает демона над символом.
+goetia.knowledge.devilsTrap=Ловушка дьявола
+goetia.knowledge.devilsTrap.desc=Ловушка достаточно травмирует демонов.
+goetia.knowledge.forgeSymbol=Демоническая кузня
+goetia.knowledge.forgeSymbol.desc=Наполняет определённые предметы со связанными демонами.
+goetia.knowledge.openSoulSymbol=Открытая душа
+goetia.knowledge.openSoulSymbol.desc=Связывает демонов с вашей душой.
+
+goetia.tooltip.symbol=Символ: 
+goetia.tooltip.levelcost=Стоимость XP: 
+goetia.tooltip.levelcost2= уровней
+goetia.tooltip.impurity=Загрязнение: 
+goetia.tooltip.spell=Заклинание: 
+goetia.tooltip.spellSteps=Шаги: 
+
+goetia.spell.burningTouch=Горящее прикосновение
+goetia.spell.burningTouch.desc=Поджигает всех врагов, которых вы ударили.
+goetia.spell.fireball=Взрыв
+goetia.spell.fireball.desc=Создаёт мощный взрыв файербола перед вами.
+goetia.spell.rebuke=Укор
+goetia.spell.rebuke.desc=Отталкивает назад всех, кто осмелится ударить вас.
+goetia.spell.bloodrain=Кровавый дождь
+goetia.spell.bloodrain.desc=Ваша жизненная эссенция простирается от вас, ослабляя существ при прикосновении.
+goetia.spell.innerFire=Внутренний огонь
+goetia.spell.innerFire.desc=Заряжен несчастьями, вы становитесь быстрым и сильным, но и более уязвимым.
+goetia.spell.fallenArmor=Броня падших
+goetia.spell.fallenArmor.desc=Предоставляет вам дополнительную защиту, до тех пор, пока вы не продолжите причинять боль.
+goetia.spell.chainedStrikes=Цепной удар
+goetia.spell.chainedStrikes.desc=Ваши атаки получились настолько свирепыми, что вы стали срываться на невинных поблизости.
+goetia.spell.ebonWings=Эбеновые крылья
+goetia.spell.ebonWings.desc=Тёмная завеса недоброжелательности движет вас ввысь, предоставляя вас полёт на некоторое время.
+goetia.spell.voraciousStrike=Прожорливый удар
+goetia.spell.voraciousStrike.desc=Ваши голые кулаки могут пробить насквозь существ в период их неуязвимости.

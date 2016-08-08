@@ -9,7 +9,7 @@ import teamroots.goetia.lib.LibMain;
 public class SpellVoraciousStrike extends CastSpell{
 
 	public SpellVoraciousStrike() {
-		super("voraciousStrikes", 250, new int[]{1, 6, 2, 5, 3, 4, 1}, new ItemStack(Items.DIAMOND_SWORD));
+		super("voraciousStrike", 250, new int[]{1, 6, 2, 5, 3, 4, 1}, new ItemStack(Items.DIAMOND_SWORD));
 	}
 
 	@Override
