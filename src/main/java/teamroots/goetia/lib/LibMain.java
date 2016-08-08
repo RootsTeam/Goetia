@@ -30,7 +30,8 @@ public class LibMain
         fallen_armor_tag = "fallen_armor",
         chained_strikes_tag = "chained_strikes",
         ebon_wings_tag = "ebon_wings_tag",
-        burning_touch_tag = "burning_touch";
+        burning_touch_tag = "burning_touch",
+        voracious_strikes_tag = "voracious_strikes";
     }
     public static class LibKnowledge
     {

@@ -18,6 +18,7 @@ import net.minecraft.world.storage.loot.conditions.LootCondition;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -70,35 +71,7 @@ public class EventManager
 	@SubscribeEvent
 	public void livingTickEvent(LivingUpdateEvent event){
 		if (event.getEntityLiving() instanceof EntityPlayer){
-			if (event.getEntityLiving().getEntityData().hasKey(LibMain.LibNBT.burning_touch_tag)){
-				event.getEntityLiving().getEntityData().setInteger(LibMain.LibNBT.burning_touch_tag, event.getEntityLiving().getEntityData().getInteger(LibMain.LibNBT.burning_touch_tag)-1);
-				if (event.getEntityLiving().getEntityData().getInteger(LibMain.LibNBT.burning_touch_tag) <= 0){
-					event.getEntityLiving().getEntityData().removeTag(LibMain.LibNBT.burning_touch_tag);
-				}
-			}
-			if (event.getEntityLiving().getEntityData().hasKey(LibMain.LibNBT.rebuke_tag)){
-				event.getEntityLiving().getEntityData().setInteger(LibMain.LibNBT.rebuke_tag, event.getEntityLiving().getEntityData().getInteger(LibMain.LibNBT.rebuke_tag)-1);
-				if (event.getEntityLiving().getEntityData().getInteger(LibMain.LibNBT.rebuke_tag) <= 0){
-					event.getEntityLiving().getEntityData().removeTag(LibMain.LibNBT.rebuke_tag);
-				}
-			}
-			if (event.getEntityLiving().getEntityData().hasKey(LibMain.LibNBT.fallen_armor_tag)){
-				event.getEntityLiving().getEntityData().setInteger(LibMain.LibNBT.fallen_armor_tag, event.getEntityLiving().getEntityData().getInteger(LibMain.LibNBT.fallen_armor_tag)-1);
-				if (event.getEntityLiving().getEntityData().getInteger(LibMain.LibNBT.fallen_armor_tag) <= 0){
-					event.getEntityLiving().getEntityData().removeTag(LibMain.LibNBT.fallen_armor_tag);
-				}
-			}
-			if (event.getEntityLiving().getEntityData().hasKey(LibMain.LibNBT.chained_strikes_tag)){
-				event.getEntityLiving().getEntityData().setInteger(LibMain.LibNBT.chained_strikes_tag, event.getEntityLiving().getEntityData().getInteger(LibMain.LibNBT.chained_strikes_tag)-1);
-				if (event.getEntityLiving().getEntityData().getInteger(LibMain.LibNBT.chained_strikes_tag) <= 0){
-					event.getEntityLiving().getEntityData().removeTag(LibMain.LibNBT.chained_strikes_tag);
-				}
-			}
-			if (event.getEntityLiving().getEntityData().hasKey(LibMain.LibNBT.ebon_wings_tag)){
-				event.getEntityLiving().getEntityData().setInteger(LibMain.LibNBT.ebon_wings_tag, event.getEntityLiving().getEntityData().getInteger(LibMain.LibNBT.ebon_wings_tag)-1);
-				if (event.getEntityLiving().getEntityData().getInteger(LibMain.LibNBT.ebon_wings_tag) <= 0){
-					event.getEntityLiving().getEntityData().removeTag(LibMain.LibNBT.ebon_wings_tag);
-				}
+			if (event.getEntityLiving().getEntityData().hasKey(LibMain.LibNBT.ebon_wings_tag) && !event.getEntityLiving().onGround){
 				for (float i = 0; i < 360; i += 45.0f+45.0f*random.nextFloat()){
 					float offX = 0.5f*(float)Math.sin(Math.toRadians(i));
 					float offZ = 0.5f*(float)Math.cos(Math.toRadians(i));
@@ -108,6 +81,14 @@ public class EventManager
 					event.getEntityLiving().getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, event.getEntityLiving().posX+offX, event.getEntityLiving().posY+event.getEntityLiving().getEyeHeight()/2.0, event.getEntityLiving().posZ+offZ, 0, 0.015*random.nextFloat(), 0, 0);
 				}
 			}
+			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+			
+			decreaseEffect(LibMain.LibNBT.burning_touch_tag, player);
+			decreaseEffect(LibMain.LibNBT.rebuke_tag, player);
+			decreaseEffect(LibMain.LibNBT.fallen_armor_tag, player);
+			decreaseEffect(LibMain.LibNBT.chained_strikes_tag, player);
+			decreaseEffect(LibMain.LibNBT.ebon_wings_tag, player);
+			decreaseEffect(LibMain.LibNBT.voracious_strikes_tag, player);
 		}
 	}
 	
@@ -165,6 +146,22 @@ public class EventManager
 			}
 		}
 	}
+	
+
+	@SubscribeEvent
+	public void entityHurt(LivingHurtEvent evt){
+		if(evt.getSource().getDamageType() == "player"){
+			EntityPlayer player = (EntityPlayer)evt.getSource().getEntity();
+			if(player.getEntityData().hasKey(LibMain.LibNBT.voracious_strikes_tag)){
+				if(player.getHeldItemMainhand() == null){
+					evt.getEntity().hurtResistantTime = 0;
+					evt.setAmount(2.0F);
+				}
+				
+			}
+		}
+	}
+	
 
     private LootPool getInjectPool(String entryName) {
         return new LootPool(new LootEntry[] { getInjectEntry(entryName, 1) }, new LootCondition[0], new RandomValueRange(1), new RandomValueRange(0, 1), "goetiaInjectedPool");
@@ -172,5 +169,14 @@ public class EventManager
 
     private LootEntryTable getInjectEntry(String name, int weight) {
         return new LootEntryTable(new ResourceLocation(LibMain.LibCore.MOD_ID, "inject/" + name), weight, 0, new LootCondition[0], "goetiaInjectedLoot");
+    }
+    
+    public void decreaseEffect(String tag, EntityPlayer player){
+    	if (player.getEntityData().hasKey(tag)){
+			player.getEntityData().setInteger(tag, player.getEntityData().getInteger(tag)-1);
+			if (player.getEntityData().getInteger(tag) <= 0){
+				player.getEntityData().removeTag(tag);
+			}
+		}
     }
 }

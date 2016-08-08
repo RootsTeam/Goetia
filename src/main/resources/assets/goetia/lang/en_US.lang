@@ -35,7 +35,7 @@ goetia.tooltip.spell=Spell:
 goetia.tooltip.spellSteps=Steps: 
 
 goetia.spell.burningTouch=Burning Touch
-goetia.spell.burningTouch.desc=Scorch those who you deem worthy of your smiting hand.
+goetia.spell.burningTouch.desc=Scorch all foes that you strike.
 goetia.spell.fireball=Blast
 goetia.spell.fireball.desc=Casts a powerful explosive fireball before you.
 goetia.spell.rebuke=Rebuke
@@ -46,3 +46,5 @@ goetia.spell.chainedStrikes=Chained Strikes
 goetia.spell.chainedStrikes.desc=Your attacks are made so ferocious that you tear into the innocent nearby.
 goetia.spell.ebonWings=Ebon Wings
 goetia.spell.ebonWings.desc=A dark curtain of malevolence propels you skyward, granting you flight for a time.
+goetia.spell.voraciousStrike=Voracious Strikes
+goetia.spell.voraciousStrike.desc=Your bare fists can punch straight through entities during their invulnerability period.
