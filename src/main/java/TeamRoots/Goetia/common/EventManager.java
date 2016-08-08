@@ -1,25 +1,17 @@
 package teamroots.goetia.common;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootEntry;
-import net.minecraft.world.storage.loot.LootEntryItem;
 import net.minecraft.world.storage.loot.LootEntryTable;
 import net.minecraft.world.storage.loot.LootPool;
-import net.minecraft.world.storage.loot.LootTable;
-import net.minecraft.world.storage.loot.LootTableList;
-import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraft.world.storage.loot.RandomValueRange;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
-import net.minecraft.world.storage.loot.conditions.LootConditionManager;
-import net.minecraft.world.storage.loot.functions.LootFunction;
-import net.minecraft.world.storage.loot.functions.LootFunctionManager;
 import net.minecraftforge.event.LootTableLoadEvent;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import teamroots.goetia.Goetia;
-import teamroots.goetia.common.entity.EntitySymbolImp;
 import teamroots.goetia.common.entity.IClickableSymbol;
 import teamroots.goetia.common.entity.ISymbol;
 import teamroots.goetia.lib.EnumIDs;
@@ -63,6 +55,16 @@ public class EventManager
             }
         }
     }
+	
+	@SubscribeEvent
+	public void entityHit(LivingAttackEvent evt){
+		if(evt.getSource().getDamageType() == "player"){
+			EntityPlayer player = (EntityPlayer)evt.getSource().getEntity();
+			if(player.getEntityData().hasKey(LibMain.LibNBT.burning_touch_tag)){
+				evt.getEntity().setFire(5);
+			}
+		}
+	}
 
     private LootPool getInjectPool(String entryName) {
         return new LootPool(new LootEntry[] { getInjectEntry(entryName, 1) }, new LootCondition[0], new RandomValueRange(1), new RandomValueRange(0, 1), "goetiaInjectedPool");
