@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import teamroots.goetia.capability.impurity.ImpurityProvider;
 
 /**
  * Created by TeamRoots on 5.8.2016.
@@ -25,7 +26,22 @@ public class CastSpell
 		}
 	}
 	
-	public void doEffect(EntityPlayer caster){
+	/**
+	 * This is what should be overridden
+	 * @param caster
+	 */
+	public void effect(EntityPlayer caster){
 		
+	}
+	
+	/**
+	 * Do not override this override the effect function
+	 * Call this when you want to use the spell effect
+	 * @param caster
+	 */
+	public void doEffect(EntityPlayer caster){
+		if(this.impurity >= ImpurityProvider.get(caster).getImpurity()){
+			this.effect(caster);
+		}
 	}
 }
