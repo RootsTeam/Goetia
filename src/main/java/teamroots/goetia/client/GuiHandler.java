@@ -5,6 +5,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import teamroots.goetia.client.gui.GuiChalk;
+import teamroots.goetia.client.gui.GuiFocus;
 import teamroots.goetia.lib.EnumIDs;
 
 /**
@@ -30,6 +31,8 @@ public class GuiHandler implements IGuiHandler
         {
         case GUI_ID_CHALK:
         	return new GuiChalk(player.getHeldItem(EnumHand.MAIN_HAND), player);
+        case GUI_ID_FOCUS:
+        	return new GuiFocus(player);
 		case GUI_ID_ALTAR:
 			break;
 		default:

@@ -8,7 +8,9 @@ import net.minecraft.util.ResourceLocation;
 import teamroots.goetia.common.entity.EntitySymbolDemon;
 import teamroots.goetia.common.entity.EntitySymbolDevilsTrap;
 import teamroots.goetia.common.entity.EntitySymbolFiend;
+import teamroots.goetia.common.entity.EntitySymbolForge;
 import teamroots.goetia.common.entity.EntitySymbolImp;
+import teamroots.goetia.common.entity.EntitySymbolOpenSoul;
 
 public class SymbolManager {
 	public static HashMap<String, Class> symbols = new HashMap<String, Class>();
@@ -28,5 +30,11 @@ public class SymbolManager {
 		symbols.put("devilsTrap", EntitySymbolDevilsTrap.class);
 		symbolTextures.put("devilsTrap", new ResourceLocation("goetia:textures/entity/devilTrap.png"));
 		symbolCosts.put("devilsTrap", 3);
+		symbols.put("forgeSymbol", EntitySymbolForge.class);
+		symbolTextures.put("forgeSymbol", new ResourceLocation("goetia:textures/entity/forgeSymbol.png"));
+		symbolCosts.put("forgeSymbol", 11);
+		symbols.put("openSoulSymbol", EntitySymbolOpenSoul.class);
+		symbolTextures.put("openSoulSymbol", new ResourceLocation("goetia:textures/entity/openSoulSymbol.png"));
+		symbolCosts.put("openSoulSymbol", 23);
 	}
 }

@@ -1,7 +1,11 @@
 package teamroots.goetia.capability.impurity;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
+import teamroots.goetia.common.network.GoetiaPacketHandler;
+import teamroots.goetia.common.network.ImpurityUpdateMessage;
+import teamroots.goetia.common.network.KnowledgeUpdateMessage;
 
 /**
  * Created by TeamRoots on 5.8.2016.
@@ -38,6 +42,8 @@ public class DefaultImpurityCapability implements IImpurityCapability
 
     @Override
     public void dataChanged(EntityPlayer player) {
-
+    	if(player != null && !player.getEntityWorld().isRemote){
+			GoetiaPacketHandler.INSTANCE.sendTo(new ImpurityUpdateMessage(saveData()), (EntityPlayerMP) player);
+		}
     }
 }

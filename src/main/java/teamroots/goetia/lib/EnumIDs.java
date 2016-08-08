@@ -5,5 +5,5 @@ package teamroots.goetia.lib;
  */
 public enum EnumIDs
 {
-    GUI_ID_ALTAR, GUI_ID_CHALK
+    GUI_ID_ALTAR, GUI_ID_CHALK, GUI_ID_FOCUS
 }

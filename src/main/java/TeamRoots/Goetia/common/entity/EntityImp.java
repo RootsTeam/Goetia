@@ -20,9 +20,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import teamroots.goetia.capability.impurity.ImpurityProvider;
 import teamroots.goetia.common.util.Utils;
 
 public class EntityImp extends EntityMob implements IDemonic {
@@ -81,6 +83,20 @@ public class EntityImp extends EntityMob implements IDemonic {
 		getDataManager().set(trapped, compound.getBoolean("trapped"));
 		getDataManager().setDirty(trapped);
 	}
+    
+    @Override
+    public boolean attackEntityFrom(DamageSource source, float amount){
+    	float initHealth = getHealth();
+    	super.attackEntityFrom(source, amount);
+    	if (getHealth() <= 0 && initHealth > 0){
+    		if (source.getEntity() instanceof EntityPlayer){
+    			if (((EntityPlayer)source.getEntity()).hasCapability(ImpurityProvider.impurityCapability, null)){
+    				((EntityPlayer)source.getEntity()).getCapability(ImpurityProvider.impurityCapability, null).setImpurity((EntityPlayer)source.getEntity(), ((EntityPlayer)source.getEntity()).getCapability(ImpurityProvider.impurityCapability, null).getImpurity()+rand.nextInt(3)+3);
+    			}
+    		}
+    	}
+    	return true;
+    }
 
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {

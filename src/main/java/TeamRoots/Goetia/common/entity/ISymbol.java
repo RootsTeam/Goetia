@@ -1,5 +1,6 @@
 package teamroots.goetia.common.entity;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
 public interface ISymbol {
@@ -17,5 +18,5 @@ public interface ISymbol {
 	
 	public ResourceLocation getTextureLocation();
 	
-	public void activate();
+	public void activate(EntityPlayer player);
 }

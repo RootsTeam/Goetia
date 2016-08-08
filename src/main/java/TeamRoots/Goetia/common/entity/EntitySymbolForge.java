@@ -1,10 +1,12 @@
 package teamroots.goetia.common.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityFlying;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -16,6 +18,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.EntityAIZombieAttack;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntityPigZombie;
@@ -24,6 +27,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.entity.projectile.EntityLargeFireball;
 import net.minecraft.entity.projectile.EntitySmallFireball;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -32,19 +37,21 @@ import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import teamroots.goetia.capability.impurity.ImpurityProvider;
 import teamroots.goetia.common.symbol.SymbolManager;
 import teamroots.goetia.common.util.Utils;
+import teamroots.goetia.registry.MainRegistry;
 
-public class EntitySymbolDemon extends EntityFlying implements ISymbol {
-    public static DataParameter<Boolean> activated = EntityDataManager.<Boolean>createKey(EntitySymbolDemon.class, DataSerializers.BOOLEAN);
-    public static DataParameter<Float> ready = EntityDataManager.<Float>createKey(EntitySymbolDemon.class, DataSerializers.FLOAT);
-    public static DataParameter<Float> fading = EntityDataManager.<Float>createKey(EntitySymbolDemon.class, DataSerializers.FLOAT);
+public class EntitySymbolForge extends EntityFlying implements ISymbol {
+    public static DataParameter<Boolean> activated = EntityDataManager.<Boolean>createKey(EntitySymbolForge.class, DataSerializers.BOOLEAN);
+    public static DataParameter<Float> ready = EntityDataManager.<Float>createKey(EntitySymbolForge.class, DataSerializers.FLOAT);
+    public static DataParameter<Float> fading = EntityDataManager.<Float>createKey(EntitySymbolForge.class, DataSerializers.FLOAT);
     public float angle = 0;
-    public EntitySymbolDemon(World worldIn) {
+    public EntitySymbolForge(World worldIn) {
     	super(worldIn);
     	this.isAirBorne = true;
 		this.setSize(2.0F, 0.5F);
@@ -107,19 +114,88 @@ public class EntitySymbolDemon extends EntityFlying implements ISymbol {
     		getDataManager().setDirty(ready);
     		if (getDataManager().get(ready).floatValue() >= 1.0f){
     			if (!getEntityWorld().isRemote){
-    				EntityDemon demon = new EntityDemon(getEntityWorld());
-	    			demon.onInitialSpawn(getEntityWorld().getDifficultyForLocation(getPosition()), null);
-	    			demon.setPosition(posX, posY+0.5f, posZ);
-	    			getEntityWorld().spawnEntityInWorld(demon);
-    			}
-    			for (int i = 0; i < 30; i ++){
-    				getEntityWorld().spawnParticle(EnumParticleTypes.FLAME, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
-    			}
-    			for (int i = 0; i < 30; i ++){
-    				getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_LARGE, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
-    			}
-    			for (int i = 0; i < 80; i ++){
-    				getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
+	    			List<EntityLivingBase> nearby = getEntityWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(posX-20.5,posY,posZ-20.5,posX+20.5,posY+41,posZ+20.5));
+	    			List<EntityItem> items = getEntityWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(posX-20.5,posY,posZ-20.5,posX+20.5,posY+41,posZ+20.5));
+	    			if (items.size() == 1){
+	    				if (items.get(0).getEntityItem().getItem() == Items.DIAMOND_SWORD){
+	    					int cost = 75;
+	    					int value = 0;
+	    					for (int i = 0; i < nearby.size(); i ++){
+	    						if (nearby.get(i) instanceof IDemonic){
+	    							if (nearby.get(i) instanceof EntityImp){
+	    								value += rand.nextInt(5)+6;
+	    							}
+	    							if (nearby.get(i) instanceof EntityFiend){
+	    								value += rand.nextInt(7)+10;
+	    							}
+	    							if (nearby.get(i) instanceof EntityDemon){
+	    								value += rand.nextInt(11)+22;
+	    							}
+	    							if (value >= cost){
+	    								for (int j = 0; j <= i; j ++){
+	    									nearby.get(j).setDead();
+	    								}
+	    				    			for (int k = 0; k < 30; k ++){
+	    				    				getEntityWorld().spawnParticle(EnumParticleTypes.FLAME, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
+	    				    			}
+	    				    			for (int k = 0; k < 30; k ++){
+	    				    				getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_LARGE, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
+	    				    			}
+	    				    			for (int k = 0; k < 80; k ++){
+	    				    				getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
+	    				    			}
+	    				    			items.get(0).setDead();
+	    				    			ItemStack result = new ItemStack(MainRegistry.abyssalBlade,1);
+	    				    			getEntityWorld().spawnEntityInWorld(new EntityItem(getEntityWorld(),posX,posY+1.0,posZ,result));
+	    							}
+	    						}
+	    					}
+	    					if (cost > value){
+				    			for (int k = 0; k < 30; k ++){
+				    				getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
+				    			}
+	    					}
+	    				}
+	    				if (items.get(0).getEntityItem().getItem() == Items.DIAMOND){
+	    					int cost = 45;
+	    					int value = 0;
+	    					for (int i = 0; i < nearby.size(); i ++){
+	    						if (nearby.get(i) instanceof IDemonic){
+	    							if (nearby.get(i) instanceof EntityImp){
+	    								value += rand.nextInt(5)+6;
+	    							}
+	    							if (nearby.get(i) instanceof EntityFiend){
+	    								value += rand.nextInt(7)+10;
+	    							}
+	    							if (nearby.get(i) instanceof EntityDemon){
+	    								value += rand.nextInt(11)+22;
+	    							}
+	    							if (value >= cost){
+	    								for (int j = 0; j <= i; j ++){
+	    									nearby.get(j).setDead();
+	    								}
+	    				    			for (int k = 0; k < 30; k ++){
+	    				    				getEntityWorld().spawnParticle(EnumParticleTypes.FLAME, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
+	    				    			}
+	    				    			for (int k = 0; k < 30; k ++){
+	    				    				getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_LARGE, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
+	    				    			}
+	    				    			for (int k = 0; k < 80; k ++){
+	    				    				getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
+	    				    			}
+	    				    			items.get(0).setDead();
+	    				    			ItemStack result = new ItemStack(MainRegistry.soulFocus,1);
+	    				    			getEntityWorld().spawnEntityInWorld(new EntityItem(getEntityWorld(),posX,posY+1.0,posZ,result));
+	    							}
+	    						}
+	    					}
+	    					if (cost > value){
+				    			for (int k = 0; k < 30; k ++){
+				    				getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
+				    			}
+	    					}
+	    				}
+	    			}
     			}
     		}
         	angle += 30.0f*getDataManager().get(ready);
@@ -182,18 +258,15 @@ public class EntitySymbolDemon extends EntityFlying implements ISymbol {
 	public void activate(EntityPlayer player) {
 		getDataManager().set(activated, true);
 		getDataManager().setDirty(activated);
-		if (!player.getEntityWorld().isRemote && player.hasCapability(ImpurityProvider.impurityCapability, null)){
-			player.getCapability(ImpurityProvider.impurityCapability, null).setImpurity(player,player.getCapability(ImpurityProvider.impurityCapability, null).getImpurity()+rand.nextInt(6)+11);
-		}
 	}
 
 	@Override
 	public ResourceLocation getTextureLocation() {
-		return new ResourceLocation("goetia:textures/entity/demonSymbol.png");
+		return new ResourceLocation("goetia:textures/entity/forgeSymbol.png");
 	}
 
 	@Override
 	public String getSymbolName() {
-		return "demonSymbol";
+		return "forgeSymbol";
 	}
 }

@@ -38,20 +38,19 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
+import teamroots.goetia.capability.impurity.ImpurityProvider;
 import teamroots.goetia.common.symbol.SymbolManager;
 import teamroots.goetia.common.util.Utils;
 
-public class EntitySymbolDevilsTrap extends EntityFlying implements ISymbol, IClickableSymbol {
-    public static DataParameter<Boolean> activated = EntityDataManager.<Boolean>createKey(EntitySymbolDevilsTrap.class, DataSerializers.BOOLEAN);
-    public static DataParameter<Float> ready = EntityDataManager.<Float>createKey(EntitySymbolDevilsTrap.class, DataSerializers.FLOAT);
-    public static DataParameter<Float> fading = EntityDataManager.<Float>createKey(EntitySymbolDevilsTrap.class, DataSerializers.FLOAT);
-    public static DataParameter<Boolean> tracking = EntityDataManager.<Boolean>createKey(EntitySymbolDevilsTrap.class, DataSerializers.BOOLEAN);
-    public static DataParameter<Boolean> forceFade = EntityDataManager.<Boolean>createKey(EntitySymbolDevilsTrap.class, DataSerializers.BOOLEAN);
+public class EntitySymbolOpenSoul extends EntityFlying implements ISymbol, IClickableSymbol {
+    public static DataParameter<Boolean> activated = EntityDataManager.<Boolean>createKey(EntitySymbolOpenSoul.class, DataSerializers.BOOLEAN);
+    public static DataParameter<Float> ready = EntityDataManager.<Float>createKey(EntitySymbolOpenSoul.class, DataSerializers.FLOAT);
+    public static DataParameter<Float> fading = EntityDataManager.<Float>createKey(EntitySymbolOpenSoul.class, DataSerializers.FLOAT);
+    public static DataParameter<Boolean> forceFade = EntityDataManager.<Boolean>createKey(EntitySymbolOpenSoul.class, DataSerializers.BOOLEAN);
     
     public float angle = 0;
     public UUID trackId = null;
-    public EntityLivingBase trackedEntity = null;
-    public EntitySymbolDevilsTrap(World worldIn) {
+    public EntitySymbolOpenSoul(World worldIn) {
     	super(worldIn);
     	this.isAirBorne = true;
 		this.setSize(2.0F, 0.5F);
@@ -68,7 +67,6 @@ public class EntitySymbolDevilsTrap extends EntityFlying implements ISymbol, ICl
     protected void entityInit(){
     	super.entityInit();
         this.getDataManager().register(activated, Boolean.valueOf(false));
-        this.getDataManager().register(tracking, Boolean.valueOf(false));
         this.getDataManager().register(forceFade, Boolean.valueOf(false));
         this.getDataManager().register(ready, Float.valueOf(0));
         this.getDataManager().register(fading, Float.valueOf(1.0f));
@@ -111,7 +109,7 @@ public class EntitySymbolDevilsTrap extends EntityFlying implements ISymbol, ICl
     			}
     		}
     	}
-    	if (getDataManager().get(activated) && getDataManager().get(ready).floatValue() < 1.0f){
+    	if (getDataManager().get(activated) && getDataManager().get(ready).floatValue() < 1.0f && !getDataManager().get(forceFade).booleanValue()){
     		getDataManager().set(ready, getDataManager().get(ready)+0.01f);
     		getDataManager().setDirty(ready);
     		if (getDataManager().get(ready).floatValue() >= 1.0f){
@@ -121,43 +119,16 @@ public class EntitySymbolDevilsTrap extends EntityFlying implements ISymbol, ICl
     		}
         	angle += 5.0f*getDataManager().get(ready);
     	}
-    	if (getDataManager().get(activated) && getDataManager().get(ready).floatValue() >= 1.0f){
-    		List<EntityLivingBase> nearby = getEntityWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(posX-1.5,posY,posZ-1.5,posX+1.5,posY+3.0,posZ+1.5));
-    		for (int i = 0; i < nearby.size(); i ++){
-    			if (nearby.get(i) instanceof IDemonic){
-    				if (nearby.get(i).getHealth() <= nearby.get(i).getMaxHealth()*0.3f){
-    					((IDemonic)nearby.get(i)).setTrapped();
-    					getDataManager().set(tracking, true);
-    					getDataManager().setDirty(tracking);
-    					trackedEntity = nearby.get(i);
-    					break;
-    				}
-    			}
+		if (getDataManager().get(forceFade).booleanValue()){
+    		getDataManager().set(fading, getDataManager().get(fading)-0.05f);
+    		getDataManager().setDirty(fading);
+    		if (getDataManager().get(fading).floatValue() <= 0.0f){
+    			setDead();
     		}
-    		if (!getDataManager().get(tracking)){
-    			angle += 5.0f*getDataManager().get(fading)*getDataManager().get(ready);
-    		}
-    	}
-    	if (getDataManager().get(tracking)){
-    		if (trackedEntity == null){
-        		getDataManager().set(fading, getDataManager().get(fading)-0.05f);
-        		getDataManager().setDirty(fading);
-        		if (getDataManager().get(fading).floatValue() <= 0.0f){
-        			setDead();
-        		}
-    		}
-    		if (getDataManager().get(forceFade).booleanValue()){
-	    		getDataManager().set(fading, getDataManager().get(fading)-0.05f);
-	    		getDataManager().setDirty(fading);
-	    		if (getDataManager().get(fading).floatValue() <= 0.0f){
-	    			setDead();
-	    		}
-    		}
-    		if (!getEntityWorld().isRemote && trackedEntity != null && trackedEntity.getHealth() > 0){
-    			trackedEntity.setPosition(posX, trackedEntity.posY, posZ);
-    		}
-        	angle += 30.0f*getDataManager().get(fading)*getDataManager().get(ready);
-    	}
+		}
+		if (getDataManager().get(fading) < 1.0f){
+        	angle += 30.0f*getDataManager().get(ready);
+		}
     }
     
     @Override
@@ -188,7 +159,7 @@ public class EntitySymbolDevilsTrap extends EntityFlying implements ISymbol, ICl
 	
 	@Override
 	public float getAngle(float partialTicks){
-		if (getDataManager().get(tracking)){
+		if (getDataManager().get(forceFade).booleanValue()){
 			return angle+partialTicks*30.0f*getDataManager().get(ready);
 		}
 		return angle+partialTicks*5.0f*getDataManager().get(ready);
@@ -215,32 +186,46 @@ public class EntitySymbolDevilsTrap extends EntityFlying implements ISymbol, ICl
 
 	@Override
 	public ResourceLocation getTextureLocation() {
-		return new ResourceLocation("goetia:textures/entity/devilsTrap.png");
+		return new ResourceLocation("goetia:textures/entity/openSoulSymbol.png");
 	}
 
 	@Override
 	public String getSymbolName() {
-		return "devilsTrap";
+		return "openSoulSymbol";
 	}
 
 	@Override
 	public void onRightClick(World world, Entity entity, EntityPlayer player) {
-		if (trackedEntity != null){
-			trackedEntity.setDead();
-			for (int i = 0; i < 30; i ++){
-				getEntityWorld().spawnParticle(EnumParticleTypes.FLAME, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
+		List<EntityLivingBase> nearby = getEntityWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(posX-20.5,posY,posZ-20.5,posX+20.5,posY+41,posZ+20.5));
+		int value = 0;
+		for (int i = 0; i < nearby.size(); i ++){
+			if (nearby.get(i) instanceof IDemonic){
+				if (nearby.get(i) instanceof EntityImp){
+					value += rand.nextInt(5)+6;
+					player.setHealth(player.getHealth()-1);
+				}
+				if (nearby.get(i) instanceof EntityFiend){
+					value += rand.nextInt(7)+10;
+					player.setHealth(player.getHealth()-2);
+				}
+				if (nearby.get(i) instanceof EntityDemon){
+					value += rand.nextInt(11)+22;
+					player.setHealth(player.getHealth()-4);
+				}
+				nearby.get(i).setDead();
 			}
-			for (int i = 0; i < 30; i ++){
-				getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_LARGE, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
-			}
-			for (int i = 0; i < 80; i ++){
-				getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
-			}
-			trackedEntity = null;
-			getDataManager().set(tracking, true);
-			getDataManager().setDirty(tracking);
-			getDataManager().set(forceFade, true);
-			getDataManager().setDirty(forceFade);
 		}
+		ImpurityProvider.get(player).setImpurity(player, ImpurityProvider.get(player).getImpurity()+value);
+		for (int k = 0; k < 30; k ++){
+			getEntityWorld().spawnParticle(EnumParticleTypes.FLAME, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
+		}
+		for (int k = 0; k < 30; k ++){
+			getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_LARGE, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
+		}
+		for (int k = 0; k < 80; k ++){
+			getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
+		}
+		getDataManager().set(forceFade, true);
+		getDataManager().setDirty(forceFade);
 	}
 }

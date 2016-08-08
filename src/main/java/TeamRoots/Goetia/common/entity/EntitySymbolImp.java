@@ -35,6 +35,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
+import teamroots.goetia.capability.impurity.ImpurityProvider;
 import teamroots.goetia.common.symbol.SymbolManager;
 import teamroots.goetia.common.util.Utils;
 
@@ -178,9 +179,12 @@ public class EntitySymbolImp extends EntityFlying implements ISymbol {
 	}
 
 	@Override
-	public void activate() {
+	public void activate(EntityPlayer player) {
 		getDataManager().set(activated, true);
 		getDataManager().setDirty(activated);
+		if (!player.getEntityWorld().isRemote && player.hasCapability(ImpurityProvider.impurityCapability, null)){
+			player.getCapability(ImpurityProvider.impurityCapability, null).setImpurity(player,player.getCapability(ImpurityProvider.impurityCapability, null).getImpurity()+rand.nextInt(3)+3);
+		}
 	}
 
 	@Override

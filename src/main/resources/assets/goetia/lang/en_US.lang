@@ -22,6 +22,10 @@ goetia.knowledge.demonSymbol=Summon Demon
 goetia.knowledge.demonSymbol.desc=Summons a Demon above the symbol.
 goetia.knowledge.devilsTrap=Devil's Trap
 goetia.knowledge.devilsTrap.desc=Traps sufficiently injured demons.
+goetia.knowledge.forgeSymbol=Demon Forge
+goetia.knowledge.forgeSymbol.desc=Imbues certain items with bound demons.
+goetia.knowledge.openSoulSymbol=Open Soul
+goetia.knowledge.openSoulSymbol.desc=Binds demons to your soul itself.
 
 goetia.tooltip.symbol=Symbol: 
 goetia.tooltip.levelcost=XP Cost: 

@@ -20,14 +20,18 @@ import teamroots.goetia.common.entity.EntityImp;
 import teamroots.goetia.common.entity.EntitySymbolDemon;
 import teamroots.goetia.common.entity.EntitySymbolDevilsTrap;
 import teamroots.goetia.common.entity.EntitySymbolFiend;
+import teamroots.goetia.common.entity.EntitySymbolForge;
 import teamroots.goetia.common.entity.EntitySymbolImp;
+import teamroots.goetia.common.entity.EntitySymbolOpenSoul;
 import teamroots.goetia.common.entity.RenderDemon;
 import teamroots.goetia.common.entity.RenderFiend;
 import teamroots.goetia.common.entity.RenderImp;
 import teamroots.goetia.common.entity.RenderSymbolDemon;
 import teamroots.goetia.common.entity.RenderSymbolDevilsTrap;
 import teamroots.goetia.common.entity.RenderSymbolFiend;
+import teamroots.goetia.common.entity.RenderSymbolForge;
 import teamroots.goetia.common.entity.RenderSymbolImp;
+import teamroots.goetia.common.entity.RenderSymbolOpenSoul;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -61,7 +65,7 @@ public class MainRegistry
     public static ItemBase demonHide = new ItemBase("demonHide");
     public static ItemSwordBase demonHornSpear = new ItemDemonicSpear();
     public static ItemSwordBase abyssalBlade = new ItemAbyssalBlade();
-    public static ItemBase soulFocus = new ItemBase("soulFocus");
+    public static ItemBase soulFocus = new ItemSoulFocus("soulFocus");
     public static ItemBase demonicChalk = new ItemDemonicChalk("demonicChalk");
     public static ItemBase lostNotes = new ItemNote("lostNotes");
     public static ItemBase symbolIcon = new ItemSymbolIcon("symbolIcon");
@@ -100,12 +104,17 @@ public class MainRegistry
     
 	public static void registerEntities(){
 		EntityRegistry.registerModEntity(EntityImp.class, "imp", 0, Goetia.instance, 64, 3, true);
+		EntityRegistry.registerEgg(EntityImp.class, 0x6A1024, 0xA06774);
 		EntityRegistry.registerModEntity(EntityFiend.class, "fiend", 1, Goetia.instance, 64, 3, true);
+		EntityRegistry.registerEgg(EntityFiend.class, 0x6A1024, 0xA06774);
 		EntityRegistry.registerModEntity(EntityDemon.class, "demon", 2, Goetia.instance, 64, 3, true);
+		EntityRegistry.registerEgg(EntityDemon.class, 0x6A1024, 0xA06774);
 		EntityRegistry.registerModEntity(EntitySymbolImp.class, "symbolImp", 3, Goetia.instance, 64, 3, true);
 		EntityRegistry.registerModEntity(EntitySymbolFiend.class, "symbolFiend", 4, Goetia.instance, 64, 3, true);
 		EntityRegistry.registerModEntity(EntitySymbolDemon.class, "symbolDemon", 5, Goetia.instance, 64, 3, true);
 		EntityRegistry.registerModEntity(EntitySymbolDevilsTrap.class, "symbolDevilsTrap", 6, Goetia.instance, 64, 3, true);
+		EntityRegistry.registerModEntity(EntitySymbolForge.class, "symbolForge", 7, Goetia.instance, 64, 3, true);
+		EntityRegistry.registerModEntity(EntitySymbolOpenSoul.class, "symbolOpenSoul", 8, Goetia.instance, 64, 3, true);
 	}
     
 	@SideOnly(Side.CLIENT)
@@ -117,6 +126,7 @@ public class MainRegistry
 		RenderingRegistry.registerEntityRenderingHandler(EntitySymbolFiend.class, new RenderSymbolFiend(Minecraft.getMinecraft().getRenderManager(),ModelManager.entityModels.get("symbol"),0f));
 		RenderingRegistry.registerEntityRenderingHandler(EntitySymbolDemon.class, new RenderSymbolDemon(Minecraft.getMinecraft().getRenderManager(),ModelManager.entityModels.get("symbol"),0f));
 		RenderingRegistry.registerEntityRenderingHandler(EntitySymbolDevilsTrap.class, new RenderSymbolDevilsTrap(Minecraft.getMinecraft().getRenderManager(),ModelManager.entityModels.get("symbol"),0f));
+		RenderingRegistry.registerEntityRenderingHandler(EntitySymbolForge.class, new RenderSymbolForge(Minecraft.getMinecraft().getRenderManager(),ModelManager.entityModels.get("symbol"),0f));
 	}
 
     @SideOnly(Side.CLIENT)

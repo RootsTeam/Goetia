@@ -61,15 +61,27 @@ public class ItemNote extends ItemBase
     		stack.setTagCompound(new NBTTagCompound());
     		stack.getTagCompound().setString("knowledge", LibMain.LibKnowledge.validKnowledge[(itemRand.nextInt(LibMain.LibKnowledge.validKnowledge.length))]);
     	}
+    	else {
+    		stack.getTagCompound().setString("knowledge", LibMain.LibKnowledge.validKnowledge[stack.getItemDamage()]);
+    	}
     }
     
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced){
-    	if (stack.hasTagCompound()){
-    		tooltip.add(TextFormatting.DARK_PURPLE+"Knowledge: "+I18n.format("goetia.knowledge."+stack.getTagCompound().getString("knowledge")));
+    	if (!stack.hasTagCompound()){
+    		stack.setTagCompound(new NBTTagCompound());
     	}
-    	if (player.hasCapability(KnowledgeProvider.knowledgeCapability, null)){
-    		tooltip.addAll(KnowledgeProvider.get(player).getKnowledge());
-    	}
+    	stack.getTagCompound().setString("knowledge", LibMain.LibKnowledge.validKnowledge[stack.getItemDamage()]);
+    	tooltip.add(TextFormatting.DARK_PURPLE+"Knowledge: "+I18n.format("goetia.knowledge."+stack.getTagCompound().getString("knowledge")));
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public void initModelsAndVariants() {
+    	ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName().toString()+"_0"));
+    	ModelLoader.setCustomModelResourceLocation(this, 1, new ModelResourceLocation(getRegistryName().toString()+"_1"));
+    	ModelLoader.setCustomModelResourceLocation(this, 2, new ModelResourceLocation(getRegistryName().toString()+"_2"));
+    	ModelLoader.setCustomModelResourceLocation(this, 3, new ModelResourceLocation(getRegistryName().toString()+"_3"));
+    	ModelLoader.setCustomModelResourceLocation(this, 4, new ModelResourceLocation(getRegistryName().toString()+"_4"));
+    	ModelLoader.setCustomModelResourceLocation(this, 5, new ModelResourceLocation(getRegistryName().toString()+"_5"));
     }
 }

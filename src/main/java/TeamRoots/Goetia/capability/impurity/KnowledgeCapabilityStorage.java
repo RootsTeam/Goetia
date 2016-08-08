@@ -25,11 +25,9 @@ public class KnowledgeCapabilityStorage implements IStorage<IKnowledgeCapability
         NBTTagCompound tagCompound = new NBTTagCompound();
         NBTTagList list = new NBTTagList();
         ArrayList<String> knowledge = instance.getKnowledge();
-        System.out.println(knowledge);
         for (int i = 0; i < knowledge.size(); i ++){
         	list.appendTag(new NBTTagString(knowledge.get(i)));
         }
-        System.out.println(list.toString());
         tagCompound.setTag("knowledge", list);
         return tagCompound;
     }
