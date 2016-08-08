@@ -34,5 +34,5 @@ goetia.tooltip.impurity=Impurity:
 goetia.tooltip.spell=Spell: 
 goetia.tooltip.spellSteps=Steps: 
 
-goetia.spell.test=Test
-goetia.spell.test.desc=Test Spell
+goetia.spell.fireball=Blast
+goetia.spell.fireball.desc=Casts a powerful explosive fireball before you.

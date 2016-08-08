@@ -24,6 +24,7 @@ import teamroots.goetia.capability.impurity.ImpurityProvider;
 import teamroots.goetia.capability.impurity.KnowledgeProvider;
 import teamroots.goetia.common.items.ItemSymbolIcon;
 import teamroots.goetia.common.network.ChalkUpdateMessage;
+import teamroots.goetia.common.network.FocusCastMessage;
 import teamroots.goetia.common.network.GoetiaPacketHandler;
 import teamroots.goetia.common.symbol.SymbolManager;
 import teamroots.goetia.registry.MainRegistry;
@@ -72,6 +73,7 @@ public class GuiFocus extends GuiScreen{
 					}
 					if (doesMatch){
 						validSpells.get(i).doEffect(player);
+						GoetiaPacketHandler.INSTANCE.sendToServer(new FocusCastMessage(validSpells.get(i).name,player));
 						this.mc.displayGuiScreen(null);
 						return;
 					}

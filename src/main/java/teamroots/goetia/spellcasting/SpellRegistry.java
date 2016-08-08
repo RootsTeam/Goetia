@@ -14,11 +14,21 @@ public class SpellRegistry
 
     public static void register()
     {
+    	addSpell(new CastSpellFireball());
     }
 
     public static void addSpell(CastSpell castSpell)
     {
         spells.add(castSpell);
+    }
+    
+    public static int getSpellIndexFromName(String name){
+    	for (int i = 0; i < spells.size(); i ++){
+    		if (spells.get(i).name.equals(name)){
+    			return i;
+    		}
+    	}
+    	return -1;
     }
     
     public static CastSpell getSpellFromName(String name){
