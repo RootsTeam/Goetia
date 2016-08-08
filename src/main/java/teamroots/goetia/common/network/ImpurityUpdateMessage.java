@@ -9,7 +9,10 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import teamroots.goetia.capability.impurity.ImpurityProvider;
+import teamroots.goetia.capability.impurity.KnowledgeProvider;
 
 /**
  * Created by TeamRoots on 5.8.2016.
@@ -34,15 +37,21 @@ public class ImpurityUpdateMessage implements IMessage
     public void toBytes(ByteBuf buf) {
         ByteBufUtils.writeTag(buf,tagCompounds);
     }
-
+    
     public static class CampsMessageHolder implements IMessageHandler<ImpurityUpdateMessage,IMessage>
     {
-
         @Override
-        public IMessage onMessage(final ImpurityUpdateMessage message, final MessageContext ctx) {
-            IThreadListener mainThread = (ctx.side.isClient())? Minecraft.getMinecraft() : (WorldServer) ctx.getServerHandler().playerEntity.worldObj;
-            mainThread.addScheduledTask(() -> ImpurityProvider.get(Minecraft.getMinecraft().thePlayer).loadNBTData(message.tagCompounds));
+		public IMessage onMessage( final ImpurityUpdateMessage message, final MessageContext ctx) {
+			IThreadListener mainThread = (ctx.side.isClient())? Minecraft.getMinecraft() : (WorldServer) ctx.getServerHandler().playerEntity.worldObj;
+            mainThread.addScheduledTask(new Runnable() 
+            {
+                @Override
+                public void run() {
+                    ImpurityProvider.get(Minecraft.getMinecraft().thePlayer).loadNBTData(message.tagCompounds);
+                }
+            });
             return null;
-        }
+		}
+
     }
 }

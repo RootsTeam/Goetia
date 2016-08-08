@@ -14,6 +14,7 @@ public class SpellRegistry
     	addSpell(new SpellBurningTouch());
     	addSpell(new SpellFireball());
     	addSpell(new SpellRebuke());
+    	//addSpell(new SpellBloodRain());
     	addSpell(new SpellFallenArmor());
     	addSpell(new SpellChainedStrikes());
     	addSpell(new SpellEbonWings());

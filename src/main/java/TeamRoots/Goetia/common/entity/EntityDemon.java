@@ -11,6 +11,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.EntityAIZombieAttack;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntityPigZombie;
@@ -19,6 +20,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.entity.projectile.EntityLargeFireball;
 import net.minecraft.entity.projectile.EntitySmallFireball;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -29,6 +32,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import teamroots.goetia.capability.impurity.ImpurityProvider;
 import teamroots.goetia.common.util.Utils;
+import teamroots.goetia.registry.MainRegistry;
 
 public class EntityDemon extends EntityMob implements IDemonic {
     public static final DataParameter<Boolean> trapped = EntityDataManager.<Boolean>createKey(EntityDemon.class, DataSerializers.BOOLEAN);
@@ -69,6 +73,35 @@ public class EntityDemon extends EntityMob implements IDemonic {
     protected void applyEntityAI()
     {
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+    }
+    
+    @Override
+    public void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source){
+    	super.dropLoot(wasRecentlyHit,lootingModifier,source);
+    	if (!getEntityWorld().isRemote){
+    		getEntityWorld().spawnEntityInWorld(new EntityItem(getEntityWorld(),posX,posY+0.5,posZ,new ItemStack(Items.BONE,1)));
+    		for (int i = 0; i < 3+lootingModifier; i ++){
+	    		if (rand.nextInt(2) == 0){
+	    			getEntityWorld().spawnEntityInWorld(new EntityItem(getEntityWorld(),posX,posY+0.5,posZ,new ItemStack(Items.BONE,1)));
+	    		}
+	    	}
+    		getEntityWorld().spawnEntityInWorld(new EntityItem(getEntityWorld(),posX,posY+0.5,posZ,new ItemStack(MainRegistry.demonHide,1)));
+    		for (int i = 0; i < 3+lootingModifier; i ++){
+	    		if (rand.nextInt(2) == 0){
+	    			getEntityWorld().spawnEntityInWorld(new EntityItem(getEntityWorld(),posX,posY+0.5,posZ,new ItemStack(MainRegistry.demonHide,1)));
+	    		}
+	    	}
+    		for (int i = 0; i < 3+lootingModifier; i ++){
+	    		if (rand.nextInt(2) == 0){
+	    			getEntityWorld().spawnEntityInWorld(new EntityItem(getEntityWorld(),posX,posY+0.5,posZ,new ItemStack(Items.IRON_INGOT,1)));
+	    		}
+	    	}
+	    	for (int i = 0; i < 1; i ++){
+	    		if (rand.nextInt(2) == 0){
+	    			getEntityWorld().spawnEntityInWorld(new EntityItem(getEntityWorld(),posX,posY+0.5,posZ,new ItemStack(MainRegistry.demonHorn,1)));
+	    		}
+	    	}
+    	}
     }
     
     @Override

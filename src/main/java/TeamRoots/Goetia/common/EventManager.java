@@ -132,7 +132,7 @@ public class EventManager
 		}
 		if (evt.getEntityLiving() instanceof EntityPlayer){
 			if(evt.getEntityLiving().getEntityData().hasKey(LibMain.LibNBT.fallen_armor_tag) && evt.getPhase() == EventPriority.NORMAL){
-				if (random.nextInt(3) == 0){
+				if (random.nextInt(2) == 0){
 					evt.setCanceled(true);
 				}
 			}

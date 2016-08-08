@@ -2,6 +2,7 @@ package teamroots.goetia.registry;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemSword;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -15,6 +16,7 @@ import teamroots.goetia.common.blocks.BlockAltar;
 import teamroots.goetia.common.blocks.BlockBase;
 import teamroots.goetia.common.blocks.BlockDemonCandle;
 import teamroots.goetia.common.blocks.BlockDemonCandleStand;
+import teamroots.goetia.common.entity.EntityBloodProjectile;
 import teamroots.goetia.common.entity.EntityDemon;
 import teamroots.goetia.common.entity.EntityFiend;
 import teamroots.goetia.common.entity.EntityImp;
@@ -40,6 +42,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import teamroots.goetia.common.blocks.BlockBase;
 import teamroots.goetia.common.blocks.BlockDemonCandle;
 import teamroots.goetia.common.blocks.BlockDemonCandleStand;
@@ -101,7 +104,10 @@ public class MainRegistry
 
     private static void recipesRegistry()
     {
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(demonHornSpear), true,new Object[]{"  H"," B ","B  ",'H', new ItemStack(demonHorn),'B',new ItemStack(Items.BONE)}));
+    	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(demonCandle,4),true,new Object[]{" S ", " T ", 'S', Items.STRING, 'T', MainRegistry.impTallow}));
+    	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(demonCandleStand,1),true,new Object[]{" S ", " T ", " T ", 'S', MainRegistry.demonCandle, 'T', "nuggetGold"}));
+    	GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(demonicChalk,1),new Object[]{Items.GUNPOWDER,Items.REDSTONE,new ItemStack(Items.DYE,1,1),new ItemStack(Items.COAL,1,1)}));
+    	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(altar,1),true,new Object[]{"SCS", "SCS",  'S', "stone", 'C', "blockCoal"}));
     }
     
 	public static void registerEntities(){
@@ -117,6 +123,7 @@ public class MainRegistry
 		EntityRegistry.registerModEntity(EntitySymbolDevilsTrap.class, "symbolDevilsTrap", 6, Goetia.instance, 64, 3, true);
 		EntityRegistry.registerModEntity(EntitySymbolForge.class, "symbolForge", 7, Goetia.instance, 64, 3, true);
 		EntityRegistry.registerModEntity(EntitySymbolOpenSoul.class, "symbolOpenSoul", 8, Goetia.instance, 64, 3, true);
+		EntityRegistry.registerModEntity(EntityBloodProjectile.class, "bloodProjectile", 9, Goetia.instance, 64, 3, true);
 	}
     
 	@SideOnly(Side.CLIENT)

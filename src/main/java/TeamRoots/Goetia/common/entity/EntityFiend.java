@@ -11,12 +11,15 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.EntityAIZombieAttack;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntitySmallFireball;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -27,6 +30,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import teamroots.goetia.capability.impurity.ImpurityProvider;
 import teamroots.goetia.common.util.Utils;
+import teamroots.goetia.registry.MainRegistry;
 
 public class EntityFiend extends EntityMob implements IDemonic {
     public static final DataParameter<Boolean> trapped = EntityDataManager.<Boolean>createKey(EntityFiend.class, DataSerializers.BOOLEAN);
@@ -82,6 +86,23 @@ public class EntityFiend extends EntityMob implements IDemonic {
     			Vec3d particle = Utils.randomPointInAABB(this.getEntityBoundingBox());
         		getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, particle.xCoord, particle.yCoord, particle.zCoord, 0, 0, 0, 0);
     		}
+    	}
+    }
+    
+    @Override
+    public void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source){
+    	super.dropLoot(wasRecentlyHit,lootingModifier,source);
+    	if (!getEntityWorld().isRemote){
+	    	for (int i = 0; i < 2+lootingModifier; i ++){
+	    		if (rand.nextInt(2) == 0){
+	    			getEntityWorld().spawnEntityInWorld(new EntityItem(getEntityWorld(),posX,posY+0.5,posZ,new ItemStack(Items.BONE,1)));
+	    		}
+	    	}
+	    	for (int i = 0; i < 2+lootingModifier; i ++){
+	    		if (rand.nextInt(3) == 0){
+	    			getEntityWorld().spawnEntityInWorld(new EntityItem(getEntityWorld(),posX,posY+0.5,posZ,new ItemStack(MainRegistry.demonHide,1)));
+	    		}
+	    	}
     	}
     }
     

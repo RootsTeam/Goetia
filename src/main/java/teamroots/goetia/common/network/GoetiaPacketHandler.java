@@ -16,9 +16,9 @@ public class GoetiaPacketHandler
 
     public static void registerMessages()
     {
-        INSTANCE.registerMessage(ImpurityUpdateMessage.CampsMessageHolder.class,ImpurityUpdateMessage.class,3, Side.CLIENT);
-        INSTANCE.registerMessage(KnowledgeUpdateMessage.CampsMessageHolder.class,KnowledgeUpdateMessage.class,4, Side.CLIENT);
-        INSTANCE.registerMessage(ChalkUpdateMessage.CampsMessageHolder.class,ChalkUpdateMessage.class,5, Side.SERVER);
-        INSTANCE.registerMessage(FocusCastMessage.CampsMessageHolder.class,FocusCastMessage.class,6, Side.SERVER);
+        INSTANCE.registerMessage(ImpurityUpdateMessage.CampsMessageHolder.class,ImpurityUpdateMessage.class,0, Side.CLIENT);
+        INSTANCE.registerMessage(KnowledgeUpdateMessage.CampsMessageHolder.class,KnowledgeUpdateMessage.class,1, Side.CLIENT);
+        INSTANCE.registerMessage(ChalkUpdateMessage.CampsMessageHolder.class,ChalkUpdateMessage.class,2, Side.SERVER);
+        INSTANCE.registerMessage(FocusCastMessage.CampsMessageHolder.class,FocusCastMessage.class,3, Side.SERVER);
        }
 }

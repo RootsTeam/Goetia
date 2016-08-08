@@ -11,11 +11,14 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.EntityAIZombieAttack;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -26,6 +29,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import teamroots.goetia.capability.impurity.ImpurityProvider;
 import teamroots.goetia.common.util.Utils;
+import teamroots.goetia.registry.MainRegistry;
 
 public class EntityImp extends EntityMob implements IDemonic {
     public static final DataParameter<Boolean> trapped = EntityDataManager.<Boolean>createKey(EntityImp.class, DataSerializers.BOOLEAN);
@@ -83,6 +87,23 @@ public class EntityImp extends EntityMob implements IDemonic {
 		getDataManager().set(trapped, compound.getBoolean("trapped"));
 		getDataManager().setDirty(trapped);
 	}
+    
+    @Override
+    public void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source){
+    	super.dropLoot(wasRecentlyHit,lootingModifier,source);
+    	if (!getEntityWorld().isRemote){
+	    	for (int i = 0; i < 1+lootingModifier; i ++){
+	    		if (rand.nextInt(2) == 0){
+	    			getEntityWorld().spawnEntityInWorld(new EntityItem(getEntityWorld(),posX,posY+0.5,posZ,new ItemStack(Items.BONE,1)));
+	    		}
+	    	}
+	    	for (int i = 0; i < 1+lootingModifier; i ++){
+	    		if (rand.nextInt(3) == 0){
+	    			getEntityWorld().spawnEntityInWorld(new EntityItem(getEntityWorld(),posX,posY+0.5,posZ,new ItemStack(MainRegistry.impTallow,1)));
+	    		}
+	    	}
+    	}
+    }
     
     @Override
     public boolean attackEntityFrom(DamageSource source, float amount){
