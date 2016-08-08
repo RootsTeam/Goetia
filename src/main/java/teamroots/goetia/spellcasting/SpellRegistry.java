@@ -14,7 +14,9 @@ public class SpellRegistry
 
     public static void register()
     {
-    	addSpell(new CastSpellFireball());
+    	addSpell(new SpellBurningTouch());
+    	addSpell(new SpellFireball());
+    	addSpell(new SpellRebuke());
     }
 
     public static void addSpell(CastSpell castSpell)

@@ -5,14 +5,14 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import teamroots.goetia.lib.LibMain;
 
-public class SpellBurningTouch extends CastSpell{
+public class SpellRebuke extends CastSpell{
 
-	public SpellBurningTouch() {
-		super("burningTouch", 30, new int[]{1,6,3,4}, new ItemStack(Items.BLAZE_POWDER));
+	public SpellRebuke() {
+		super("rebuke", 73, new int[]{5,2,4,6,2}, new ItemStack(Items.BOW));
 	}
 	
 	@Override
 	public void doEffect(EntityPlayer caster){
-		caster.getEntityData().setInteger(LibMain.LibNBT.burning_touch_tag, 600);
+		caster.getEntityData().setInteger(LibMain.LibNBT.rebuke_tag, 600);
 	}
 }

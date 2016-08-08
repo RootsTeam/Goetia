@@ -26,6 +26,8 @@ public class LibMain
         impurity_tag = "impurity",
         max_impurity_tag = "maxImpurity",
         KNOWLEDGE_TAG = "knowledge",
+        rebuke_tag = "rebuke",
+        fallen_armor_tag = "fallen_armor",
         burning_touch_tag = "burning_touch";
     }
     public static class LibKnowledge

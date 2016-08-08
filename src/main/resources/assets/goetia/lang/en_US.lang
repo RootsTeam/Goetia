@@ -36,3 +36,5 @@ goetia.tooltip.spellSteps=Steps:
 
 goetia.spell.fireball=Blast
 goetia.spell.fireball.desc=Casts a powerful explosive fireball before you.
+goetia.spell.rebuke=Rebuke
+goetia.spell.rebuke.desc=Pushes back any who dare strike you.
