@@ -12,6 +12,7 @@ import net.minecraft.world.storage.loot.conditions.LootCondition;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import teamroots.goetia.Goetia;
@@ -66,6 +67,7 @@ public class EventManager
 			
 			decreaseEffect(LibMain.LibNBT.burning_touch_tag, player);
 			decreaseEffect(LibMain.LibNBT.rebuke_tag, player);
+			decreaseEffect(LibMain.LibNBT.voracious_strikes_tag, player);
 		}
 	}
 	
@@ -88,6 +90,22 @@ public class EventManager
 			}
 		}
 	}
+	
+
+	@SubscribeEvent
+	public void entityHurt(LivingHurtEvent evt){
+		if(evt.getSource().getDamageType() == "player"){
+			EntityPlayer player = (EntityPlayer)evt.getSource().getEntity();
+			if(player.getEntityData().hasKey(LibMain.LibNBT.voracious_strikes_tag)){
+				if(player.getHeldItemMainhand() == null){
+					evt.getEntity().hurtResistantTime = 0;
+					evt.setAmount(2.0F);
+				}
+				
+			}
+		}
+	}
+	
 
     private LootPool getInjectPool(String entryName) {
         return new LootPool(new LootEntry[] { getInjectEntry(entryName, 1) }, new LootCondition[0], new RandomValueRange(1), new RandomValueRange(0, 1), "goetiaInjectedPool");

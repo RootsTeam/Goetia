@@ -28,7 +28,8 @@ public class LibMain
         KNOWLEDGE_TAG = "knowledge",
         rebuke_tag = "rebuke",
         fallen_armor_tag = "fallen_armor",
-        burning_touch_tag = "burning_touch";
+        burning_touch_tag = "burning_touch",
+        voracious_strikes_tag = "voracious_strikes";
     }
     public static class LibKnowledge
     {

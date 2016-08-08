@@ -2,9 +2,6 @@ package teamroots.goetia.spellcasting;
 
 import java.util.ArrayList;
 
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-
 /**
  * Created by TeamRoots on 5.8.2016.
  */
@@ -17,6 +14,7 @@ public class SpellRegistry
     	addSpell(new SpellBurningTouch());
     	addSpell(new SpellFireball());
     	addSpell(new SpellRebuke());
+    	addSpell(new SpellVoraciousStrike());
     }
 
     public static void addSpell(CastSpell castSpell)
