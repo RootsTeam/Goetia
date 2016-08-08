@@ -1,6 +1,7 @@
 package teamroots.goetia.client.gui;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.lwjgl.opengl.GL11;
 
@@ -27,12 +28,13 @@ import teamroots.goetia.common.network.ChalkUpdateMessage;
 import teamroots.goetia.common.network.GoetiaPacketHandler;
 import teamroots.goetia.common.symbol.SymbolManager;
 import teamroots.goetia.registry.MainRegistry;
+import teamroots.goetia.spellcasting.CastSpell;
 import teamroots.goetia.spellcasting.SpellRegistry;
 
-public class GuiFocus extends GuiScreen{
+public class GuiAltar extends GuiScreen{
 	EntityPlayer player = null;
 	float ticksOpen = 0;
-	public GuiFocus(EntityPlayer player){
+	public GuiAltar(EntityPlayer player){
 		this.player = player;
 	}
 	
@@ -70,5 +72,22 @@ public class GuiFocus extends GuiScreen{
 		String text = I18n.format("goetia.tooltip.impurity") + player.getCapability(ImpurityProvider.impurityCapability, null).getImpurity();
 		this.fontRendererObj.drawString(text, (int)width/2-this.fontRendererObj.getStringWidth(text)/2, (int)height/2-this.fontRendererObj.FONT_HEIGHT/2, 0xFF4444);
 		RenderHelper.enableStandardItemLighting();
+		
+		ArrayList<CastSpell> validSpells = new ArrayList<CastSpell>();
+		
+		Iterator<CastSpell> spellIterator = SpellRegistry.spells.iterator();
+		while (spellIterator.hasNext()){
+			CastSpell spell = spellIterator.next();
+			if (spell.impurity <= ImpurityProvider.get(player).getImpurity()){
+				validSpells.add(spell);
+			}
+		}
+		
+		for (int i = 0; i < validSpells.size(); i ++){
+			float fract = ((float)i)/((float)validSpells.size());
+			float xPos = width/2.0f + 80f*(float)Math.cos(fract*2.0f*Math.PI-(Math.PI/2.0f));
+			float yPos = height/2.0f+ 80f*(float)Math.sin(fract*2.0f*Math.PI-(Math.PI/2.0f));
+			this.drawTexturedModalRect(xPos-16, yPos-16, 160, 0, 32, 32);
+		}
 	}
 }
