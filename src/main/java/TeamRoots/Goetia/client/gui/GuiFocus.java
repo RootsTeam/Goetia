@@ -77,8 +77,8 @@ public class GuiFocus extends GuiScreen{
 					}
 				}
 			}
+			this.mc.displayGuiScreen(null);
 		}
-		this.mc.displayGuiScreen(null);
 	}
 	
 	public void drawQuad(VertexBuffer vertexbuffer, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, int minU, int minV, int maxU, int maxV){
@@ -114,9 +114,11 @@ public class GuiFocus extends GuiScreen{
 		RenderHelper.enableGUIStandardItemLighting();
 		String selected = "null";
 		
-		Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("goetia:textures/gui/guiSlot.png"));
-		String text = I18n.format("goetia.tooltip.impurity") + player.getCapability(ImpurityProvider.impurityCapability, null).getImpurity();
-		this.fontRendererObj.drawStringWithShadow(text, (int)width/2-this.fontRendererObj.getStringWidth(text)/2, (int)height/2-this.fontRendererObj.FONT_HEIGHT/2+24, 0xFF4444);
+		if (!tracking){
+			Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("goetia:textures/gui/guiSlot.png"));
+			String text = I18n.format("goetia.tooltip.impurity") + player.getCapability(ImpurityProvider.impurityCapability, null).getImpurity();
+			this.fontRendererObj.drawStringWithShadow(text, (int)width/2-this.fontRendererObj.getStringWidth(text)/2, (int)height/2-this.fontRendererObj.FONT_HEIGHT/2+24, 0xFF4444);
+		}
 		
 		for (int i = 0; i < SpellRegistry.spells.size(); i ++){
 			if (SpellRegistry.spells.get(i).impurity <= ImpurityProvider.get(player).getImpurity()){
