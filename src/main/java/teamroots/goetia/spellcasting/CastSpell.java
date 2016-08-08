@@ -11,11 +11,13 @@ import net.minecraft.item.ItemStack;
  */
 public class CastSpell
 {
+	public String name;
 	public int impurity;
 	public ItemStack icon;
 	List<Integer> shape = new ArrayList<Integer>();
 	
-	public CastSpell(int impurity, int[] parShape, ItemStack icon){
+	public CastSpell(String name, int impurity, int[] parShape, ItemStack icon){
+		this.name = name;
 		this.impurity = impurity;
 		this.icon = icon;
 		for (int i = 0; i < parShape.length; i ++){
