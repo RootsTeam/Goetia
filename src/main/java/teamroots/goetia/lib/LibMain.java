@@ -25,7 +25,8 @@ public class LibMain
         public static final String
         impurity_tag = "impurity",
         max_impurity_tag = "maxImpurity",
-        KNOWLEDGE_TAG = "knowledge";
+        KNOWLEDGE_TAG = "knowledge",
+        burning_touch_tag = "burning_touch";
     }
     public static class LibKnowledge
     {
