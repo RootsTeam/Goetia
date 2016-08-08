@@ -62,18 +62,10 @@ public class EventManager
 	@SubscribeEvent
 	public void livingTickEvent(LivingUpdateEvent event){
 		if (event.getEntityLiving() instanceof EntityPlayer){
-			if (event.getEntityLiving().getEntityData().hasKey(LibMain.LibNBT.burning_touch_tag)){
-				event.getEntityLiving().getEntityData().setInteger(LibMain.LibNBT.burning_touch_tag, event.getEntityLiving().getEntityData().getInteger(LibMain.LibNBT.burning_touch_tag)-1);
-				if (event.getEntityLiving().getEntityData().getInteger(LibMain.LibNBT.burning_touch_tag) <= 0){
-					event.getEntityLiving().getEntityData().removeTag(LibMain.LibNBT.burning_touch_tag);
-				}
-			}
-			if (event.getEntityLiving().getEntityData().hasKey(LibMain.LibNBT.rebuke_tag)){
-				event.getEntityLiving().getEntityData().setInteger(LibMain.LibNBT.rebuke_tag, event.getEntityLiving().getEntityData().getInteger(LibMain.LibNBT.rebuke_tag)-1);
-				if (event.getEntityLiving().getEntityData().getInteger(LibMain.LibNBT.rebuke_tag) <= 0){
-					event.getEntityLiving().getEntityData().removeTag(LibMain.LibNBT.rebuke_tag);
-				}
-			}
+			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+			
+			decreaseEffect(LibMain.LibNBT.burning_touch_tag, player);
+			decreaseEffect(LibMain.LibNBT.rebuke_tag, player);
 		}
 	}
 	
@@ -103,5 +95,14 @@ public class EventManager
 
     private LootEntryTable getInjectEntry(String name, int weight) {
         return new LootEntryTable(new ResourceLocation(LibMain.LibCore.MOD_ID, "inject/" + name), weight, 0, new LootCondition[0], "goetiaInjectedLoot");
+    }
+    
+    public void decreaseEffect(String tag, EntityPlayer player){
+    	if (player.getEntityData().hasKey(tag)){
+			player.getEntityData().setInteger(tag, player.getEntityData().getInteger(tag)-1);
+			if (player.getEntityData().getInteger(tag) <= 0){
+				player.getEntityData().removeTag(tag);
+			}
+		}
     }
 }
