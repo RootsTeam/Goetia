@@ -19,6 +19,7 @@ public class SpellRegistry
     	addSpell(new SpellChainedStrikes());
     	addSpell(new SpellEbonWings());
     	addSpell(new SpellVoraciousStrike());
+    	addSpell(new SpellInnerFire());
     }
 
     public static void addSpell(CastSpell castSpell)

@@ -71,17 +71,28 @@ public class EventManager
 	@SubscribeEvent
 	public void livingTickEvent(LivingUpdateEvent event){
 		if (event.getEntityLiving() instanceof EntityPlayer){
-			if (event.getEntityLiving().getEntityData().hasKey(LibMain.LibNBT.ebon_wings_tag) && !event.getEntityLiving().onGround){
+			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+			if (player.getEntityData().hasKey(LibMain.LibNBT.ebon_wings_tag) && !player.onGround){
 				for (float i = 0; i < 360; i += 45.0f+45.0f*random.nextFloat()){
 					float offX = 0.5f*(float)Math.sin(Math.toRadians(i));
 					float offZ = 0.5f*(float)Math.cos(Math.toRadians(i));
 					if (random.nextInt(2) == 0){
-						event.getEntityLiving().getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_LARGE, event.getEntityLiving().posX+offX, event.getEntityLiving().posY+event.getEntityLiving().getEyeHeight()/2.0, event.getEntityLiving().posZ+offZ, 0, 0.015*random.nextFloat(), 0, 0);
+						player.getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_LARGE, player.posX+offX, player.posY+player.getEyeHeight()/2.0, player.posZ+offZ, 0, 0.015*random.nextFloat(), 0, 0);
 					}
-					event.getEntityLiving().getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, event.getEntityLiving().posX+offX, event.getEntityLiving().posY+event.getEntityLiving().getEyeHeight()/2.0, event.getEntityLiving().posZ+offZ, 0, 0.015*random.nextFloat(), 0, 0);
+					player.getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, player.posX+offX, player.posY+player.getEyeHeight()/2.0, player.posZ+offZ, 0, 0.015*random.nextFloat(), 0, 0);
 				}
 			}
-			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+			if (player.getEntityData().hasKey(LibMain.LibNBT.inner_fire_tag)){
+				for (float i = 0; i < 15; i += 1){
+					float offX = random.nextFloat() - 0.5F;
+					float offZ = random.nextFloat() - 0.5F;
+					player.getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, player.posX+offX, player.posY+player.getEyeHeight()/2.0, player.posZ+offZ, 0, 0, 0, 0);
+				}
+				if(player.onGround){
+					player.motionX *= 1.4;
+					player.motionZ *= 1.4;
+				}	
+			}
 			
 			decreaseEffect(LibMain.LibNBT.burning_touch_tag, player);
 			decreaseEffect(LibMain.LibNBT.rebuke_tag, player);
@@ -89,6 +100,7 @@ public class EventManager
 			decreaseEffect(LibMain.LibNBT.chained_strikes_tag, player);
 			decreaseEffect(LibMain.LibNBT.ebon_wings_tag, player);
 			decreaseEffect(LibMain.LibNBT.voracious_strikes_tag, player);
+			decreaseEffect(LibMain.LibNBT.inner_fire_tag, player);
 		}
 	}
 	
@@ -157,7 +169,13 @@ public class EventManager
 					evt.getEntity().hurtResistantTime = 0;
 					evt.setAmount(2.0F);
 				}
-				
+			}
+			
+			if(player.getEntityData().hasKey(LibMain.LibNBT.inner_fire_tag)){
+				float amount = evt.getAmount();
+				float newAmount = amount + evt.getAmount() * 0.4F;
+				System.out.println(amount + "  " + newAmount);
+				evt.setAmount(newAmount);
 			}
 		}
 	}

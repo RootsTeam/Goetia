@@ -31,7 +31,8 @@ public class LibMain
         chained_strikes_tag = "chained_strikes",
         ebon_wings_tag = "ebon_wings_tag",
         burning_touch_tag = "burning_touch",
-        voracious_strikes_tag = "voracious_strikes";
+        voracious_strikes_tag = "voracious_strikes",
+        inner_fire_tag = "inner_fire";
     }
     public static class LibKnowledge
     {
