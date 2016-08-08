@@ -11,6 +11,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import teamroots.goetia.Goetia;
 import teamroots.goetia.client.model.ModelManager;
+import teamroots.goetia.common.blocks.BlockAltar;
 import teamroots.goetia.common.blocks.BlockBase;
 import teamroots.goetia.common.blocks.BlockDemonCandle;
 import teamroots.goetia.common.blocks.BlockDemonCandleStand;
@@ -56,7 +57,7 @@ public class MainRegistry
     public static List<ItemSwordBase>ITEM_SWORD = new ArrayList<ItemSwordBase>();
     public static List<BlockBase>BLOCKS = new ArrayList<BlockBase>();
 
-    public static BlockBase altar = new BlockBase("altar",Material.ROCK);
+    public static BlockBase altar = new BlockAltar("altar",Material.ROCK);
     public static BlockBase demonCandle = new BlockDemonCandle("demonCandle",Material.CLOTH);
     public static BlockBase demonCandleStand = new BlockDemonCandleStand("demonCandleStand",Material.CLOTH);
 

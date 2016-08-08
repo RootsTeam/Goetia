@@ -28,6 +28,8 @@ public class LibMain
         KNOWLEDGE_TAG = "knowledge",
         rebuke_tag = "rebuke",
         fallen_armor_tag = "fallen_armor",
+        chained_strikes_tag = "chained_strikes",
+        ebon_wings_tag = "ebon_wings_tag",
         burning_touch_tag = "burning_touch";
     }
     public static class LibKnowledge

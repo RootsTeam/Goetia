@@ -24,6 +24,7 @@ public class BlockAltar extends BlockBase
 {
     public BlockAltar(String blockName, Material material) {
         super(blockName,material);
+        this.setHarvestLevel("pickaxe", 0);
         setHardness(1.0f);
     }
 }

@@ -117,8 +117,47 @@ public class EntitySymbolForge extends EntityFlying implements ISymbol {
 	    			List<EntityLivingBase> nearby = getEntityWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(posX-20.5,posY,posZ-20.5,posX+20.5,posY+41,posZ+20.5));
 	    			List<EntityItem> items = getEntityWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(posX-20.5,posY,posZ-20.5,posX+20.5,posY+41,posZ+20.5));
 	    			if (items.size() == 1){
+	    				if (items.get(0).getEntityItem().getItem() == MainRegistry.demonHorn){
+	    					int cost = 45;
+	    					int value = 0;
+	    					for (int i = 0; i < nearby.size(); i ++){
+	    						if (nearby.get(i) instanceof IDemonic){
+	    							if (nearby.get(i) instanceof EntityImp){
+	    								value += rand.nextInt(5)+6;
+	    							}
+	    							if (nearby.get(i) instanceof EntityFiend){
+	    								value += rand.nextInt(7)+10;
+	    							}
+	    							if (nearby.get(i) instanceof EntityDemon){
+	    								value += rand.nextInt(11)+22;
+	    							}
+	    							if (value >= cost){
+	    								for (int j = 0; j <= i; j ++){
+	    									nearby.get(j).setDead();
+	    								}
+	    				    			for (int k = 0; k < 30; k ++){
+	    				    				getEntityWorld().spawnParticle(EnumParticleTypes.FLAME, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
+	    				    			}
+	    				    			for (int k = 0; k < 30; k ++){
+	    				    				getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_LARGE, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
+	    				    			}
+	    				    			for (int k = 0; k < 80; k ++){
+	    				    				getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
+	    				    			}
+	    				    			items.get(0).setDead();
+	    				    			ItemStack result = new ItemStack(MainRegistry.demonHornSpear,1);
+	    				    			getEntityWorld().spawnEntityInWorld(new EntityItem(getEntityWorld(),posX,posY+1.0,posZ,result));
+	    							}
+	    						}
+	    					}
+	    					if (cost > value){
+				    			for (int k = 0; k < 30; k ++){
+				    				getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
+				    			}
+	    					}
+	    				}
 	    				if (items.get(0).getEntityItem().getItem() == Items.DIAMOND_SWORD){
-	    					int cost = 75;
+	    					int cost = 45;
 	    					int value = 0;
 	    					for (int i = 0; i < nearby.size(); i ++){
 	    						if (nearby.get(i) instanceof IDemonic){
@@ -157,7 +196,7 @@ public class EntitySymbolForge extends EntityFlying implements ISymbol {
 	    					}
 	    				}
 	    				if (items.get(0).getEntityItem().getItem() == Items.DIAMOND){
-	    					int cost = 45;
+	    					int cost = 25;
 	    					int value = 0;
 	    					for (int i = 0; i < nearby.size(); i ++){
 	    						if (nearby.get(i) instanceof IDemonic){

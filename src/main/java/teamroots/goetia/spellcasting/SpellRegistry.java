@@ -17,6 +17,9 @@ public class SpellRegistry
     	addSpell(new SpellBurningTouch());
     	addSpell(new SpellFireball());
     	addSpell(new SpellRebuke());
+    	addSpell(new SpellFallenArmor());
+    	addSpell(new SpellChainedStrikes());
+    	addSpell(new SpellEbonWings());
     }
 
     public static void addSpell(CastSpell castSpell)
