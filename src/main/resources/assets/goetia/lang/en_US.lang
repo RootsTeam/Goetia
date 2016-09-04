@@ -1,0 +1,56 @@
+tile.altar.name=Altar
+tile.demonCandle.name=Demon Candlestick
+tile.demonCandleStand.name=Demon Candle
+item.abyssalBlade.name=Abyssal Blade
+item.demonHide.name=Demon Hide
+item.demonHorn.name=Demon Horn
+item.demonHornSpear.name=Demon Horn Spear
+item.demonicChalk.name=Demonic Chalk
+item.impTallow.name=Imp Tallow
+item.soulFocus.name=Soul Focus
+item.lostNotes.name=Lost Scroll
+
+entity.goetia.imp.name=Imp
+entity.goetia.fiend.name=Fiend
+entity.goetia.demon.name=Demon
+
+goetia.knowledge.impSymbol=Summon Imp
+goetia.knowledge.impSymbol.desc=Summons an Imp above the symbol.
+goetia.knowledge.fiendSymbol=Summon Fiend
+goetia.knowledge.fiendSymbol.desc=Summons a Fiend above the symbol.
+goetia.knowledge.demonSymbol=Summon Demon
+goetia.knowledge.demonSymbol.desc=Summons a Demon above the symbol.
+goetia.knowledge.devilsTrap=Devil's Trap
+goetia.knowledge.devilsTrap.desc=Traps sufficiently injured demons.
+goetia.knowledge.forgeSymbol=Demon Forge
+goetia.knowledge.forgeSymbol.desc=Imbues certain items with bound demons.
+goetia.knowledge.openSoulSymbol=Open Soul
+goetia.knowledge.openSoulSymbol.desc=Binds demons to your soul itself.
+
+goetia.tooltip.symbol=Symbol: 
+goetia.tooltip.levelcost=XP Cost: 
+goetia.tooltip.levelcost2= Levels
+goetia.tooltip.impurity=Impurity: 
+goetia.tooltip.spell=Spell: 
+goetia.tooltip.spellSteps=Steps: 
+
+itemGroup.goetia=Goetia
+
+goetia.spell.burningTouch=Burning Touch
+goetia.spell.burningTouch.desc=Scorch all foes that you strike.
+goetia.spell.fireball=Blast
+goetia.spell.fireball.desc=Casts a powerful explosive fireball before you.
+goetia.spell.rebuke=Rebuke
+goetia.spell.rebuke.desc=Pushes back any who dare strike you.
+goetia.spell.bloodrain=Blood Rain
+goetia.spell.bloodrain.desc=Your life essence extends from you, weakening creatures it contacts.
+goetia.spell.innerFire=Inner Fire
+goetia.spell.innerFire.desc=Charged by unholiness, you become faster and stronger, but also more vulnerable.
+goetia.spell.fallenArmor=Armor of the Fallen
+goetia.spell.fallenArmor.desc=Grants you extra protection, as long as you continue causing pain.
+goetia.spell.chainedStrikes=Chained Strikes
+goetia.spell.chainedStrikes.desc=Your attacks are made so ferocious that you tear into the innocent nearby.
+goetia.spell.ebonWings=Ebon Wings
+goetia.spell.ebonWings.desc=A dark curtain of malevolence propels you skyward, granting you flight for a time.
+goetia.spell.voraciousStrike=Voracious Strikes
+goetia.spell.voraciousStrike.desc=Your bare fists can punch straight through entities during their invulnerability period.

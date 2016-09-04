@@ -1,0 +1,16 @@
+[
+{
+  "modid": "goetia",
+  "name": "Goetia",
+  "description": "Demonic Magic Mod for TMT 2016.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Elucent", "SirShadow", "werty1124", "AlexisMachina"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
