@@ -36,8 +36,9 @@ public class ItemNote extends ItemBase
 
     public ItemNote(String name)
     {
-        super(name);
+        super(name,"0","1","2","3","4","5");
         this.setCustomMaxStackSize(1);
+        this.setHasSubtypes(true);
     }
     
     @Override
@@ -69,7 +70,7 @@ public class ItemNote extends ItemBase
     		stack.setTagCompound(new NBTTagCompound());
     	}
     	stack.getTagCompound().setString("knowledge", LibMain.LibKnowledge.validKnowledge[stack.getItemDamage()]);
-    	tooltip.add(TextFormatting.DARK_PURPLE+"Knowledge: "+I18n.format("goetia.knowledge."+stack.getTagCompound().getString("knowledge")));
+    	tooltip.add(TextFormatting.DARK_RED+"Knowledge: "+I18n.format("goetia.knowledge."+stack.getTagCompound().getString("knowledge")));
     }
     
     @SideOnly(Side.CLIENT)

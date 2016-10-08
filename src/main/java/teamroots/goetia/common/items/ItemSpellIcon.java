@@ -43,7 +43,7 @@ public class ItemSpellIcon extends ItemBase
     			CastSpell spell = SpellRegistry.getSpellFromName(stack.getTagCompound().getString("spell"));
     			if (spell != null){
     				tooltip.add(TextFormatting.DARK_PURPLE+I18n.format("goetia.spell."+stack.getTagCompound().getString("spell")+".desc"));
-    				tooltip.add(TextFormatting.DARK_PURPLE+I18n.format("goetia.tooltip.impurity")+spell.impurity);
+    				tooltip.add(TextFormatting.DARK_PURPLE+I18n.format("goetia.tooltip.impurity")+spell.cost);
     				String stepString = TextFormatting.DARK_PURPLE+I18n.format("goetia.tooltip.spellSteps");
     				if (spell.shape.size() > 0){
     					stepString += spell.shape.get(0);

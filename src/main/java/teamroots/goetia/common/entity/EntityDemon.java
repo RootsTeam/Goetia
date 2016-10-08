@@ -2,24 +2,16 @@ package teamroots.goetia.common.entity;
 
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAIMoveThroughVillage;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.ai.EntityAIZombieAttack;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.monster.EntityPigZombie;
-import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.entity.projectile.EntityLargeFireball;
-import net.minecraft.entity.projectile.EntitySmallFireball;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -30,7 +22,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import teamroots.goetia.capability.impurity.ImpurityProvider;
+import teamroots.goetia.capability.impurity.GoetiaProvider;
 import teamroots.goetia.common.util.Utils;
 import teamroots.goetia.registry.MainRegistry;
 
@@ -127,8 +119,8 @@ public class EntityDemon extends EntityMob implements IDemonic {
     	super.attackEntityFrom(source, amount);
     	if (getHealth() <= 0 && initHealth > 0){
     		if (!getEntityWorld().isRemote && source.getEntity() instanceof EntityPlayer){
-    			if (((EntityPlayer)source.getEntity()).hasCapability(ImpurityProvider.impurityCapability, null)){
-    				((EntityPlayer)source.getEntity()).getCapability(ImpurityProvider.impurityCapability, null).setImpurity((EntityPlayer)source.getEntity(), ((EntityPlayer)source.getEntity()).getCapability(ImpurityProvider.impurityCapability, null).getImpurity()+rand.nextInt(6)+11);
+    			if (((EntityPlayer)source.getEntity()).hasCapability(GoetiaProvider.goetiaCapability, null)){
+    				((EntityPlayer)source.getEntity()).getCapability(GoetiaProvider.goetiaCapability, null).setImpurity((EntityPlayer)source.getEntity(), ((EntityPlayer)source.getEntity()).getCapability(GoetiaProvider.goetiaCapability, null).getImpurity()+rand.nextInt(6)+11);
     			}
     		}
     	}

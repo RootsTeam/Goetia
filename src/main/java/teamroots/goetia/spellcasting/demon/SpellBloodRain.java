@@ -1,4 +1,4 @@
-package teamroots.goetia.spellcasting;
+package teamroots.goetia.spellcasting.demon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +10,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Vec3d;
 import teamroots.goetia.common.entity.EntityBloodProjectile;
+import teamroots.goetia.spellcasting.CastSpell;
+import teamroots.goetia.spellcasting.AlignmentType;
 
 /**
  * Created by TeamRoots on 5.8.2016.
@@ -18,7 +20,7 @@ public class SpellBloodRain extends CastSpell
 {
 	
 	public SpellBloodRain(){
-		super("bloodrain",104,new int[]{5,6,1,2,3},new ItemStack(Items.DYE,1,1));
+		super("bloodrain",104,new int[]{5,6,1,2,3},new ItemStack(Items.DYE,1,1), AlignmentType.DEMON);
 	}
 	
 	@Override

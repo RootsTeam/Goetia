@@ -5,12 +5,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import teamroots.goetia.capability.impurity.DefaultImpurityCapability;
+import teamroots.goetia.capability.impurity.DefaultGoetiaCapability;
 import teamroots.goetia.capability.impurity.DefaultKnowledgeCapability;
-import teamroots.goetia.capability.impurity.IImpurityCapability;
+import teamroots.goetia.capability.impurity.GoetiaCapabilityStorage;
+import teamroots.goetia.capability.impurity.GoetiaProvider;
+import teamroots.goetia.capability.impurity.IGoetiaCapability;
 import teamroots.goetia.capability.impurity.IKnowledgeCapability;
-import teamroots.goetia.capability.impurity.ImpurityCapabilityStorage;
-import teamroots.goetia.capability.impurity.ImpurityProvider;
 import teamroots.goetia.capability.impurity.KnowledgeCapabilityStorage;
 import teamroots.goetia.capability.impurity.KnowledgeProvider;
 
@@ -21,7 +21,7 @@ public class GoetiaCapabilityManager
 {
     public static void register()
     {
-        CapabilityManager.INSTANCE.register(IImpurityCapability.class,new ImpurityCapabilityStorage(),DefaultImpurityCapability.class);
+        CapabilityManager.INSTANCE.register(IGoetiaCapability.class,new GoetiaCapabilityStorage(),DefaultGoetiaCapability.class);
         CapabilityManager.INSTANCE.register(IKnowledgeCapability.class,new KnowledgeCapabilityStorage(),DefaultKnowledgeCapability.class);
     }
 
@@ -30,9 +30,9 @@ public class GoetiaCapabilityManager
     {
         if(event.getEntity() instanceof EntityPlayer)
         {
-            if(!event.getEntity().hasCapability(ImpurityProvider.impurityCapability,null))
+            if(!event.getEntity().hasCapability(GoetiaProvider.goetiaCapability,null))
             {
-                event.addCapability(new ResourceLocation("goetia:impurityCapability"),new ImpurityProvider(new DefaultImpurityCapability()));
+                event.addCapability(new ResourceLocation("goetia:impurityCapability"),new GoetiaProvider(new DefaultGoetiaCapability()));
             }
             if(!event.getEntity().hasCapability(KnowledgeProvider.knowledgeCapability,null))
             {

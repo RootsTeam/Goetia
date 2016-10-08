@@ -1,36 +1,23 @@
 package teamroots.goetia.client.gui;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-
-import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
-import teamroots.goetia.capability.impurity.ImpurityProvider;
-import teamroots.goetia.capability.impurity.KnowledgeProvider;
+import teamroots.goetia.capability.impurity.GoetiaProvider;
 import teamroots.goetia.common.items.ItemSpellIcon;
-import teamroots.goetia.common.items.ItemSymbolIcon;
-import teamroots.goetia.common.network.ChalkUpdateMessage;
-import teamroots.goetia.common.network.GoetiaPacketHandler;
-import teamroots.goetia.common.symbol.SymbolManager;
+import teamroots.goetia.lib.LibMain;
 import teamroots.goetia.registry.MainRegistry;
 import teamroots.goetia.spellcasting.CastSpell;
 import teamroots.goetia.spellcasting.SpellRegistry;
+import teamroots.goetia.spellcasting.AlignmentType;
 
 public class GuiAltar extends GuiScreen{
 	EntityPlayer player = null;
@@ -38,6 +25,8 @@ public class GuiAltar extends GuiScreen{
 	public GuiAltar(EntityPlayer player){
 		this.player = player;
 	}
+	
+	int validSpellSize;
 	
 	@Override
 	public boolean doesGuiPauseGame(){
@@ -70,16 +59,30 @@ public class GuiAltar extends GuiScreen{
 		String selected = "null";
 		
 		Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("goetia:textures/gui/guiSlot.png"));
-		String text = I18n.format("goetia.tooltip.impurity") + player.getCapability(ImpurityProvider.impurityCapability, null).getImpurity();
-		this.fontRendererObj.drawStringWithShadow(text, (int)width/2-this.fontRendererObj.getStringWidth(text)/2, (int)height/2-this.fontRendererObj.FONT_HEIGHT/2+24, 0xFF4444);
-		
+		if(player.getCapability(GoetiaProvider.goetiaCapability, null).getImpurity() > player.getCapability(GoetiaProvider.goetiaCapability, null).getPurity()){
+			String text = I18n.format("goetia.tooltip.impurity") + player.getCapability(GoetiaProvider.goetiaCapability, null).getImpurity();
+			this.fontRendererObj.drawStringWithShadow(text, (int)width/2-this.fontRendererObj.getStringWidth(text)/2, (int)height/2-this.fontRendererObj.FONT_HEIGHT/2+24, LibMain.LibColors.demon_color);
+		} else {
+			String text = I18n.format("goetia.tooltip.purity") + player.getCapability(GoetiaProvider.goetiaCapability, null).getPurity();
+			this.fontRendererObj.drawStringWithShadow(text, (int)width/2-this.fontRendererObj.getStringWidth(text)/2, (int)height/2-this.fontRendererObj.FONT_HEIGHT/2+24, LibMain.LibColors.angel_color);
+		}
 		ArrayList<CastSpell> validSpells = new ArrayList<CastSpell>();
 		
 		for (int i = 0; i < SpellRegistry.spells.size(); i ++){
-			if (SpellRegistry.spells.get(i).impurity <= ImpurityProvider.get(player).getImpurity()){
-				validSpells.add(SpellRegistry.spells.get(i));
+			if(player.getCapability(GoetiaProvider.goetiaCapability, null).getImpurity() > player.getCapability(GoetiaProvider.goetiaCapability, null).getPurity()){
+				//DEMONS
+				if (SpellRegistry.spells.get(i).cost <= GoetiaProvider.get(player).getImpurity() && SpellRegistry.spells.get(i).type == AlignmentType.DEMON){
+					validSpells.add(SpellRegistry.spells.get(i));
+				}
+			} else {
+				//ANGELS
+				if (SpellRegistry.spells.get(i).cost <= GoetiaProvider.get(player).getPurity() && SpellRegistry.spells.get(i).type == AlignmentType.ANGEL){
+					validSpells.add(SpellRegistry.spells.get(i));
+				}
 			}
 		}
+		
+		this.validSpellSize = validSpells.size();
 		
 		GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
 		Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("goetia:textures/gui/guiSlot.png"));

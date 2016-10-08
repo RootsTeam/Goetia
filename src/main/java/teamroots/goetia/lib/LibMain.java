@@ -24,15 +24,23 @@ public class LibMain
     {
         public static final String
         impurity_tag = "impurity",
+        purity_tag = "purity",
         max_impurity_tag = "maxImpurity",
+        max_purity_tag = "maxPurity",
         KNOWLEDGE_TAG = "knowledge",
         rebuke_tag = "rebuke",
         fallen_armor_tag = "fallen_armor",
         chained_strikes_tag = "chained_strikes",
-        ebon_wings_tag = "ebon_wings_tag",
+        wings_tag = "wings_tag",
         burning_touch_tag = "burning_touch",
         voracious_strikes_tag = "voracious_strikes",
-        inner_fire_tag = "inner_fire";
+        inner_firegrace_tag = "inner_fire_grace";
+    }
+    public class LibColors
+    {
+    	public static final int
+    	angel_color = 3006972,
+    	demon_color = 16729156;
     }
     public static class LibKnowledge
     {

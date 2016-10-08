@@ -47,7 +47,7 @@ public class ItemBase extends Item implements IItemVariantHolder<ItemBase>
     public String getUnlocalizedName(ItemStack itemStack) {
 
         if (hasSubtypes && itemStack.getMetadata() < Variants.length) {
-            return String.format("item." + LibMain.LibCore.MOD_ID + ":%s", Variants[itemStack.getMetadata()]);
+            return String.format("item." + BaseName + ".%s", Variants[itemStack.getMetadata()]);
         }
         return super.getUnlocalizedName(itemStack);
     }

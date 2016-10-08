@@ -3,23 +3,14 @@ package teamroots.goetia.common.network;
 import java.util.UUID;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.gui.MinecraftServerGui;
-import net.minecraft.util.IThreadListener;
-import net.minecraft.util.EnumHand;
-import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import teamroots.goetia.capability.impurity.ImpurityProvider;
-import teamroots.goetia.capability.impurity.KnowledgeProvider;
 
 /**
  * Created by TeamRoots on 5.8.2016.

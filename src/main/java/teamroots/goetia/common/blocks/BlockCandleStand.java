@@ -15,9 +15,9 @@ import net.minecraft.world.World;
 /**
  * Created by TeamRoots on 4.8.2016.
  */
-public class BlockDemonCandleStand extends BlockBase
+public class BlockCandleStand extends BlockBase
 {
-    public BlockDemonCandleStand(String blockName, Material material) {
+    public BlockCandleStand(String blockName, Material material) {
         super(blockName, material);
         setLightLevel(1.0f);
         setHardness(0.4f);

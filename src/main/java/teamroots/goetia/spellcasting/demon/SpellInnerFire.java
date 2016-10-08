@@ -1,16 +1,17 @@
-package teamroots.goetia.spellcasting;
+package teamroots.goetia.spellcasting.demon;
 
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
 import teamroots.goetia.lib.LibMain;
+import teamroots.goetia.spellcasting.CastSpell;
+import teamroots.goetia.spellcasting.AlignmentType;
 
-public class SpellFallenArmor extends CastSpell{
+public class SpellInnerFire extends CastSpell{
 
-	public SpellFallenArmor() {
-		super("fallenArmor", 138, new int[]{4,6,2,4,5,3,4}, new ItemStack(Items.CHAINMAIL_CHESTPLATE));
+	public SpellInnerFire() {
+		super("innerFire", 111, new int[]{3,2,1,4,5,6}, new ItemStack(Items.FLINT_AND_STEEL), AlignmentType.DEMON);
 	}
 	
 	@Override
@@ -26,6 +27,6 @@ public class SpellFallenArmor extends CastSpell{
 			}
 			caster.getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, caster.posX+offX, caster.posY+caster.getEyeHeight()/2.0, caster.posZ+offZ, 0, 0.015*random.nextFloat(), 0, 0);
 		}
-		caster.getEntityData().setInteger(LibMain.LibNBT.fallen_armor_tag, 600);
+		caster.getEntityData().setInteger(LibMain.LibNBT.inner_firegrace_tag, 2400);
 	}
 }

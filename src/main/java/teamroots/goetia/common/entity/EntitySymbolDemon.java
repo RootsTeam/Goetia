@@ -1,43 +1,19 @@
 package teamroots.goetia.common.entity;
 
-import java.util.List;
-
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityFlying;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAIMoveThroughVillage;
-import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.ai.EntityAIZombieAttack;
-import net.minecraft.entity.monster.EntityIronGolem;
-import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.monster.EntityPigZombie;
-import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityFireball;
-import net.minecraft.entity.projectile.EntityLargeFireball;
-import net.minecraft.entity.projectile.EntitySmallFireball;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
-import teamroots.goetia.capability.impurity.ImpurityProvider;
+import teamroots.goetia.capability.impurity.GoetiaProvider;
 import teamroots.goetia.common.symbol.SymbolManager;
-import teamroots.goetia.common.util.Utils;
 
 public class EntitySymbolDemon extends EntityFlying implements ISymbol {
     public static DataParameter<Boolean> activated = EntityDataManager.<Boolean>createKey(EntitySymbolDemon.class, DataSerializers.BOOLEAN);
@@ -182,8 +158,8 @@ public class EntitySymbolDemon extends EntityFlying implements ISymbol {
 	public void activate(EntityPlayer player) {
 		getDataManager().set(activated, true);
 		getDataManager().setDirty(activated);
-		if (!player.getEntityWorld().isRemote && player.hasCapability(ImpurityProvider.impurityCapability, null)){
-			player.getCapability(ImpurityProvider.impurityCapability, null).setImpurity(player,player.getCapability(ImpurityProvider.impurityCapability, null).getImpurity()+rand.nextInt(6)+11);
+		if (!player.getEntityWorld().isRemote && player.hasCapability(GoetiaProvider.goetiaCapability, null)){
+			player.getCapability(GoetiaProvider.goetiaCapability, null).setImpurity(player,player.getCapability(GoetiaProvider.goetiaCapability, null).getImpurity()+rand.nextInt(6)+11);
 		}
 	}
 

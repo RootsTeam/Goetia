@@ -1,21 +1,26 @@
 package teamroots.goetia.registry;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.Item;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemSword;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import teamroots.goetia.Goetia;
 import teamroots.goetia.client.model.ModelManager;
 import teamroots.goetia.common.blocks.BlockAltar;
 import teamroots.goetia.common.blocks.BlockBase;
-import teamroots.goetia.common.blocks.BlockDemonCandle;
-import teamroots.goetia.common.blocks.BlockDemonCandleStand;
+import teamroots.goetia.common.blocks.BlockCandle;
+import teamroots.goetia.common.blocks.BlockCandleStand;
 import teamroots.goetia.common.entity.EntityBloodProjectile;
 import teamroots.goetia.common.entity.EntityDemon;
 import teamroots.goetia.common.entity.EntityFiend;
@@ -35,21 +40,16 @@ import teamroots.goetia.common.entity.RenderSymbolFiend;
 import teamroots.goetia.common.entity.RenderSymbolForge;
 import teamroots.goetia.common.entity.RenderSymbolImp;
 import teamroots.goetia.common.entity.RenderSymbolOpenSoul;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
-import teamroots.goetia.common.blocks.BlockBase;
-import teamroots.goetia.common.blocks.BlockDemonCandle;
-import teamroots.goetia.common.blocks.BlockDemonCandleStand;
-import teamroots.goetia.common.items.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import teamroots.goetia.common.items.ItemAbyssalBlade;
+import teamroots.goetia.common.items.ItemBase;
+import teamroots.goetia.common.items.ItemDemonHorn;
+import teamroots.goetia.common.items.ItemDemonicChalk;
+import teamroots.goetia.common.items.ItemDemonicSpear;
+import teamroots.goetia.common.items.ItemNote;
+import teamroots.goetia.common.items.ItemSoulFocus;
+import teamroots.goetia.common.items.ItemSpellIcon;
+import teamroots.goetia.common.items.ItemSwordBase;
+import teamroots.goetia.common.items.ItemSymbolIcon;
 
 /**
  * Created by TeamRoots on 4.8.2016.
@@ -61,8 +61,11 @@ public class MainRegistry
     public static List<BlockBase>BLOCKS = new ArrayList<BlockBase>();
 
     public static BlockBase altar = new BlockAltar("altar",Material.ROCK);
-    public static BlockBase demonCandle = new BlockDemonCandle("demonCandle",Material.CLOTH);
-    public static BlockBase demonCandleStand = new BlockDemonCandleStand("demonCandleStand",Material.CLOTH);
+    public static BlockBase demonCandle = new BlockCandle("demonCandle",Material.CLOTH);
+    public static BlockBase demonCandleStand = new BlockCandleStand("demonCandleStand",Material.CLOTH);
+    
+    public static BlockBase angelCandle = new BlockCandle("angelCandle",Material.CLOTH);
+    public static BlockBase angelCandleStand = new BlockCandleStand("angelCandleStand",Material.CLOTH);
 
     public static ItemBase demonHorn = new ItemDemonHorn("demonHorn");
     public static ItemBase impTallow = new ItemBase("impTallow");

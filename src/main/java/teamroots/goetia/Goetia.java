@@ -1,4 +1,6 @@
 package teamroots.goetia;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
@@ -9,11 +11,13 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import teamroots.goetia.lib.LibMain;
 import teamroots.goetia.proxy.IProxy;
 import teamroots.goetia.registry.MainRegistry;
+import teamroots.goetia.renderlayers.LayerHorns;
 /**
  * Created by TeamRoots on 4.8.2016.
  */
@@ -53,5 +57,10 @@ public class Goetia
     public void postInit(FMLPostInitializationEvent event)
     {
         proxy.postInit(event);
+    }
+    
+    @Mod.EventHandler
+    public void serverLoad(FMLServerStartingEvent event){
+      event.registerServerCommand(new GoetiaCommand());
     }
 }

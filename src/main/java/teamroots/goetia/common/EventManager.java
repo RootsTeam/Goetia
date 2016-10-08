@@ -1,10 +1,17 @@
 package teamroots.goetia.common;
 
-import java.util.Random;
 import java.util.List;
+import java.util.Random;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
@@ -15,7 +22,12 @@ import net.minecraft.world.storage.loot.LootEntryTable;
 import net.minecraft.world.storage.loot.LootPool;
 import net.minecraft.world.storage.loot.RandomValueRange;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderLivingEvent;
+import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.event.LootTableLoadEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
@@ -24,16 +36,20 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import teamroots.goetia.Goetia;
-import teamroots.goetia.capability.impurity.DefaultImpurityCapability;
-import teamroots.goetia.capability.impurity.DefaultKnowledgeCapability;
-import teamroots.goetia.capability.impurity.ImpurityProvider;
+import teamroots.goetia.capability.impurity.GoetiaProvider;
 import teamroots.goetia.capability.impurity.KnowledgeProvider;
 import teamroots.goetia.common.entity.IClickableSymbol;
 import teamroots.goetia.common.entity.ISymbol;
+import teamroots.goetia.common.network.GoetiaPacketHandler;
+import teamroots.goetia.common.network.ImpurityUpdateMessage;
 import teamroots.goetia.lib.EnumIDs;
 import teamroots.goetia.lib.LibMain;
 import teamroots.goetia.registry.MainRegistry;
+import teamroots.goetia.renderlayers.LayerHalo;
+import teamroots.goetia.renderlayers.LayerHorns;
 
 /**
  * Created by TeamRoots on 4.8.2016.
@@ -41,6 +57,25 @@ import teamroots.goetia.registry.MainRegistry;
 public class EventManager
 {
 	Random random = new Random();
+	
+	@SubscribeEvent
+	public void playerTracking(PlayerEvent.StartTracking e){
+		 if(e.getTarget() instanceof EntityPlayer){
+             if(!e.getEntityPlayer().worldObj.isRemote){
+            	 System.out.println("sent");
+                    GoetiaPacketHandler.INSTANCE.sendTo(new ImpurityUpdateMessage((EntityPlayer)e.getTarget(), GoetiaProvider.get((EntityPlayer)e.getTarget()).saveData()), (EntityPlayerMP) e.getEntityPlayer());
+             }
+		 }
+	}
+	
+	@SubscribeEvent
+	public void entityJoinWorld(EntityJoinWorldEvent e) {
+		if (e.getEntity() instanceof EntityPlayer && !e.getEntity().worldObj.isRemote)
+		{
+			GoetiaProvider.get((EntityPlayer) e.getEntity()).dataChanged((EntityPlayer) e.getEntity());
+		}
+	}
+	
 	@SubscribeEvent
 	public void onRightClickEntity(PlayerInteractEvent.EntityInteract event){
 		if (event.getTarget() instanceof ISymbol){
@@ -78,21 +113,34 @@ public class EventManager
 	public void livingTickEvent(LivingUpdateEvent event){
 		if (event.getEntityLiving() instanceof EntityPlayer){
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-			if (player.getEntityData().hasKey(LibMain.LibNBT.ebon_wings_tag) && !player.onGround){
+			
+			boolean isDemon = GoetiaProvider.get(player).isDemon();
+			if (player.getEntityData().hasKey(LibMain.LibNBT.wings_tag) && !player.onGround){
 				for (float i = 0; i < 360; i += 45.0f+45.0f*random.nextFloat()){
 					float offX = 0.5f*(float)Math.sin(Math.toRadians(i));
 					float offZ = 0.5f*(float)Math.cos(Math.toRadians(i));
-					if (random.nextInt(2) == 0){
-						player.getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_LARGE, player.posX+offX, player.posY+player.getEyeHeight()/2.0, player.posZ+offZ, 0, 0.015*random.nextFloat(), 0, 0);
-					}
-					player.getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, player.posX+offX, player.posY+player.getEyeHeight()/2.0, player.posZ+offZ, 0, 0.015*random.nextFloat(), 0, 0);
+					if(isDemon){
+						if (random.nextInt(2) == 0){
+							player.getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_LARGE, player.posX+offX, player.posY+player.getEyeHeight()/2.0, player.posZ+offZ, 0, 0.015*random.nextFloat(), 0, 0);
+						}
+						player.getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, player.posX+offX, player.posY+player.getEyeHeight()/2.0, player.posZ+offZ, 0, 0.015*random.nextFloat(), 0, 0);
+					} else {
+						if (random.nextInt(2) == 0){
+							player.getEntityWorld().spawnParticle(EnumParticleTypes.CRIT_MAGIC, player.posX+offX, player.posY+player.getEyeHeight()/2.0, player.posZ+offZ, 0, 0.015*random.nextFloat(), 0, 0);
+						}
+						player.getEntityWorld().spawnParticle(EnumParticleTypes.CRIT, player.posX+offX, player.posY+player.getEyeHeight()/2.0, player.posZ+offZ, 0, 0.015*random.nextFloat(), 0, 0);
+					}	
 				}
 			}
-			if (player.getEntityData().hasKey(LibMain.LibNBT.inner_fire_tag)){
+			if (player.getEntityData().hasKey(LibMain.LibNBT.inner_firegrace_tag)){
 				for (float i = 0; i < 15; i += 1){
 					float offX = random.nextFloat() - 0.5F;
 					float offZ = random.nextFloat() - 0.5F;
-					player.getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, player.posX+offX, player.posY+player.getEyeHeight()/2.0, player.posZ+offZ, 0, 0, 0, 0);
+					if(isDemon){
+						player.getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, player.posX+offX, player.posY+player.getEyeHeight()/2.0, player.posZ+offZ, 0, 0, 0, 0);
+					} else {
+						player.getEntityWorld().spawnParticle(EnumParticleTypes.CLOUD, player.posX+offX, player.posY+player.getEyeHeight()/2.0, player.posZ+offZ, 0, 0, 0, 0);
+					}
 				}
 				if(player.onGround){
 					player.motionX *= 1.4;
@@ -104,9 +152,9 @@ public class EventManager
 			decreaseEffect(LibMain.LibNBT.rebuke_tag, player);
 			decreaseEffect(LibMain.LibNBT.fallen_armor_tag, player);
 			decreaseEffect(LibMain.LibNBT.chained_strikes_tag, player);
-			decreaseEffect(LibMain.LibNBT.ebon_wings_tag, player);
+			decreaseEffect(LibMain.LibNBT.wings_tag, player);
 			decreaseEffect(LibMain.LibNBT.voracious_strikes_tag, player);
-			decreaseEffect(LibMain.LibNBT.inner_fire_tag, player);
+			decreaseEffect(LibMain.LibNBT.inner_firegrace_tag, player);
 		}
 	}
 	
@@ -165,6 +213,49 @@ public class EventManager
 		}
 	}
 	
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public void onGameOverlayRender(RenderGameOverlayEvent.Post e){
+		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+		if (e.getType() == ElementType.TEXT){
+			int w = e.getResolution().getScaledWidth();
+			int h = e.getResolution().getScaledHeight();
+			
+			GlStateManager.popMatrix();
+			GlStateManager.color(1, 1, 1, 1);
+			
+			Minecraft.getMinecraft().renderEngine.bindTexture(	new ResourceLocation("goetia:textures/gui/guiOverlay.png"));
+			
+			
+			if(GoetiaProvider.get(player).getImpurity() >= GoetiaProvider.get(player).getPurity()){
+				Gui.drawModalRectWithCustomSizedTexture(e.getResolution().getScaledWidth() - 425, e.getResolution().getScaledHeight() - 22, 0, 0, 20, 20, 256, 256);
+				Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(Integer.toString(GoetiaProvider.get(player).getImpurity()), w - 405, h - 15, LibMain.LibColors.demon_color);
+			} else {
+				Gui.drawModalRectWithCustomSizedTexture(e.getResolution().getScaledWidth() - 425, e.getResolution().getScaledHeight() - 20, 21, 0, 20, 20, 256, 256);
+				Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(Integer.toString(GoetiaProvider.get(player).getPurity()), w - 405, h - 15, LibMain.LibColors.angel_color);
+			}
+			
+			GlStateManager.pushMatrix();
+		}
+	}
+	
+	@SubscribeEvent
+	public void entityDeath(LivingDeathEvent e){
+		if(e.getEntity() instanceof EntityMob && e.getSource().damageType == "player"){
+			EntityPlayer player = (EntityPlayer) e.getSource().getEntity();
+			if(!player.worldObj.isRemote){
+				GoetiaProvider.get(player).addPurity(player, 1);
+			}
+			
+		}
+		if(e.getEntity() instanceof EntityAnimal && e.getSource().damageType == "player"){
+			EntityPlayer player = (EntityPlayer) e.getSource().getEntity();
+			if(!player.worldObj.isRemote){
+				GoetiaProvider.get(player).addImpurity(player, 1);
+			}
+		}
+	}
+	
 
 	@SubscribeEvent
 	public void entityHurt(LivingHurtEvent evt){
@@ -177,10 +268,9 @@ public class EventManager
 				}
 			}
 			
-			if(player.getEntityData().hasKey(LibMain.LibNBT.inner_fire_tag)){
+			if(player.getEntityData().hasKey(LibMain.LibNBT.inner_firegrace_tag)){
 				float amount = evt.getAmount();
 				float newAmount = amount + evt.getAmount() * 0.4F;
-				System.out.println(amount + "  " + newAmount);
 				evt.setAmount(newAmount);
 			}
 		}
@@ -189,7 +279,7 @@ public class EventManager
 	@SubscribeEvent
 	public void onPlayerRespawn(PlayerEvent.Clone event){
 		if (event.isWasDeath()){
-			event.getEntityPlayer().getCapability(ImpurityProvider.impurityCapability, null).setImpurity(event.getEntityPlayer(), event.getOriginal().getCapability(ImpurityProvider.impurityCapability, null).getImpurity());
+			event.getEntityPlayer().getCapability(GoetiaProvider.goetiaCapability, null).setImpurity(event.getEntityPlayer(), event.getOriginal().getCapability(GoetiaProvider.goetiaCapability, null).getImpurity());
 			event.getEntityPlayer().getCapability(KnowledgeProvider.knowledgeCapability, null).setKnowledgeWithNotify(event.getEntityPlayer(), event.getOriginal().getCapability(KnowledgeProvider.knowledgeCapability, null).getKnowledge());
 		}
 	}

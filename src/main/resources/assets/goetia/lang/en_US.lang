@@ -8,7 +8,12 @@ item.demonHornSpear.name=Demon Horn Spear
 item.demonicChalk.name=Demonic Chalk
 item.impTallow.name=Imp Tallow
 item.soulFocus.name=Soul Focus
-item.lostNotes.name=Lost Scroll
+item.lostNotes.0.name=Lost Scroll
+item.lostNotes.1.name=Lost Scroll
+item.lostNotes.2.name=Lost Scroll
+item.lostNotes.3.name=Lost Scroll
+item.lostNotes.4.name=Lost Scroll
+item.lostNotes.5.name=Lost Scroll
 
 entity.goetia.imp.name=Imp
 entity.goetia.fiend.name=Fiend
@@ -31,6 +36,7 @@ goetia.tooltip.symbol=Symbol:
 goetia.tooltip.levelcost=XP Cost: 
 goetia.tooltip.levelcost2= Levels
 goetia.tooltip.impurity=Impurity: 
+goetia.tooltip.purity=Purity: 
 goetia.tooltip.spell=Spell: 
 goetia.tooltip.spellSteps=Steps: 
 

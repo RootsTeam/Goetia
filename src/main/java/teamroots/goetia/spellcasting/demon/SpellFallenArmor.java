@@ -1,15 +1,18 @@
-package teamroots.goetia.spellcasting;
+package teamroots.goetia.spellcasting.demon;
 
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
 import teamroots.goetia.lib.LibMain;
+import teamroots.goetia.spellcasting.CastSpell;
+import teamroots.goetia.spellcasting.AlignmentType;
 
-public class SpellRebuke extends CastSpell{
+public class SpellFallenArmor extends CastSpell{
 
-	public SpellRebuke() {
-		super("rebuke", 73, new int[]{5,2,4,6,2}, new ItemStack(Items.BOW));
+	public SpellFallenArmor() {
+		super("fallenArmor", 138, new int[]{4,6,2,4,5,3,4}, new ItemStack(Items.CHAINMAIL_CHESTPLATE), AlignmentType.DEMON);
 	}
 	
 	@Override
@@ -25,6 +28,6 @@ public class SpellRebuke extends CastSpell{
 			}
 			caster.getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, caster.posX+offX, caster.posY+caster.getEyeHeight()/2.0, caster.posZ+offZ, 0, 0.015*random.nextFloat(), 0, 0);
 		}
-		caster.getEntityData().setInteger(LibMain.LibNBT.rebuke_tag, 600);
+		caster.getEntityData().setInteger(LibMain.LibNBT.fallen_armor_tag, 600);
 	}
 }

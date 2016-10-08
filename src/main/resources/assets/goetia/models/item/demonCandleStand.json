@@ -2,8 +2,8 @@
     "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
     "parent":"block/block",
     "textures": {
-        "0": "goetia:blocks/candle",
-        "particle": "goetia:blocks/candle"
+        "0": "goetia:blocks/demonCandle",
+        "particle": "goetia:blocks/demonCandle"
     },
     "elements": [
         {

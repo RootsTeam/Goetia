@@ -2,6 +2,18 @@ package teamroots.goetia.spellcasting;
 
 import java.util.ArrayList;
 
+import teamroots.goetia.spellcasting.angel.SpellAngelicGrowth;
+import teamroots.goetia.spellcasting.angel.SpellAngelicWings;
+import teamroots.goetia.spellcasting.angel.SpellInnerGrace;
+import teamroots.goetia.spellcasting.demon.SpellBurningTouch;
+import teamroots.goetia.spellcasting.demon.SpellChainedStrikes;
+import teamroots.goetia.spellcasting.demon.SpellEbonWings;
+import teamroots.goetia.spellcasting.demon.SpellFallenArmor;
+import teamroots.goetia.spellcasting.demon.SpellFireball;
+import teamroots.goetia.spellcasting.demon.SpellInnerFire;
+import teamroots.goetia.spellcasting.demon.SpellRebuke;
+import teamroots.goetia.spellcasting.demon.SpellVoraciousStrike;
+
 /**
  * Created by TeamRoots on 5.8.2016.
  */
@@ -11,6 +23,7 @@ public class SpellRegistry
 
     public static void register()
     {
+    	//DEMON
     	addSpell(new SpellBurningTouch());
     	addSpell(new SpellFireball());
     	addSpell(new SpellRebuke());
@@ -20,6 +33,11 @@ public class SpellRegistry
     	addSpell(new SpellEbonWings());
     	addSpell(new SpellVoraciousStrike());
     	addSpell(new SpellInnerFire());
+    	
+    	//ANGEL
+    	addSpell(new SpellInnerGrace());
+    	addSpell(new SpellAngelicWings());
+    	addSpell(new SpellAngelicGrowth());
     }
 
     public static void addSpell(CastSpell castSpell)

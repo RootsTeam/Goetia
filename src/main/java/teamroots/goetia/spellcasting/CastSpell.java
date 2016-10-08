@@ -12,19 +12,21 @@ import net.minecraft.item.ItemStack;
  */
 public class CastSpell
 {
-	Random random = new Random();
+	protected Random random = new Random();
 	public String name;
-	public int impurity;
+	public int cost;
 	public ItemStack icon;
 	public List<Integer> shape = new ArrayList<Integer>();
+	public AlignmentType type;
 	
-	public CastSpell(String name, int impurity, int[] parShape, ItemStack icon){
+	public CastSpell(String name, int impurity, int[] parShape, ItemStack icon, AlignmentType type){
 		this.name = name;
-		this.impurity = impurity;
+		this.cost = impurity;
 		this.icon = icon;
 		for (int i = 0; i < parShape.length; i ++){
 			this.shape.add(parShape[i]);
 		}
+		this.type = type;
 	}
 	
 	public void doEffect(EntityPlayer caster){

@@ -1,4 +1,4 @@
-package teamroots.goetia.spellcasting;
+package teamroots.goetia.spellcasting.demon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,8 @@ import net.minecraft.entity.projectile.EntitySmallFireball;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Vec3d;
+import teamroots.goetia.spellcasting.CastSpell;
+import teamroots.goetia.spellcasting.AlignmentType;
 
 /**
  * Created by TeamRoots on 5.8.2016.
@@ -17,7 +19,7 @@ public class SpellFireball extends CastSpell
 {
 	
 	public SpellFireball(){
-		super("fireball",47,new int[]{6,4,2},new ItemStack(Items.FIRE_CHARGE));
+		super("fireball",47,new int[]{6,4,2},new ItemStack(Items.FIRE_CHARGE), AlignmentType.DEMON);
 	}
 	
 	@Override

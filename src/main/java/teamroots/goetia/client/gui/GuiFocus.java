@@ -13,23 +13,14 @@ import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
-import teamroots.goetia.capability.impurity.ImpurityProvider;
-import teamroots.goetia.capability.impurity.KnowledgeProvider;
-import teamroots.goetia.common.items.ItemSymbolIcon;
-import teamroots.goetia.common.network.ChalkUpdateMessage;
+import teamroots.goetia.capability.impurity.GoetiaProvider;
 import teamroots.goetia.common.network.FocusCastMessage;
 import teamroots.goetia.common.network.GoetiaPacketHandler;
-import teamroots.goetia.common.symbol.SymbolManager;
-import teamroots.goetia.registry.MainRegistry;
+import teamroots.goetia.lib.LibMain;
 import teamroots.goetia.spellcasting.CastSpell;
 import teamroots.goetia.spellcasting.SpellRegistry;
+import teamroots.goetia.spellcasting.AlignmentType;
 
 public class GuiFocus extends GuiScreen{
 	EntityPlayer player = null;
@@ -72,6 +63,7 @@ public class GuiFocus extends GuiScreen{
 						}
 					}
 					if (doesMatch){
+						System.out.println(validSpells.get(i).name);
 						validSpells.get(i).doEffect(player);
 						GoetiaPacketHandler.INSTANCE.sendToServer(new FocusCastMessage(validSpells.get(i).name,player));
 						this.mc.displayGuiScreen(null);
@@ -109,8 +101,16 @@ public class GuiFocus extends GuiScreen{
         vertexbuffer.pos((double)(x1 + 0.0F), (double)(y1 + 0.0F), (double)this.zLevel).tex((double)((float)(minU + 0) * f), (double)((float)(minV + 0) * f1)).color(r1, g1, b1, a1).endVertex();
     }
 	
+	public void onGuiClosed(){
+		validSpells.clear();
+	}
+	
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks){
+		float r;
+		float g;
+		float b;
+		
 		lifetime += 10.0f;
 		RenderHelper.disableStandardItemLighting();
 		RenderHelper.enableGUIStandardItemLighting();
@@ -118,13 +118,28 @@ public class GuiFocus extends GuiScreen{
 		
 		if (!tracking){
 			Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("goetia:textures/gui/guiSlot.png"));
-			String text = I18n.format("goetia.tooltip.impurity") + player.getCapability(ImpurityProvider.impurityCapability, null).getImpurity();
-			this.fontRendererObj.drawStringWithShadow(text, (int)width/2-this.fontRendererObj.getStringWidth(text)/2, (int)height/2-this.fontRendererObj.FONT_HEIGHT/2+24, 0xFF4444);
+			if(GoetiaProvider.get(player).isDemon()){
+				//DEMONS
+				String text = I18n.format("goetia.tooltip.impurity") + player.getCapability(GoetiaProvider.goetiaCapability, null).getImpurity();
+				this.fontRendererObj.drawStringWithShadow(text, (int)width/2-this.fontRendererObj.getStringWidth(text)/2, (int)height/2-this.fontRendererObj.FONT_HEIGHT/2+24, LibMain.LibColors.demon_color);
+			} else {
+				//ANGELS
+				String text = I18n.format("goetia.tooltip.purity") + player.getCapability(GoetiaProvider.goetiaCapability, null).getPurity();
+				this.fontRendererObj.drawStringWithShadow(text, (int)width/2-this.fontRendererObj.getStringWidth(text)/2, (int)height/2-this.fontRendererObj.FONT_HEIGHT/2+24, LibMain.LibColors.angel_color);
+			}
 		}
 		
 		for (int i = 0; i < SpellRegistry.spells.size(); i ++){
-			if (SpellRegistry.spells.get(i).impurity <= ImpurityProvider.get(player).getImpurity()){
-				validSpells.add(SpellRegistry.spells.get(i));
+			if(GoetiaProvider.get(player).isDemon()){
+				//DEMONS
+				if (SpellRegistry.spells.get(i).cost <= GoetiaProvider.get(player).getImpurity() && SpellRegistry.spells.get(i).type == AlignmentType.DEMON){
+					validSpells.add(SpellRegistry.spells.get(i));
+				}
+			} else {
+				//ANGELS
+				if (SpellRegistry.spells.get(i).cost <= GoetiaProvider.get(player).getPurity() && SpellRegistry.spells.get(i).type == AlignmentType.ANGEL){
+					validSpells.add(SpellRegistry.spells.get(i));
+				}
 			}
 		}
 		
@@ -155,6 +170,16 @@ public class GuiFocus extends GuiScreen{
 			VertexBuffer buff = tess.getBuffer();
 			Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("goetia:textures/gui/guiWhite.png"));
 			buff.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_TEX_COLOR);
+			if(player.getCapability(GoetiaProvider.goetiaCapability, null).getImpurity() > player.getCapability(GoetiaProvider.goetiaCapability, null).getPurity()){
+				r = 1.0F;
+				g = 0.0F;
+				b = 0.0F;
+			} else {
+				r = 0.0F;
+				g = 0.0F;
+				b = 1.0F;
+			}
+			
 			for (int i = 0; i < steps.size()-1; i ++){
 				float fract = ((float)steps.get(i))/((float)6);
 				float xPos = width/2.0f + 80f*(float)Math.cos(fract*2.0f*Math.PI-(Math.PI/2.0f));
@@ -162,13 +187,13 @@ public class GuiFocus extends GuiScreen{
 				fract = ((float)steps.get(i+1))/((float)6);
 				float xPos2 = width/2.0f + 80f*(float)Math.cos(fract*2.0f*Math.PI-(Math.PI/2.0f));
 				float yPos2 = height/2.0f+ 80f*(float)Math.sin(fract*2.0f*Math.PI-(Math.PI/2.0f));
-				drawLine(buff, xPos, yPos, (xPos+xPos2)/2.0f, (yPos+yPos2)/2.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f);
-				drawLine(buff, xPos2, yPos2, (xPos+xPos2)/2.0f, (yPos+yPos2)/2.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f);
+				drawLine(buff, xPos, yPos, (xPos+xPos2)/2.0f, (yPos+yPos2)/2.0f, r, g, b, 1.0f, r, g, b, 1.0f);
+				drawLine(buff, xPos2, yPos2, (xPos+xPos2)/2.0f, (yPos+yPos2)/2.0f, r, g, b, 1.0f, r, g, b, 1.0f);
 			}
 			float tfract = ((float)steps.get(steps.size()-1))/((float)6);
 			float txPos = width/2.0f + 80f*(float)Math.cos(tfract*2.0f*Math.PI-(Math.PI/2.0f));
 			float tyPos = height/2.0f+ 80f*(float)Math.sin(tfract*2.0f*Math.PI-(Math.PI/2.0f));
-			drawLine(buff, txPos, tyPos, (mouseX), (mouseY), 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f);
+			drawLine(buff, txPos, tyPos, (mouseX), (mouseY), r, g, b, 1.0f, r, g, b, 1.0f);
 			tess.draw();
 			buff.reset();
 			GlStateManager.glLineWidth(18.0f);
@@ -180,13 +205,13 @@ public class GuiFocus extends GuiScreen{
 				fract = ((float)steps.get(i+1))/((float)6);
 				float xPos2 = width/2.0f + 80f*(float)Math.cos(fract*2.0f*Math.PI-(Math.PI/2.0f));
 				float yPos2 = height/2.0f+ 80f*(float)Math.sin(fract*2.0f*Math.PI-(Math.PI/2.0f));
-				drawLine(buff, xPos, yPos, (xPos+xPos2)/2.0f, (yPos+yPos2)/2.0f, 1.0f, 0.0f, 0.0f, 0.5f, 1.0f, 0.0f, 0.0f, 0.5f);
-				drawLine(buff, xPos2, yPos2, (xPos+xPos2)/2.0f, (yPos+yPos2)/2.0f, 1.0f, 0.0f, 0.0f, 0.5f, 1.0f, 0.0f, 0.0f, 0.5f);
+				drawLine(buff, xPos, yPos, (xPos+xPos2)/2.0f, (yPos+yPos2)/2.0f, r, g, b, 0.5f, r, g, b, 0.5f);
+				drawLine(buff, xPos2, yPos2, (xPos+xPos2)/2.0f, (yPos+yPos2)/2.0f, r, g, b, 0.5f, r, g, b, 0.5f);
 			}
 			tfract = ((float)steps.get(steps.size()-1))/((float)6);
 			txPos = width/2.0f + 80f*(float)Math.cos(tfract*2.0f*Math.PI-(Math.PI/2.0f));
 			tyPos = height/2.0f+ 80f*(float)Math.sin(tfract*2.0f*Math.PI-(Math.PI/2.0f));
-			drawLine(buff, txPos, tyPos, (mouseX), (mouseY), 1.0f, 0.0f, 0.0f, 0.5f, 1.0f, 0.0f, 0.0f, 0.5f);
+			drawLine(buff, txPos, tyPos, (mouseX), (mouseY), r, g, b, 0.5f, r, g, b, 0.5f);
 			tess.draw();
 			
 			for (int i = 0; i < 6; i ++){
@@ -206,7 +231,11 @@ public class GuiFocus extends GuiScreen{
 				GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
 				GlStateManager.translate(xPos, yPos, 0);
 				GlStateManager.rotate(lifetime, 0, 0, 1);
-				this.drawTexturedModalRect(-16, -16, 128, 0, 32, 32);
+				if(player.getCapability(GoetiaProvider.goetiaCapability, null).getImpurity() > player.getCapability(GoetiaProvider.goetiaCapability, null).getPurity()){
+					this.drawTexturedModalRect(-16, -16, 128, 0, 32, 32);
+				} else {
+					this.drawTexturedModalRect(-16, -16, 128, 32, 32, 32);
+				}
 				GlStateManager.rotate(-lifetime, 0, 0, 1);
 				GlStateManager.translate(-xPos, -yPos, 0);
 			}

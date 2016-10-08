@@ -1,15 +1,17 @@
-package teamroots.goetia.spellcasting;
+package teamroots.goetia.spellcasting.demon;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
 import teamroots.goetia.lib.LibMain;
+import teamroots.goetia.spellcasting.CastSpell;
+import teamroots.goetia.spellcasting.AlignmentType;
 
 public class SpellBurningTouch extends CastSpell{
 
 	public SpellBurningTouch() {
-		super("burningTouch", 30, new int[]{1,6,3,4}, new ItemStack(Items.BLAZE_POWDER));
+		super("burningTouch", 30, new int[]{1,6,3,4}, new ItemStack(Items.BLAZE_POWDER), AlignmentType.DEMON);
 	}
 	
 	@Override
