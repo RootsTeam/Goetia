@@ -7,7 +7,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import teamroots.goetia.Goetia;
-import teamroots.goetia.registry.MainRegistry;
+import teamroots.goetia.MainRegistry;
 
 /**
  * Created by TeamRoots on 4.8.2016.

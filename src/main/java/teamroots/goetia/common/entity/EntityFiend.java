@@ -22,9 +22,9 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import teamroots.goetia.capability.impurity.GoetiaProvider;
+import teamroots.goetia.MainRegistry;
+import teamroots.goetia.capability.capabilites.GoetiaProvider;
 import teamroots.goetia.common.util.Utils;
-import teamroots.goetia.registry.MainRegistry;
 
 public class EntityFiend extends EntityMob implements IDemonic {
     public static final DataParameter<Boolean> trapped = EntityDataManager.<Boolean>createKey(EntityFiend.class, DataSerializers.BOOLEAN);

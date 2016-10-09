@@ -26,7 +26,7 @@ import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraftforge.common.MinecraftForge;
 import teamroots.goetia.Goetia;
-import teamroots.goetia.capability.impurity.KnowledgeProvider;
+import teamroots.goetia.capability.capabilites.KnowledgeProvider;
 import teamroots.goetia.common.symbol.SymbolManager;
 import teamroots.goetia.lib.EnumIDs;
 

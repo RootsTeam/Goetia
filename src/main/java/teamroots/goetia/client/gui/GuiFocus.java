@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import teamroots.goetia.capability.impurity.GoetiaProvider;
+import teamroots.goetia.capability.capabilites.GoetiaProvider;
 import teamroots.goetia.common.network.FocusCastMessage;
 import teamroots.goetia.common.network.GoetiaPacketHandler;
 import teamroots.goetia.lib.LibMain;
@@ -118,7 +118,7 @@ public class GuiFocus extends GuiScreen{
 		
 		if (!tracking){
 			Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("goetia:textures/gui/guiSlot.png"));
-			if(GoetiaProvider.get(player).isDemon()){
+			if(GoetiaProvider.get(player).isMoreImpure()){
 				//DEMONS
 				String text = I18n.format("goetia.tooltip.impurity") + player.getCapability(GoetiaProvider.goetiaCapability, null).getImpurity();
 				this.fontRendererObj.drawStringWithShadow(text, (int)width/2-this.fontRendererObj.getStringWidth(text)/2, (int)height/2-this.fontRendererObj.FONT_HEIGHT/2+24, LibMain.LibColors.demon_color);
@@ -130,7 +130,7 @@ public class GuiFocus extends GuiScreen{
 		}
 		
 		for (int i = 0; i < SpellRegistry.spells.size(); i ++){
-			if(GoetiaProvider.get(player).isDemon()){
+			if(GoetiaProvider.get(player).isMoreImpure()){
 				//DEMONS
 				if (SpellRegistry.spells.get(i).cost <= GoetiaProvider.get(player).getImpurity() && SpellRegistry.spells.get(i).type == AlignmentType.DEMON){
 					validSpells.add(SpellRegistry.spells.get(i));

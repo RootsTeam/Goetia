@@ -13,10 +13,10 @@ import java.io.File;
 public class ConfigHandler
 {
     public static Configuration config;
-
-    public static boolean testBoolean;
-
-    public static int manaBarOffset;
+    
+    public static int alignmentBarPosX;
+    public static int alignmentBarPosY;
+    public static int alignmentThreshold;
 
     public static void init(File configFile)
     {
@@ -29,9 +29,9 @@ public class ConfigHandler
 
     public static void loadConfigs()
     {
-        testBoolean = config.getBoolean("Are we awesome?",Configuration.CATEGORY_GENERAL,false,"No comment m8!");
-
-        manaBarOffset = config.getInt("manaBarOffset", Configuration.CATEGORY_GENERAL, 59, 0, 32767, "The number of pixels above the bottom of the screen that the mana bar should be rendered. If it's conflicting with a bar from another mod, raising it by 10 will normally position it right.");
+        alignmentBarPosX = config.getInt("alignmentIconOffsetX", Configuration.CATEGORY_GENERAL, 425, 0, 32767, "The alignment icons x offset");
+        alignmentBarPosY = config.getInt("alignmentIconOffsetY", Configuration.CATEGORY_GENERAL, 20, 0, 32767, "The alignment icons y offset");
+        alignmentThreshold = config.getInt("alignmentThreshold", Configuration.CATEGORY_GENERAL, 1000, 0, Integer.MAX_VALUE, "How much impurity/purity you must have before becoming a demon/angel");
 
 
         if (config.hasChanged())
@@ -41,7 +41,7 @@ public class ConfigHandler
     }
 
     @SubscribeEvent
-    public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)
+    public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)
     {
         if(event.getModID().equalsIgnoreCase(LibMain.LibCore.MOD_ID))
         {

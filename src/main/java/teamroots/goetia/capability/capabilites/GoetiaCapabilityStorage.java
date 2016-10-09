@@ -1,4 +1,4 @@
-package teamroots.goetia.capability.impurity;
+package teamroots.goetia.capability.capabilites;
 
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;

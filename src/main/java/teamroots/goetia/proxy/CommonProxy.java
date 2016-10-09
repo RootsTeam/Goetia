@@ -1,26 +1,24 @@
 package teamroots.goetia.proxy;
 
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import teamroots.goetia.Goetia;
-import teamroots.goetia.capability.GoetiaCapabilityManager;
-import teamroots.goetia.common.EventManager;
-import teamroots.goetia.client.GuiHandler;
-import teamroots.goetia.common.EventManager;
-import teamroots.goetia.common.network.GoetiaPacketHandler;
-import teamroots.goetia.common.symbol.SymbolManager;
-import teamroots.goetia.common.util.handler.ConfigHandler;
-import teamroots.goetia.lib.LibMain;
-import teamroots.goetia.registry.MainRegistry;
-import teamroots.goetia.spellcasting.SpellRegistry;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-
-import java.beans.EventHandler;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import teamroots.goetia.Goetia;
+import teamroots.goetia.MainRegistry;
+import teamroots.goetia.capability.GoetiaCapabilityManager;
+import teamroots.goetia.client.GuiHandler;
+import teamroots.goetia.common.AngelEventHandler;
+import teamroots.goetia.common.DemonEventHandler;
+import teamroots.goetia.common.GeneralEventHandler;
+import teamroots.goetia.common.network.GoetiaPacketHandler;
+import teamroots.goetia.common.symbol.SymbolManager;
+import teamroots.goetia.common.util.handler.ConfigHandler;
+import teamroots.goetia.lib.LibMain;
+import teamroots.goetia.spellcasting.SpellRegistry;
 
 /**
  * Created by TeamRoots on 4.8.2016.
@@ -56,6 +54,8 @@ public abstract class CommonProxy implements IProxy
     {
         MinecraftForge.EVENT_BUS.register(new ConfigHandler());
         MinecraftForge.EVENT_BUS.register(new GoetiaCapabilityManager());
-        MinecraftForge.EVENT_BUS.register(new EventManager());
+        MinecraftForge.EVENT_BUS.register(new GeneralEventHandler());
+        MinecraftForge.EVENT_BUS.register(new DemonEventHandler());
+        MinecraftForge.EVENT_BUS.register(new AngelEventHandler());
     }
 }

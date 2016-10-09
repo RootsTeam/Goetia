@@ -1,4 +1,4 @@
-package teamroots.goetia.registry;
+package teamroots.goetia;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +15,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
-import teamroots.goetia.Goetia;
 import teamroots.goetia.client.model.ModelManager;
 import teamroots.goetia.common.blocks.BlockAltar;
 import teamroots.goetia.common.blocks.BlockBase;
 import teamroots.goetia.common.blocks.BlockCandle;
 import teamroots.goetia.common.blocks.BlockCandleStand;
+import teamroots.goetia.common.blocks.BlockLostNote;
 import teamroots.goetia.common.entity.EntityBloodProjectile;
 import teamroots.goetia.common.entity.EntityDemon;
 import teamroots.goetia.common.entity.EntityFiend;
@@ -66,6 +66,8 @@ public class MainRegistry
     
     public static BlockBase angelCandle = new BlockCandle("angelCandle",Material.CLOTH);
     public static BlockBase angelCandleStand = new BlockCandleStand("angelCandleStand",Material.CLOTH);
+    
+    public static BlockBase blockLostNote = new BlockLostNote("blockLostNote",Material.CLOTH);
 
     public static ItemBase demonHorn = new ItemDemonHorn("demonHorn");
     public static ItemBase impTallow = new ItemBase("impTallow");

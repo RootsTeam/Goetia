@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import teamroots.goetia.capability.impurity.GoetiaProvider;
+import teamroots.goetia.capability.capabilites.GoetiaProvider;
 import teamroots.goetia.client.model.ModelHorns;
 import teamroots.goetia.spellcasting.AlignmentType;
 

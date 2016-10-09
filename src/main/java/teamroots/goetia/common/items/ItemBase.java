@@ -10,8 +10,8 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import teamroots.goetia.Goetia;
+import teamroots.goetia.MainRegistry;
 import teamroots.goetia.lib.LibMain;
-import teamroots.goetia.registry.MainRegistry;
 
 import java.util.List;
 

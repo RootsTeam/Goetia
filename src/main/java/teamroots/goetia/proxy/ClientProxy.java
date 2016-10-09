@@ -1,7 +1,7 @@
 package teamroots.goetia.proxy;
 
+import teamroots.goetia.MainRegistry;
 import teamroots.goetia.client.model.ModelManager;
-import teamroots.goetia.registry.MainRegistry;
 import teamroots.goetia.renderlayers.LayerHalo;
 import teamroots.goetia.renderlayers.LayerHorns;
 import net.minecraft.client.Minecraft;

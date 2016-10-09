@@ -1,5 +1,6 @@
 package teamroots.goetia.common.items;
 
+import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -7,7 +8,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import teamroots.goetia.Goetia;
-import teamroots.goetia.capability.impurity.GoetiaProvider;
+import teamroots.goetia.capability.capabilites.GoetiaProvider;
 import teamroots.goetia.lib.EnumIDs;
 
 /**

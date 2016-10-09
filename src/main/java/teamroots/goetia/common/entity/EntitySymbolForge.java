@@ -19,8 +19,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
+import teamroots.goetia.MainRegistry;
 import teamroots.goetia.common.symbol.SymbolManager;
-import teamroots.goetia.registry.MainRegistry;
 
 public class EntitySymbolForge extends EntityFlying implements ISymbol {
     public static DataParameter<Boolean> activated = EntityDataManager.<Boolean>createKey(EntitySymbolForge.class, DataSerializers.BOOLEAN);

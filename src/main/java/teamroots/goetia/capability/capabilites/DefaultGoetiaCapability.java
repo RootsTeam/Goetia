@@ -1,4 +1,4 @@
-package teamroots.goetia.capability.impurity;
+package teamroots.goetia.capability.capabilites;
 
 import net.minecraft.entity.EntityTracker;
 import net.minecraft.entity.player.EntityPlayer;
@@ -7,6 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.WorldServer;
 import teamroots.goetia.common.network.GoetiaPacketHandler;
 import teamroots.goetia.common.network.ImpurityUpdateMessage;
+import teamroots.goetia.common.util.handler.ConfigHandler;
 import teamroots.goetia.spellcasting.AlignmentType;
 
 /**
@@ -14,11 +15,11 @@ import teamroots.goetia.spellcasting.AlignmentType;
  */
 public class DefaultGoetiaCapability implements IGoetiaCapability
 {
-	private int thresh = 1000;
+	private int thresh = ConfigHandler.alignmentThreshold;
 	
     public int impurity = 0;
     public int purity = 0;
-    public String spell = "";
+    
 
     @Override
     public int getImpurity() {
@@ -44,6 +45,12 @@ public class DefaultGoetiaCapability implements IGoetiaCapability
 	}
     
     @Override
+   	public void addImpurityRegardless(EntityPlayer player, int impurity) {
+       	this.impurity += impurity;
+       	dataChanged(player);
+   	}
+    
+    @Override
 	public int getPurity() {
 		return purity;
 	}
@@ -64,6 +71,12 @@ public class DefaultGoetiaCapability implements IGoetiaCapability
 			this.purity += purity;
 			dataChanged(player);
 		}
+	}
+	
+	@Override
+	public void addPurityRegardless(EntityPlayer player, int purity) {
+		this.purity += purity;
+		dataChanged(player);
 	}
 
     @Override
@@ -86,7 +99,7 @@ public class DefaultGoetiaCapability implements IGoetiaCapability
     }
 
 	@Override
-	public boolean isDemon() {
+	public boolean isMoreImpure() {
 		if(this.impurity > this.purity){
 			return true;
 		}

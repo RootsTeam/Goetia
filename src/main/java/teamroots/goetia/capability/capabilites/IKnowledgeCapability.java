@@ -1,4 +1,4 @@
-package teamroots.goetia.capability.impurity;
+package teamroots.goetia.capability.capabilites;
 
 import java.util.ArrayList;
 

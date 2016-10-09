@@ -6,7 +6,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
-import teamroots.goetia.capability.impurity.GoetiaProvider;
+import teamroots.goetia.capability.capabilites.GoetiaProvider;
 
 /**
  * Created by TeamRoots on 4.8.2016.

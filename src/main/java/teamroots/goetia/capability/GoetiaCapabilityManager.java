@@ -5,14 +5,14 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import teamroots.goetia.capability.impurity.DefaultGoetiaCapability;
-import teamroots.goetia.capability.impurity.DefaultKnowledgeCapability;
-import teamroots.goetia.capability.impurity.GoetiaCapabilityStorage;
-import teamroots.goetia.capability.impurity.GoetiaProvider;
-import teamroots.goetia.capability.impurity.IGoetiaCapability;
-import teamroots.goetia.capability.impurity.IKnowledgeCapability;
-import teamroots.goetia.capability.impurity.KnowledgeCapabilityStorage;
-import teamroots.goetia.capability.impurity.KnowledgeProvider;
+import teamroots.goetia.capability.capabilites.DefaultGoetiaCapability;
+import teamroots.goetia.capability.capabilites.DefaultKnowledgeCapability;
+import teamroots.goetia.capability.capabilites.GoetiaCapabilityStorage;
+import teamroots.goetia.capability.capabilites.GoetiaProvider;
+import teamroots.goetia.capability.capabilites.IGoetiaCapability;
+import teamroots.goetia.capability.capabilites.IKnowledgeCapability;
+import teamroots.goetia.capability.capabilites.KnowledgeCapabilityStorage;
+import teamroots.goetia.capability.capabilites.KnowledgeProvider;
 
 /**
  * Created by TeamRoots on 5.8.2016.

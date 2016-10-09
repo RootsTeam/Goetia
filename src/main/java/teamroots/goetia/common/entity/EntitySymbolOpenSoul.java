@@ -18,7 +18,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
-import teamroots.goetia.capability.impurity.GoetiaProvider;
+import teamroots.goetia.capability.capabilites.GoetiaProvider;
 import teamroots.goetia.common.symbol.SymbolManager;
 
 public class EntitySymbolOpenSoul extends EntityFlying implements ISymbol, IClickableSymbol {

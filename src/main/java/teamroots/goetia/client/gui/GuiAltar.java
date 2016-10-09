@@ -11,10 +11,10 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import teamroots.goetia.capability.impurity.GoetiaProvider;
+import teamroots.goetia.MainRegistry;
+import teamroots.goetia.capability.capabilites.GoetiaProvider;
 import teamroots.goetia.common.items.ItemSpellIcon;
 import teamroots.goetia.lib.LibMain;
-import teamroots.goetia.registry.MainRegistry;
 import teamroots.goetia.spellcasting.CastSpell;
 import teamroots.goetia.spellcasting.SpellRegistry;
 import teamroots.goetia.spellcasting.AlignmentType;
@@ -59,13 +59,6 @@ public class GuiAltar extends GuiScreen{
 		String selected = "null";
 		
 		Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("goetia:textures/gui/guiSlot.png"));
-		if(player.getCapability(GoetiaProvider.goetiaCapability, null).getImpurity() > player.getCapability(GoetiaProvider.goetiaCapability, null).getPurity()){
-			String text = I18n.format("goetia.tooltip.impurity") + player.getCapability(GoetiaProvider.goetiaCapability, null).getImpurity();
-			this.fontRendererObj.drawStringWithShadow(text, (int)width/2-this.fontRendererObj.getStringWidth(text)/2, (int)height/2-this.fontRendererObj.FONT_HEIGHT/2+24, LibMain.LibColors.demon_color);
-		} else {
-			String text = I18n.format("goetia.tooltip.purity") + player.getCapability(GoetiaProvider.goetiaCapability, null).getPurity();
-			this.fontRendererObj.drawStringWithShadow(text, (int)width/2-this.fontRendererObj.getStringWidth(text)/2, (int)height/2-this.fontRendererObj.FONT_HEIGHT/2+24, LibMain.LibColors.angel_color);
-		}
 		ArrayList<CastSpell> validSpells = new ArrayList<CastSpell>();
 		
 		for (int i = 0; i < SpellRegistry.spells.size(); i ++){
@@ -83,6 +76,9 @@ public class GuiAltar extends GuiScreen{
 		}
 		
 		this.validSpellSize = validSpells.size();
+		if(this.validSpellSize == 0){
+			this.fontRendererObj.drawStringWithShadow("You cannot use any spells!", (int)width/2-this.fontRendererObj.getStringWidth("You cannot use any spells!")/2, (int)height/2-this.fontRendererObj.FONT_HEIGHT/2+24, 0xFFFFFF);
+		}
 		
 		GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
 		Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("goetia:textures/gui/guiSlot.png"));

@@ -1,4 +1,4 @@
-package teamroots.goetia.capability.impurity;
+package teamroots.goetia.capability.capabilites;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -12,10 +12,12 @@ public interface IGoetiaCapability
     int getImpurity();
     void setImpurity(EntityPlayer player, int impurity);
     void addImpurity(EntityPlayer player, int impurity);
+    void addImpurityRegardless(EntityPlayer player, int impurity);
     int getPurity();
     void setPurity(EntityPlayer player, int purity);
     void addPurity(EntityPlayer player, int purity);
-    boolean isDemon();
+    void addPurityRegardless(EntityPlayer player, int purity);
+    boolean isMoreImpure();
     AlignmentType getAlignment();
     NBTTagCompound saveData();
     void loadNBTData(NBTTagCompound tagCompound);

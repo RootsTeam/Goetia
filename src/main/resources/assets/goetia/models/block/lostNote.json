@@ -1,0 +1,17 @@
+{
+"parent":"block/block",
+"textures": {
+    "texture": "goetia:items/lostNotes"
+},
+"elements": [ 
+{
+    "__comment": "Plane",
+    "from": [ 1, 0.1, 2 ],
+    "to": [ 15, 0.2, 14 ],
+    "faces": {
+        "down":  { "uv": [ 1, 14, 15, 2 ], "texture":"#texture"},
+        "up":    { "uv": [ 1, 2, 15, 14 ], "texture":"#texture"}
+    }
+}
+]
+}

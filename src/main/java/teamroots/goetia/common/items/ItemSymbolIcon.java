@@ -13,7 +13,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import teamroots.goetia.Goetia;
-import teamroots.goetia.capability.impurity.KnowledgeProvider;
+import teamroots.goetia.capability.capabilites.KnowledgeProvider;
 import teamroots.goetia.common.symbol.SymbolManager;
 import teamroots.goetia.lib.EnumIDs;
 

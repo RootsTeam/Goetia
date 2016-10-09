@@ -18,12 +18,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
-import teamroots.goetia.capability.impurity.KnowledgeProvider;
+import teamroots.goetia.MainRegistry;
+import teamroots.goetia.capability.capabilites.KnowledgeProvider;
 import teamroots.goetia.common.items.ItemSymbolIcon;
 import teamroots.goetia.common.network.ChalkUpdateMessage;
 import teamroots.goetia.common.network.GoetiaPacketHandler;
 import teamroots.goetia.common.symbol.SymbolManager;
-import teamroots.goetia.registry.MainRegistry;
 
 public class GuiChalk extends GuiScreen{
 	ItemStack chalkItem = null;
