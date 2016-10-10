@@ -99,11 +99,11 @@ public class DefaultGoetiaCapability implements IGoetiaCapability
     }
 
 	@Override
-	public boolean isMoreImpure() {
+	public AlignmentType getAligningTowards() {
 		if(this.impurity > this.purity){
-			return true;
+			return AlignmentType.DEMON;
 		}
-		return false;
+		return AlignmentType.ANGEL;
 	}
 
 	@Override

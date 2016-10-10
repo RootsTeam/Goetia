@@ -24,7 +24,7 @@ public class DemonEventHandler {
 	public void livingTickEvent(LivingUpdateEvent event){
 		if (event.getEntityLiving() instanceof EntityPlayer){
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-			if(GoetiaProvider.get(player).isMoreImpure()){
+			if(GoetiaProvider.get(player).getAligningTowards() == AlignmentType.DEMON){
 				
 				if (player.getEntityData().hasKey(LibMain.LibNBT.wings_tag) && !player.onGround){
 					for (float i = 0; i < 360; i += 45.0f+45.0f*random.nextFloat()){

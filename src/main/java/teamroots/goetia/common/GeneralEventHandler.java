@@ -141,13 +141,12 @@ public class GeneralEventHandler
 			
 			int offsetX = ConfigHandler.alignmentBarPosX;
 			int offsetY = ConfigHandler.alignmentBarPosY;
-			if(GoetiaProvider.get(player).isMoreImpure()){
+			if(GoetiaProvider.get(player).getAligningTowards() == AlignmentType.DEMON){
 				Gui.drawModalRectWithCustomSizedTexture(e.getResolution().getScaledWidth() - offsetX, e.getResolution().getScaledHeight() - offsetY, 0, 0, 20, 20, 256, 256);
-				Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(Integer.toString(GoetiaProvider.get(player).getImpurity()), (w - offsetX) + 20, (h - offsetY) + 8, LibMain.LibColors.demon_color);
 			} else {
 				Gui.drawModalRectWithCustomSizedTexture(e.getResolution().getScaledWidth() - offsetX, e.getResolution().getScaledHeight() - offsetY, 21, 0, 20, 20, 256, 256);
-				Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(Integer.toString(GoetiaProvider.get(player).getPurity()), (w - offsetX) + 20, (h - offsetY) + 8, LibMain.LibColors.angel_color);
 			}
+			Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(Integer.toString(GoetiaProvider.get(player).getImpurity()), (w - offsetX) + 20, (h - offsetY) + 8, GoetiaProvider.get(player).getAligningTowards().color);
 			
 			GlStateManager.pushMatrix();
 		}

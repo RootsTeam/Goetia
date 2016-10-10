@@ -1,14 +1,12 @@
 package teamroots.goetia.common.items;
 
-import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.renderer.block.model.ModelBakery;
+import java.util.List;
+
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
@@ -21,15 +19,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import teamroots.goetia.Goetia;
 import teamroots.goetia.MainRegistry;
 import teamroots.goetia.capability.capabilites.KnowledgeProvider;
 import teamroots.goetia.common.blocks.BlockLostNote;
-import teamroots.goetia.lib.EnumIDs;
+import teamroots.goetia.common.tiles.TileEntityScroll;
 import teamroots.goetia.lib.LibMain;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by TeamRoots on 4.8.2016.
@@ -61,6 +55,9 @@ public class ItemNote extends ItemBase
     {
     	if(playerIn.isSneaking()){
     		worldIn.setBlockState(pos.up(), MainRegistry.blockLostNote.getDefaultState().withProperty(BlockLostNote.FACING, playerIn.getHorizontalFacing().getOpposite()), 2);
+    		TileEntityScroll tes = (TileEntityScroll)worldIn.getTileEntity(pos.up());
+    		tes.setKnowledge(stack.getTagCompound().getString("knowledge"));
+    		stack.stackSize--;
     		return EnumActionResult.PASS;
     	}
     	return EnumActionResult.FAIL;
@@ -72,9 +69,6 @@ public class ItemNote extends ItemBase
     		stack.setTagCompound(new NBTTagCompound());
     		stack.getTagCompound().setString("knowledge", LibMain.LibKnowledge.validKnowledge[(itemRand.nextInt(LibMain.LibKnowledge.validKnowledge.length))]);
     	}
-    	else {
-    		stack.getTagCompound().setString("knowledge", LibMain.LibKnowledge.validKnowledge[stack.getItemDamage()]);
-    	}
     }
     
     @Override
@@ -82,8 +76,12 @@ public class ItemNote extends ItemBase
     	if (!stack.hasTagCompound()){
     		stack.setTagCompound(new NBTTagCompound());
     	}
-    	stack.getTagCompound().setString("knowledge", LibMain.LibKnowledge.validKnowledge[stack.getItemDamage()]);
-    	tooltip.add(TextFormatting.DARK_RED+"Knowledge: "+I18n.format("goetia.knowledge."+stack.getTagCompound().getString("knowledge")));
+    	
+    	NBTTagCompound tag = stack.getTagCompound();
+    	if(!tag.hasKey("knowledge")){
+    		tag.setString("knowledge", LibMain.LibKnowledge.validKnowledge[stack.getItemDamage()]);
+    	}
+    	tooltip.add(TextFormatting.DARK_RED+"Knowledge: "+I18n.format("goetia.knowledge."+tag.getString("knowledge")));
     }
     
     @SideOnly(Side.CLIENT)

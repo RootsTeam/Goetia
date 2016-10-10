@@ -118,19 +118,19 @@ public class GuiFocus extends GuiScreen{
 		
 		if (!tracking){
 			Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("goetia:textures/gui/guiSlot.png"));
-			if(GoetiaProvider.get(player).isMoreImpure()){
+			String text;
+			if(GoetiaProvider.get(player).getAligningTowards() == AlignmentType.DEMON){
 				//DEMONS
-				String text = I18n.format("goetia.tooltip.impurity") + player.getCapability(GoetiaProvider.goetiaCapability, null).getImpurity();
-				this.fontRendererObj.drawStringWithShadow(text, (int)width/2-this.fontRendererObj.getStringWidth(text)/2, (int)height/2-this.fontRendererObj.FONT_HEIGHT/2+24, LibMain.LibColors.demon_color);
+				text = I18n.format("goetia.tooltip.impurity") + player.getCapability(GoetiaProvider.goetiaCapability, null).getImpurity();
 			} else {
 				//ANGELS
-				String text = I18n.format("goetia.tooltip.purity") + player.getCapability(GoetiaProvider.goetiaCapability, null).getPurity();
-				this.fontRendererObj.drawStringWithShadow(text, (int)width/2-this.fontRendererObj.getStringWidth(text)/2, (int)height/2-this.fontRendererObj.FONT_HEIGHT/2+24, LibMain.LibColors.angel_color);
+				text = I18n.format("goetia.tooltip.purity") + player.getCapability(GoetiaProvider.goetiaCapability, null).getPurity();
 			}
+			this.fontRendererObj.drawStringWithShadow(text, (int)width/2-this.fontRendererObj.getStringWidth(text)/2, (int)height/2-this.fontRendererObj.FONT_HEIGHT/2+24, GoetiaProvider.get(player).getAligningTowards().color);
 		}
 		
 		for (int i = 0; i < SpellRegistry.spells.size(); i ++){
-			if(GoetiaProvider.get(player).isMoreImpure()){
+			if(GoetiaProvider.get(player).getAligningTowards() == AlignmentType.DEMON){
 				//DEMONS
 				if (SpellRegistry.spells.get(i).cost <= GoetiaProvider.get(player).getImpurity() && SpellRegistry.spells.get(i).type == AlignmentType.DEMON){
 					validSpells.add(SpellRegistry.spells.get(i));

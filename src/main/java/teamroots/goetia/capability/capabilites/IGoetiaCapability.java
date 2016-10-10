@@ -17,7 +17,7 @@ public interface IGoetiaCapability
     void setPurity(EntityPlayer player, int purity);
     void addPurity(EntityPlayer player, int purity);
     void addPurityRegardless(EntityPlayer player, int purity);
-    boolean isMoreImpure();
+    AlignmentType getAligningTowards();
     AlignmentType getAlignment();
     NBTTagCompound saveData();
     void loadNBTData(NBTTagCompound tagCompound);

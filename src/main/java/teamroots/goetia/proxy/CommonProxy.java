@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import teamroots.goetia.Goetia;
 import teamroots.goetia.MainRegistry;
 import teamroots.goetia.capability.GoetiaCapabilityManager;
@@ -16,6 +17,7 @@ import teamroots.goetia.common.DemonEventHandler;
 import teamroots.goetia.common.GeneralEventHandler;
 import teamroots.goetia.common.network.GoetiaPacketHandler;
 import teamroots.goetia.common.symbol.SymbolManager;
+import teamroots.goetia.common.tiles.TileEntityScroll;
 import teamroots.goetia.common.util.handler.ConfigHandler;
 import teamroots.goetia.lib.LibMain;
 import teamroots.goetia.spellcasting.SpellRegistry;
@@ -35,6 +37,7 @@ public abstract class CommonProxy implements IProxy
         GoetiaPacketHandler.registerMessages();
         MainRegistry.registerEntities();
         SpellRegistry.register();
+        GameRegistry.registerTileEntity(TileEntityScroll.class, "lostnote");
     }
 
     @Override

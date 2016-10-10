@@ -36,12 +36,6 @@ public class LibMain
         voracious_strikes_tag = "voracious_strikes",
         inner_firegrace_tag = "inner_fire_grace";
     }
-    public class LibColors
-    {
-    	public static final int
-    	angel_color = 3006972,
-    	demon_color = 16729156;
-    }
     public static class LibKnowledge
     {
         public static final String[] validKnowledge = new String[]{"impSymbol","fiendSymbol","demonSymbol","devilsTrap","forgeSymbol","openSoulSymbol"};

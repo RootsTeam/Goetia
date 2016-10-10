@@ -121,6 +121,10 @@ public class GuiChalk extends GuiScreen{
 					this.renderToolTip(stack, mouseX, mouseY);
 				}
 			}
+			
+			if(knowledge.isEmpty()){
+				this.fontRendererObj.drawStringWithShadow("You do not know any symbols!", (int)width/2-this.fontRendererObj.getStringWidth("You cannot use any spells!")/2, (int)height/2-this.fontRendererObj.FONT_HEIGHT/2+24, 0xFFFFFF);
+			}
 		GlStateManager.color(1.0f, 1.0f, 1.0f);
 		}
 		RenderHelper.enableStandardItemLighting();
