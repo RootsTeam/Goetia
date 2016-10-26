@@ -47,7 +47,7 @@ public class BlockLostNote extends BlockDirectional implements ITileEntityProvid
 		
 		TileEntityScroll tes = (TileEntityScroll) world.getTileEntity(pos);
 		
-		ItemStack scroll = new ItemStack(MainRegistry.lostNotes);
+		ItemStack scroll = new ItemStack(MainRegistry.lostDemonNotes);
 		if(!scroll.hasTagCompound()){
 			scroll.setTagCompound(new NBTTagCompound());
 		}

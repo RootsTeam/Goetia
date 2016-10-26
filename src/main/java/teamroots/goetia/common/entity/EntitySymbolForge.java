@@ -21,6 +21,8 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import teamroots.goetia.MainRegistry;
 import teamroots.goetia.common.symbol.SymbolManager;
+import teamroots.goetia.demonforge.DemonForgeRecipe;
+import teamroots.goetia.demonforge.DemonForgeRecipeManager;
 
 public class EntitySymbolForge extends EntityFlying implements ISymbol {
     public static DataParameter<Boolean> activated = EntityDataManager.<Boolean>createKey(EntitySymbolForge.class, DataSerializers.BOOLEAN);
@@ -89,135 +91,54 @@ public class EntitySymbolForge extends EntityFlying implements ISymbol {
     		getDataManager().set(ready, getDataManager().get(ready)+0.01f);
     		getDataManager().setDirty(ready);
     		if (getDataManager().get(ready).floatValue() >= 1.0f){
-    			if (!getEntityWorld().isRemote){
-	    			List<EntityLivingBase> nearby = getEntityWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(posX-20.5,posY,posZ-20.5,posX+20.5,posY+41,posZ+20.5));
-	    			List<EntityItem> items = getEntityWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(posX-20.5,posY,posZ-20.5,posX+20.5,posY+41,posZ+20.5));
-	    			if (items.size() == 1){
-	    				if (items.get(0).getEntityItem().getItem() == MainRegistry.demonHorn){
-	    					int cost = 45;
-	    					int value = 0;
-	    					for (int i = 0; i < nearby.size(); i ++){
-	    						if (nearby.get(i) instanceof IDemonic){
-	    							if (nearby.get(i) instanceof EntityImp){
-	    								value += rand.nextInt(5)+6;
-	    							}
-	    							if (nearby.get(i) instanceof EntityFiend){
-	    								value += rand.nextInt(7)+10;
-	    							}
-	    							if (nearby.get(i) instanceof EntityDemon){
-	    								value += rand.nextInt(11)+22;
-	    							}
-	    							if (value >= cost){
-	    								for (int j = 0; j <= i; j ++){
-	    									nearby.get(j).setDead();
-	    								}
-	    				    			for (int k = 0; k < 30; k ++){
-	    				    				getEntityWorld().spawnParticle(EnumParticleTypes.FLAME, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
-	    				    			}
-	    				    			for (int k = 0; k < 30; k ++){
-	    				    				getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_LARGE, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
-	    				    			}
-	    				    			for (int k = 0; k < 80; k ++){
-	    				    				getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
-	    				    			}
-	    				    			items.get(0).setDead();
-	    				    			ItemStack result = new ItemStack(MainRegistry.demonHornSpear,1);
-	    				    			if (!getEntityWorld().isRemote){
-	    				    				getEntityWorld().spawnEntityInWorld(new EntityItem(getEntityWorld(),posX,posY+1.0,posZ,result));
-	    				    			}
-	    							}
-	    						}
-	    					}
-	    					if (cost > value){
-				    			for (int k = 0; k < 30; k ++){
-				    				getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
-				    			}
-	    					}
-	    				}
-	    				if (items.get(0).getEntityItem().getItem() == Items.DIAMOND_SWORD){
-	    					int cost = 45;
-	    					int value = 0;
-	    					for (int i = 0; i < nearby.size(); i ++){
-	    						if (nearby.get(i) instanceof IDemonic){
-	    							if (nearby.get(i) instanceof EntityImp){
-	    								value += rand.nextInt(5)+6;
-	    							}
-	    							if (nearby.get(i) instanceof EntityFiend){
-	    								value += rand.nextInt(7)+10;
-	    							}
-	    							if (nearby.get(i) instanceof EntityDemon){
-	    								value += rand.nextInt(11)+22;
-	    							}
-	    							if (value >= cost){
-	    								for (int j = 0; j <= i; j ++){
-	    									nearby.get(j).setDead();
-	    								}
-	    				    			for (int k = 0; k < 30; k ++){
-	    				    				getEntityWorld().spawnParticle(EnumParticleTypes.FLAME, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
-	    				    			}
-	    				    			for (int k = 0; k < 30; k ++){
-	    				    				getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_LARGE, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
-	    				    			}
-	    				    			for (int k = 0; k < 80; k ++){
-	    				    				getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
-	    				    			}
-	    				    			items.get(0).setDead();
-	    				    			ItemStack result = new ItemStack(MainRegistry.abyssalBlade,1);
-	    				    			if (!getEntityWorld().isRemote){
-	    				    				getEntityWorld().spawnEntityInWorld(new EntityItem(getEntityWorld(),posX,posY+1.0,posZ,result));
-	    				    			}
-	    				    		}
-	    						}
-	    					}
-	    					if (cost > value){
-				    			for (int k = 0; k < 30; k ++){
-				    				getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
-				    			}
-	    					}
-	    				}
-	    				if (items.get(0).getEntityItem().getItem() == Items.DIAMOND){
-	    					int cost = 25;
-	    					int value = 0;
-	    					for (int i = 0; i < nearby.size(); i ++){
-	    						if (nearby.get(i) instanceof IDemonic){
-	    							if (nearby.get(i) instanceof EntityImp){
-	    								value += rand.nextInt(5)+6;
-	    							}
-	    							if (nearby.get(i) instanceof EntityFiend){
-	    								value += rand.nextInt(7)+10;
-	    							}
-	    							if (nearby.get(i) instanceof EntityDemon){
-	    								value += rand.nextInt(11)+22;
-	    							}
-	    							if (value >= cost){
-	    								for (int j = 0; j <= i; j ++){
-	    									nearby.get(j).setDead();
-	    								}
-	    				    			for (int k = 0; k < 30; k ++){
-	    				    				getEntityWorld().spawnParticle(EnumParticleTypes.FLAME, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
-	    				    			}
-	    				    			for (int k = 0; k < 30; k ++){
-	    				    				getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_LARGE, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
-	    				    			}
-	    				    			for (int k = 0; k < 80; k ++){
-	    				    				getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
-	    				    			}
-	    				    			items.get(0).setDead();
-	    				    			ItemStack result = new ItemStack(MainRegistry.soulFocus,1);
-	    				    			if (!getEntityWorld().isRemote){
-	    				    				getEntityWorld().spawnEntityInWorld(new EntityItem(getEntityWorld(),posX,posY+1.0,posZ,result));
-	    				    			}
-	    				    		}
-	    						}
-	    					}
-	    					if (cost > value){
-				    			for (int k = 0; k < 30; k ++){
-				    				getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
-				    			}
-	    					}
-	    				}
+	    		List<EntityLivingBase> nearby = getEntityWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(posX-20.5,posY,posZ-20.5,posX+20.5,posY+41,posZ+20.5));
+	    		List<EntityItem> items = getEntityWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(posX-20.5,posY,posZ-20.5,posX+20.5,posY+41,posZ+20.5));
+	    		if (items.size() > 0){
+	    			int cost = 45;
+    				int value = 0;
+    				for (int i = 0; i < nearby.size(); i ++){
+    					 if (nearby.get(i) instanceof IDemonic){
+    						 if (nearby.get(i) instanceof EntityImp){
+    							 value += rand.nextInt(5)+6;
+    						 }
+    						 if (nearby.get(i) instanceof EntityFiend){
+    							 value += rand.nextInt(7)+10;
+    						 }
+    						 if (nearby.get(i) instanceof EntityDemon){
+    							 value += rand.nextInt(11)+22;
+    						 }
+	    				}	
 	    			}
-    			}
+    				if (DemonForgeRecipeManager.recipes.containsKey(items.get(0).getEntityItem().getItem())){
+						DemonForgeRecipe recipe = DemonForgeRecipeManager.recipes.get(items.get(0).getEntityItem().getItem());
+						cost = recipe.cost;
+						if (value >= cost){
+							for (int j = 0; j <= nearby.size()-1; j ++){
+								 if (nearby.get(j) instanceof IDemonic){
+									 nearby.get(j).setDead();
+								 } 
+							}
+							for (int k = 0; k < 30; k ++){
+								 getEntityWorld().spawnParticle(EnumParticleTypes.FLAME, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
+							}
+							for (int k = 0; k < 30; k ++){
+								 getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_LARGE, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
+							}
+							for (int k = 0; k < 80; k ++){
+							     getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
+							}
+								 items.get(0).setDead();
+								 if (!getEntityWorld().isRemote){
+									 getEntityWorld().spawnEntityInWorld(new EntityItem(getEntityWorld(),posX,posY+1.0,posZ,recipe.result.copy()));
+								 }
+							}
+					  }
+    				  if (cost > value){
+ 		    			  for (int k = 0; k < 30; k ++){
+ 		    				   getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, posX+1.0f*(rand.nextFloat()-0.5f), posY+1.0f*(rand.nextFloat()), posZ+1.0f*(rand.nextFloat()-0.5f), 0, 0, 0, 0);
+ 		    			  }
+ 					  }
+				  }
     		}
         	angle += 30.0f*getDataManager().get(ready);
     	}

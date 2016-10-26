@@ -18,7 +18,8 @@ public class LibMain
         VERSION = "0.1",
         CLIENT_PROXY_CLASS = "teamroots.goetia.proxy.ClientProxy",
         SERVER_PROXY_CLASS = "teamroots.goetia.proxy.ServerProxy",
-        GUI_FACTORY_CLASS = "teamroots.goetia.client.gui.GuiFactory";
+        GUI_FACTORY_CLASS = "teamroots.goetia.client.gui.GuiFactory",
+        JEI_DEMON_FORGE_UUID = "demon_forge";
     }
     public class LibNBT
     {
@@ -34,10 +35,13 @@ public class LibMain
         wings_tag = "wings_tag",
         burning_touch_tag = "burning_touch",
         voracious_strikes_tag = "voracious_strikes",
-        inner_firegrace_tag = "inner_fire_grace";
+        inner_firegrace_tag = "inner_fire_grace",
+        smite = "smite",
+        liquidWalker = "liquidWalker";
     }
     public static class LibKnowledge
     {
-        public static final String[] validKnowledge = new String[]{"impSymbol","fiendSymbol","demonSymbol","devilsTrap","forgeSymbol","openSoulSymbol"};
+        public static final String[] validDemonKnowledge = new String[]{"impSymbol","fiendSymbol","demonSymbol","devilsTrap","forgeSymbol","openSoulSymbol"};
+        public static final String[] validAngelKnowledge = new String[]{"WIP","WIP","WIP","WIP","WIP","WIP"};
     }
 }

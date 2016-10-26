@@ -45,11 +45,16 @@ import teamroots.goetia.common.items.ItemBase;
 import teamroots.goetia.common.items.ItemDemonHorn;
 import teamroots.goetia.common.items.ItemDemonicChalk;
 import teamroots.goetia.common.items.ItemDemonicSpear;
+import teamroots.goetia.common.items.ItemHolyCross;
+import teamroots.goetia.common.items.ItemHolyWater;
 import teamroots.goetia.common.items.ItemNote;
 import teamroots.goetia.common.items.ItemSoulFocus;
 import teamroots.goetia.common.items.ItemSpellIcon;
 import teamroots.goetia.common.items.ItemSwordBase;
 import teamroots.goetia.common.items.ItemSymbolIcon;
+import teamroots.goetia.demonforge.DemonForgeRecipe;
+import teamroots.goetia.demonforge.DemonForgeRecipeManager;
+import teamroots.goetia.lib.LibMain;
 
 /**
  * Created by TeamRoots on 4.8.2016.
@@ -67,28 +72,29 @@ public class MainRegistry
     public static BlockBase angelCandle = new BlockCandle("angelCandle",Material.CLOTH);
     public static BlockBase angelCandleStand = new BlockCandleStand("angelCandleStand",Material.CLOTH);
     
-    public static BlockBase blockLostNote = new BlockLostNote("blockLostNote",Material.CLOTH);
+    public static BlockBase blockAngelLostNote = new BlockLostNote("blockAngelLostNote",Material.CLOTH);
+    public static BlockBase blockDemonLostNote = new BlockLostNote("blockDemonLostNote",Material.CLOTH);
 
     public static ItemBase demonHorn = new ItemDemonHorn("demonHorn");
     public static ItemBase impTallow = new ItemBase("impTallow");
     public static ItemBase demonHide = new ItemBase("demonHide");
     public static ItemSwordBase demonHornSpear = new ItemDemonicSpear();
     public static ItemSwordBase abyssalBlade = new ItemAbyssalBlade();
-    public static ItemBase soulFocus = new ItemSoulFocus("soulFocus");
     public static ItemBase demonicChalk = new ItemDemonicChalk("demonicChalk");
-    public static ItemBase lostNotes = new ItemNote("lostNotes");
+    public static ItemBase lostDemonNotes = new ItemNote("lostDemonNotes", blockDemonLostNote, LibMain.LibKnowledge.validDemonKnowledge);
+    
+    public static ItemBase soulFocus = new ItemSoulFocus("soulFocus");
+   
+    public static ItemBase holyCross = new ItemHolyCross("holyCross");
+    public static ItemBase bottleHolyWater = new ItemHolyWater("bottleHolyWater");
+    public static ItemBase lostAngelNotes = new ItemNote("lostAngelNotes", blockAngelLostNote, LibMain.LibKnowledge.validAngelKnowledge);
+    
     public static ItemBase symbolIcon = new ItemSymbolIcon("symbolIcon");
     public static ItemBase spellIcon = new ItemSpellIcon("spellIcon");
     
     public static void register()
     {
-        /**
-         * Register items
-         */
-
-        /**
-         * Register blocks
-         */
+    
     	for (ItemBase itemBase : ITEMS){
     		GameRegistry.register(itemBase);
     	}
@@ -104,16 +110,21 @@ public class MainRegistry
         }
 
         recipesRegistry();
-
     }
 
     private static void recipesRegistry()
     {
     	GameRegistry.addSmelting(new ItemStack(MainRegistry.demonHide,1), new ItemStack(Items.LEATHER,1), 1.0f);
+    	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(soulFocus),true,new Object[]{" G ", "GDG", " G ", 'G', Items.GOLD_INGOT, 'D', Items.DIAMOND}));
     	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(demonCandle,4),true,new Object[]{" S ", " T ", 'S', Items.STRING, 'T', MainRegistry.impTallow}));
     	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(demonCandleStand,1),true,new Object[]{" S ", " T ", " T ", 'S', MainRegistry.demonCandle, 'T', "nuggetGold"}));
     	GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(demonicChalk,1),new Object[]{Items.GUNPOWDER,Items.REDSTONE,new ItemStack(Items.DYE,1,1),new ItemStack(Items.COAL,1,1)}));
     	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(altar,1),true,new Object[]{"SCS", "SCS",  'S', "stone", 'C', "blockCoal"}));
+    	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(holyCross,1),true,new Object[]{" S ", "SSS", " S ",  'S', "stone"}));
+    	GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(bottleHolyWater,1),new Object[]{new ItemStack(Items.POTIONITEM,1,0),new ItemStack(holyCross.setContainerItem(holyCross))}));
+    	
+    	DemonForgeRecipeManager.instance.addDemonForgeRecipe(demonHorn, new DemonForgeRecipe(new ItemStack(demonHornSpear,1),45));
+    	DemonForgeRecipeManager.instance.addDemonForgeRecipe(Items.DIAMOND_SWORD, new DemonForgeRecipe(new ItemStack(abyssalBlade,1),45));
     }
     
 	public static void registerEntities(){
@@ -134,15 +145,15 @@ public class MainRegistry
     
 	@SideOnly(Side.CLIENT)
 	public static void registerEntityRenderers(){
-		RenderingRegistry.registerEntityRenderingHandler(EntityImp.class, new RenderImp(Minecraft.getMinecraft().getRenderManager(),ModelManager.entityModels.get("imp"),0.3f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityFiend.class, new RenderFiend(Minecraft.getMinecraft().getRenderManager(),ModelManager.entityModels.get("fiend"),0.5f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityDemon.class, new RenderDemon(Minecraft.getMinecraft().getRenderManager(),ModelManager.entityModels.get("demon"),0.8f));
-		RenderingRegistry.registerEntityRenderingHandler(EntitySymbolImp.class, new RenderSymbolImp(Minecraft.getMinecraft().getRenderManager(),ModelManager.entityModels.get("symbol"),0f));
-		RenderingRegistry.registerEntityRenderingHandler(EntitySymbolFiend.class, new RenderSymbolFiend(Minecraft.getMinecraft().getRenderManager(),ModelManager.entityModels.get("symbol"),0f));
-		RenderingRegistry.registerEntityRenderingHandler(EntitySymbolDemon.class, new RenderSymbolDemon(Minecraft.getMinecraft().getRenderManager(),ModelManager.entityModels.get("symbol"),0f));
-		RenderingRegistry.registerEntityRenderingHandler(EntitySymbolDevilsTrap.class, new RenderSymbolDevilsTrap(Minecraft.getMinecraft().getRenderManager(),ModelManager.entityModels.get("symbol"),0f));
-		RenderingRegistry.registerEntityRenderingHandler(EntitySymbolForge.class, new RenderSymbolForge(Minecraft.getMinecraft().getRenderManager(),ModelManager.entityModels.get("symbol"),0f));
-		RenderingRegistry.registerEntityRenderingHandler(EntitySymbolOpenSoul.class, new RenderSymbolOpenSoul(Minecraft.getMinecraft().getRenderManager(),ModelManager.entityModels.get("symbol"),0f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityImp.class,   RenderImp::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityFiend.class, RenderFiend::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityDemon.class, RenderDemon::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntitySymbolImp.class, RenderSymbolImp::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntitySymbolFiend.class, RenderSymbolFiend::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntitySymbolDemon.class, RenderSymbolDemon::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntitySymbolDevilsTrap.class, RenderSymbolDevilsTrap::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntitySymbolForge.class, RenderSymbolForge::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntitySymbolOpenSoul.class, RenderSymbolOpenSoul::new);
 	}
 
     @SideOnly(Side.CLIENT)

@@ -1,8 +1,8 @@
 {
 "parent":"block/block",
 "textures": {
-    "particle": "goetia:items/lostNotes",
-    "texture": "goetia:items/lostNotes"
+    "particle": "goetia:items/lostDemonNotes",
+    "texture": "goetia:items/lostDemonNotes"
 },
 "elements": [ 
 {

@@ -81,6 +81,9 @@ public class EntityFiend extends EntityMob implements IDemonic {
         		getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, particle.xCoord, particle.yCoord, particle.zCoord, 0, 0, 0, 0);
     		}
     	}
+    	if(!this.isBurning() && !this.isImmuneToFire){
+    		this.isImmuneToFire = true;
+    	}
     }
     
     @Override
@@ -107,7 +110,7 @@ public class EntityFiend extends EntityMob implements IDemonic {
     	if (getHealth() <= 0 && initHealth > 0){
     		if (source.getEntity() instanceof EntityPlayer){
     			if (((EntityPlayer)source.getEntity()).hasCapability(GoetiaProvider.goetiaCapability, null)){
-    				((EntityPlayer)source.getEntity()).getCapability(GoetiaProvider.goetiaCapability, null).setImpurity((EntityPlayer)source.getEntity(), ((EntityPlayer)source.getEntity()).getCapability(GoetiaProvider.goetiaCapability, null).getImpurity()+rand.nextInt(4)+5);
+    				((EntityPlayer)source.getEntity()).getCapability(GoetiaProvider.goetiaCapability, null).addImpurity((EntityPlayer)source.getEntity(), rand.nextInt(4)+5);
     			}
     		}
     	}
@@ -131,5 +134,11 @@ public class EntityFiend extends EntityMob implements IDemonic {
 	public void setTrapped() {
 		getDataManager().set(trapped,true);
 		getDataManager().setDirty(trapped);
+	}
+
+	@Override
+	public void onHolyWaterContact() {
+		this.isImmuneToFire = false;
+		this.setFire(3);
 	}
 }

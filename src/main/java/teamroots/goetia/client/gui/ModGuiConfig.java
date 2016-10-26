@@ -1,6 +1,6 @@
 package teamroots.goetia.client.gui;
 
-import teamroots.goetia.common.util.handler.ConfigHandler;
+import teamroots.goetia.ConfigHandler;
 import teamroots.goetia.lib.LibMain;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.common.config.ConfigElement;

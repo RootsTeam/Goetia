@@ -18,23 +18,17 @@ public class SymbolManager {
 	public static HashMap<String, Integer> symbolCosts = new HashMap<String, Integer>();
 	
 	public static void init(){
-		symbols.put("impSymbol", EntitySymbolImp.class);
-		symbolTextures.put("impSymbol", new ResourceLocation("goetia:textures/entity/impSymbol.png"));
-		symbolCosts.put("impSymbol", 5);
-		symbols.put("fiendSymbol", EntitySymbolFiend.class);
-		symbolTextures.put("fiendSymbol", new ResourceLocation("goetia:textures/entity/fiendSymbol.png"));
-		symbolCosts.put("fiendSymbol", 9);
-		symbols.put("demonSymbol", EntitySymbolDemon.class);
-		symbolTextures.put("demonSymbol", new ResourceLocation("goetia:textures/entity/demonSymbol.png"));
-		symbolCosts.put("demonSymbol", 13);
-		symbols.put("devilsTrap", EntitySymbolDevilsTrap.class);
-		symbolTextures.put("devilsTrap", new ResourceLocation("goetia:textures/entity/devilTrap.png"));
-		symbolCosts.put("devilsTrap", 3);
-		symbols.put("forgeSymbol", EntitySymbolForge.class);
-		symbolTextures.put("forgeSymbol", new ResourceLocation("goetia:textures/entity/forgeSymbol.png"));
-		symbolCosts.put("forgeSymbol", 11);
-		symbols.put("openSoulSymbol", EntitySymbolOpenSoul.class);
-		symbolTextures.put("openSoulSymbol", new ResourceLocation("goetia:textures/entity/openSoulSymbol.png"));
-		symbolCosts.put("openSoulSymbol", 23);
+		addSymbol("impSymbol", EntitySymbolImp.class, 5 ,new ResourceLocation("goetia:textures/entity/impSymbol.png"));
+		addSymbol("fiendSymbol", EntitySymbolFiend.class, 9 ,new ResourceLocation("goetia:textures/entity/fiendSymbol.png"));
+		addSymbol("demonSymbol", EntitySymbolDemon.class, 13 ,new ResourceLocation("goetia:textures/entity/demonSymbol.png"));
+		addSymbol("devilsTrap", EntitySymbolDevilsTrap.class, 3 ,new ResourceLocation("goetia:textures/entity/devilTrap.png"));
+		addSymbol("forgeSymbol", EntitySymbolForge.class, 11 ,new ResourceLocation("goetia:textures/entity/forgeSymbol.png"));
+		addSymbol("openSoulSymbol", EntitySymbolOpenSoul.class, 23 , new ResourceLocation("goetia:textures/entity/openSoulSymbol.png"));
+	}
+	
+	public static void addSymbol(String name, Class c, int cost, ResourceLocation texture){
+		symbols.put(name, c);
+		symbolTextures.put(name, texture);
+		symbolCosts.put(name, cost);
 	}
 }

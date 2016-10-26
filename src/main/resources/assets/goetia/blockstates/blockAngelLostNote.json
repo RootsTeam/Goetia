@@ -1,0 +1,9 @@
+{
+    "variants":{
+	   "normal":{"model": "goetia:lostAngelNote"},
+        "facing=north":{"model": "goetia:lostAngelNote"},
+	   "facing=south":{"model": "goetia:lostAngelNote", "y": 180},
+	   "facing=west":{"model": "goetia:lostAngelNote", "y": 270},
+	   "facing=east":{"model": "goetia:lostAngelNote", "y": 90}
+    }
+}

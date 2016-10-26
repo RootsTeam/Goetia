@@ -2,8 +2,13 @@ package teamroots.goetia.common;
 
 import java.util.Random;
 
+import net.minecraft.block.BlockStaticLiquid;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import teamroots.goetia.capability.capabilites.GoetiaProvider;
@@ -14,9 +19,9 @@ public class AngelEventHandler {
 	Random random = new Random();
 	
 	@SubscribeEvent
-	public void livingTickEvent(LivingUpdateEvent event){
-		if (event.getEntityLiving() instanceof EntityPlayer){
-			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+	public void livingTickEvent(LivingUpdateEvent e){
+		if (e.getEntityLiving() instanceof EntityPlayer){
+			EntityPlayer player = (EntityPlayer) e.getEntityLiving();
 			if(GoetiaProvider.get(player).getAligningTowards() == AlignmentType.ANGEL){
 				
 				if (player.getEntityData().hasKey(LibMain.LibNBT.wings_tag) && !player.onGround){
@@ -40,9 +45,23 @@ public class AngelEventHandler {
 						player.motionX *= 1.4;
 						player.motionZ *= 1.4;
 					}	
-				}
-				
+					
+				}	
 			}
 		}
+	}
+	
+	@SubscribeEvent
+	public void entityHit(LivingAttackEvent e){
+		if(e.getSource().getDamageType() == "player"){
+			EntityPlayer player = (EntityPlayer)e.getSource().getEntity();
+			if(player.getEntityData().hasKey("smite")){
+				if(!(e.getEntity() instanceof EntityPlayer)){
+					e.getEntityLiving().attackEntityFrom(DamageSource.magic, e.getEntityLiving().getHealth());
+					player.getEntityData().removeTag("smite");
+				}
+			}
+		}
+			
 	}
 }

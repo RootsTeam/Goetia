@@ -1,43 +1,37 @@
 package teamroots.goetia.common;
 
-import java.util.List;
+import java.awt.Color;
 import java.util.Random;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.RenderPlayer;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.storage.loot.LootEntry;
 import net.minecraft.world.storage.loot.LootEntryTable;
 import net.minecraft.world.storage.loot.LootPool;
 import net.minecraft.world.storage.loot.RandomValueRange;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.event.RenderLivingEvent;
-import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.event.LootTableLoadEvent;
+import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import teamroots.goetia.ConfigHandler;
 import teamroots.goetia.Goetia;
 import teamroots.goetia.MainRegistry;
 import teamroots.goetia.capability.capabilites.GoetiaProvider;
@@ -46,11 +40,8 @@ import teamroots.goetia.common.entity.IClickableSymbol;
 import teamroots.goetia.common.entity.ISymbol;
 import teamroots.goetia.common.network.GoetiaPacketHandler;
 import teamroots.goetia.common.network.ImpurityUpdateMessage;
-import teamroots.goetia.common.util.handler.ConfigHandler;
 import teamroots.goetia.lib.EnumIDs;
 import teamroots.goetia.lib.LibMain;
-import teamroots.goetia.renderlayers.LayerHalo;
-import teamroots.goetia.renderlayers.LayerHorns;
 import teamroots.goetia.spellcasting.AlignmentType;
 
 /**
@@ -59,12 +50,17 @@ import teamroots.goetia.spellcasting.AlignmentType;
 public class GeneralEventHandler
 {
 	Random random = new Random();
+	
+	//@SubscribeEvent
+	//public void serverChat(ServerChatEvent e){
+	//	e.setComponent(new TextComponentString("Hey!"));
+	//}
+	
 	@SubscribeEvent
 	public void playerTracking(PlayerEvent.StartTracking e){
 		 if(e.getTarget() instanceof EntityPlayer){
              if(!e.getEntityPlayer().worldObj.isRemote){
-            	 System.out.println("sent");
-                    GoetiaPacketHandler.INSTANCE.sendTo(new ImpurityUpdateMessage((EntityPlayer)e.getTarget(), GoetiaProvider.get((EntityPlayer)e.getTarget()).saveData()), (EntityPlayerMP) e.getEntityPlayer());
+                 GoetiaPacketHandler.INSTANCE.sendTo(new ImpurityUpdateMessage((EntityPlayer)e.getTarget(), GoetiaProvider.get((EntityPlayer)e.getTarget()).saveData()), (EntityPlayerMP) e.getEntityPlayer());
              }
 		 }
 	}
@@ -143,10 +139,11 @@ public class GeneralEventHandler
 			int offsetY = ConfigHandler.alignmentBarPosY;
 			if(GoetiaProvider.get(player).getAligningTowards() == AlignmentType.DEMON){
 				Gui.drawModalRectWithCustomSizedTexture(e.getResolution().getScaledWidth() - offsetX, e.getResolution().getScaledHeight() - offsetY, 0, 0, 20, 20, 256, 256);
+				Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(Integer.toString(GoetiaProvider.get(player).getImpurity()), (w - offsetX) + 20, (h - offsetY) + 8, GoetiaProvider.get(player).getAligningTowards().color);
 			} else {
 				Gui.drawModalRectWithCustomSizedTexture(e.getResolution().getScaledWidth() - offsetX, e.getResolution().getScaledHeight() - offsetY, 21, 0, 20, 20, 256, 256);
+				Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(Integer.toString(GoetiaProvider.get(player).getPurity()), (w - offsetX) + 20, (h - offsetY) + 8, GoetiaProvider.get(player).getAligningTowards().color);
 			}
-			Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(Integer.toString(GoetiaProvider.get(player).getImpurity()), (w - offsetX) + 20, (h - offsetY) + 8, GoetiaProvider.get(player).getAligningTowards().color);
 			
 			GlStateManager.pushMatrix();
 		}
@@ -157,7 +154,7 @@ public class GeneralEventHandler
 		if(e.getEntity() instanceof EntityMob && e.getSource().damageType == "player"){
 			EntityPlayer player = (EntityPlayer) e.getSource().getEntity();
 			if(!player.worldObj.isRemote){
-				GoetiaProvider.get(player).addPurity(player, 1);
+				GoetiaProvider.get(player).addPurity(player, 2);
 			}
 			
 		}
@@ -195,6 +192,13 @@ public class GeneralEventHandler
 			event.getEntityPlayer().getCapability(GoetiaProvider.goetiaCapability, null).setImpurity(event.getEntityPlayer(), event.getOriginal().getCapability(GoetiaProvider.goetiaCapability, null).getImpurity());
 			event.getEntityPlayer().getCapability(KnowledgeProvider.knowledgeCapability, null).setKnowledgeWithNotify(event.getEntityPlayer(), event.getOriginal().getCapability(KnowledgeProvider.knowledgeCapability, null).getKnowledge());
 		}
+	}
+	
+	@SubscribeEvent
+	public void onKeyInput(KeyInputEvent e){
+		//if(KeyHandler.spellKey.isPressed()){
+		//	GoetiaPacketHandler.INSTANCE.sendToServer(new FocusCastMessage(GoetiaProvider.get(Minecraft.getMinecraft().thePlayer).getLastUsedSpell(), Minecraft.getMinecraft().thePlayer));
+		//}
 	}
 	
 

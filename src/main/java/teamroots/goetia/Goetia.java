@@ -1,11 +1,7 @@
 package teamroots.goetia;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -16,7 +12,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import teamroots.goetia.lib.LibMain;
 import teamroots.goetia.proxy.IProxy;
-import teamroots.goetia.renderlayers.LayerHorns;
 /**
  * Created by TeamRoots on 4.8.2016.
  */
@@ -40,6 +35,11 @@ public class Goetia
 			return Item.getItemFromBlock(MainRegistry.altar);
 		}
 	};
+	
+	static{
+		FluidRegistry.enableUniversalBucket();
+	}
+	
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {

@@ -1,14 +1,14 @@
 package teamroots.goetia.proxy;
 
-import teamroots.goetia.MainRegistry;
-import teamroots.goetia.client.model.ModelManager;
-import teamroots.goetia.renderlayers.LayerHalo;
-import teamroots.goetia.renderlayers.LayerHorns;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import teamroots.goetia.MainRegistry;
+import teamroots.goetia.client.model.ModelManager;
+import teamroots.goetia.renderlayers.LayerAngel;
+import teamroots.goetia.renderlayers.LayerDemon;
 
 /**
  * Created by TeamRoots on 4.8.2016.
@@ -20,19 +20,20 @@ public class ClientProxy extends CommonProxy
         super.preInit(e);
         ModelManager.init();
         MainRegistry.initTextures();
+        MainRegistry.registerEntityRenderers();
     }
 
     @Override
     public void init(FMLInitializationEvent e) {
         super.init(e);
-        MainRegistry.registerEntityRenderers();
+        
         RenderPlayer render = Minecraft.getMinecraft().getRenderManager().getSkinMap().get("default");
-        render.addLayer(new LayerHorns());
-        render.addLayer(new LayerHalo());
+        render.addLayer(new LayerDemon());
+        render.addLayer(new LayerAngel());
   
         RenderPlayer renderSlim = Minecraft.getMinecraft().getRenderManager().getSkinMap().get("slim");
-        renderSlim.addLayer(new LayerHorns());
-        renderSlim.addLayer(new LayerHalo());
+        renderSlim.addLayer(new LayerDemon());
+        renderSlim.addLayer(new LayerAngel());
     }
 
     @Override

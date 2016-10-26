@@ -73,6 +73,9 @@ public class EntityImp extends EntityMob implements IDemonic {
     		Vec3d particle = Utils.randomPointInAABB(this.getEntityBoundingBox());
     		getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, particle.xCoord, particle.yCoord, particle.zCoord, 0, 0, 0, 0);
     	}
+    	if(!this.isBurning() && !this.isImmuneToFire){
+    		this.isImmuneToFire = true;
+    	}
     }
     
     @Override
@@ -106,7 +109,7 @@ public class EntityImp extends EntityMob implements IDemonic {
     	if (getHealth() <= 0 && initHealth > 0){
     		if (source.getEntity() instanceof EntityPlayer){
     			if (((EntityPlayer)source.getEntity()).hasCapability(GoetiaProvider.goetiaCapability, null)){
-    				((EntityPlayer)source.getEntity()).getCapability(GoetiaProvider.goetiaCapability, null).setImpurity((EntityPlayer)source.getEntity(), ((EntityPlayer)source.getEntity()).getCapability(GoetiaProvider.goetiaCapability, null).getImpurity()+rand.nextInt(3)+3);
+    				((EntityPlayer)source.getEntity()).getCapability(GoetiaProvider.goetiaCapability, null).addImpurity((EntityPlayer)source.getEntity(), rand.nextInt(3)+3);
     			}
     		}
     	}
@@ -123,5 +126,11 @@ public class EntityImp extends EntityMob implements IDemonic {
 	public void setTrapped() {
 		getDataManager().set(trapped,true);
 		getDataManager().setDirty(trapped);
+	}
+
+	@Override
+	public void onHolyWaterContact() {
+		this.isImmuneToFire = false;
+		this.setFire(3);
 	}
 }

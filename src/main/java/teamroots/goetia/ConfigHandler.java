@@ -1,4 +1,4 @@
-package teamroots.goetia.common.util.handler;
+package teamroots.goetia;
 
 import teamroots.goetia.lib.LibMain;
 import net.minecraftforge.common.config.Configuration;
@@ -17,6 +17,8 @@ public class ConfigHandler
     public static int alignmentBarPosX;
     public static int alignmentBarPosY;
     public static int alignmentThreshold;
+    
+    public static boolean alignmentModels;
 
     public static void init(File configFile)
     {
@@ -32,8 +34,7 @@ public class ConfigHandler
         alignmentBarPosX = config.getInt("alignmentIconOffsetX", Configuration.CATEGORY_GENERAL, 425, 0, 32767, "The alignment icons x offset");
         alignmentBarPosY = config.getInt("alignmentIconOffsetY", Configuration.CATEGORY_GENERAL, 20, 0, 32767, "The alignment icons y offset");
         alignmentThreshold = config.getInt("alignmentThreshold", Configuration.CATEGORY_GENERAL, 1000, 0, Integer.MAX_VALUE, "How much impurity/purity you must have before becoming a demon/angel");
-
-
+        alignmentModels = config.getBoolean("alignmentModels", Configuration.CATEGORY_GENERAL, true, "Should models/overlays render on players");
         if (config.hasChanged())
         {
             config.save();

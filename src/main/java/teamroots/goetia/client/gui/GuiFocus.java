@@ -24,7 +24,6 @@ import teamroots.goetia.spellcasting.AlignmentType;
 
 public class GuiFocus extends GuiScreen{
 	EntityPlayer player = null;
-	float ticksOpen = 0;
 	ArrayList<Integer> steps = new ArrayList<Integer>();
 	ArrayList<CastSpell> validSpells = new ArrayList<CastSpell>();
 	boolean tracking = false;
@@ -63,9 +62,10 @@ public class GuiFocus extends GuiScreen{
 						}
 					}
 					if (doesMatch){
-						System.out.println(validSpells.get(i).name);
+						//System.out.println(validSpells.get(i).name);
 						validSpells.get(i).doEffect(player);
 						GoetiaPacketHandler.INSTANCE.sendToServer(new FocusCastMessage(validSpells.get(i).name,player));
+						GoetiaProvider.get(player).setLastUsedSpell(validSpells.get(i).name);
 						this.mc.displayGuiScreen(null);
 						return;
 					}

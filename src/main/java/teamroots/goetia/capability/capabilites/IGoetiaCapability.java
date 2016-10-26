@@ -17,6 +17,8 @@ public interface IGoetiaCapability
     void setPurity(EntityPlayer player, int purity);
     void addPurity(EntityPlayer player, int purity);
     void addPurityRegardless(EntityPlayer player, int purity);
+    void setLastUsedSpell(String spell);
+    String getLastUsedSpell();
     AlignmentType getAligningTowards();
     AlignmentType getAlignment();
     NBTTagCompound saveData();

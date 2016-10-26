@@ -4,11 +4,12 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
+import teamroots.goetia.client.model.ModelManager;
 
 public class RenderDemon extends RenderLiving<EntityDemon> {
 
-	public RenderDemon(RenderManager renderManager, ModelBase modelBase, float shadowSize) {
-		super(renderManager, modelBase, shadowSize);
+	public RenderDemon(RenderManager renderManager) {
+		super(renderManager, ModelManager.entityModels.get("demon"), 0.8F);
 	}
 	
 	@Override

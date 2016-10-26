@@ -13,4 +13,8 @@ public class Utils {
 	public static Vec3d randomPointInAABB(AxisAlignedBB box){
 		return new Vec3d(box.minX+random.nextDouble()*(box.maxX-box.minX),box.minY+random.nextDouble()*(box.maxY-box.minY),box.minZ+random.nextDouble()*(box.maxZ-box.minZ));
 	}
+	
+	public static int randomNumber(int min, int max){
+		return random.nextInt(max - min + 1) - max;
+	}
 }

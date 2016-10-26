@@ -1,3 +1,5 @@
+gui.jei.category.demon_forge=Demon Forge
+
 tile.altar.name=Altar
 tile.demonCandle.name=Demon Candlestick
 tile.demonCandleStand.name=Demon Candle
@@ -8,12 +10,21 @@ item.demonHornSpear.name=Demon Horn Spear
 item.demonicChalk.name=Demonic Chalk
 item.impTallow.name=Imp Tallow
 item.soulFocus.name=Soul Focus
-item.lostNotes.0.name=Lost Scroll
-item.lostNotes.1.name=Lost Scroll
-item.lostNotes.2.name=Lost Scroll
-item.lostNotes.3.name=Lost Scroll
-item.lostNotes.4.name=Lost Scroll
-item.lostNotes.5.name=Lost Scroll
+item.bottleHolyWater.name=Holy Water Bottle
+item.holyCross.name=Holy Cross
+
+item.lostDemonNotes.0.name=Lost Scroll
+item.lostDemonNotes.1.name=Lost Scroll
+item.lostDemonNotes.2.name=Lost Scroll
+item.lostDemonNotes.3.name=Lost Scroll
+item.lostDemonNotes.4.name=Lost Scroll
+item.lostDemonNotes.5.name=Lost Scroll
+item.lostAngelNotes.0.name=Lost Scroll
+item.lostAngelNotes.1.name=Lost Scroll
+item.lostAngelNotes.2.name=Lost Scroll
+item.lostAngelNotes.3.name=Lost Scroll
+item.lostAngelNotes.4.name=Lost Scroll
+item.lostAngelNotes.5.name=Lost Scroll
 
 entity.goetia.imp.name=Imp
 entity.goetia.fiend.name=Fiend
@@ -60,3 +71,17 @@ goetia.spell.ebonWings=Ebon Wings
 goetia.spell.ebonWings.desc=A dark curtain of malevolence propels you skyward, granting you flight for a time.
 goetia.spell.voraciousStrike=Voracious Strikes
 goetia.spell.voraciousStrike.desc=Your bare fists can punch straight through entities during their invulnerability period.
+
+goetia.spell.innerGrace= Angelic Power
+goetia.spell.innerGrace.desc=Tapping into your angelic power you becoming faster and stronger.
+goetia.spell.angelicWings=Angel Wings
+goetia.spell.angelicWings.desc=By defying gravity itself you are granted temporary flight.
+goetia.spell.angelicGrowth=Blessing of Growth
+goetia.spell.angelicGrowth.desc= You are able to command crops around you to grow much faster.
+goetia.spell.smite=Smite
+goetia.spell.smite.desc= Using your holy powers you are able to smite evil
+goetia.spell.storm=Skys Wrath
+goetia.spell.storm.desc=Command the sky to punish those around you
+
+//FLUIDS
+fluid.goetia.holywater=Holy Water

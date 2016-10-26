@@ -21,7 +21,6 @@ import teamroots.goetia.spellcasting.AlignmentType;
 
 public class GuiAltar extends GuiScreen{
 	EntityPlayer player = null;
-	float ticksOpen = 0;
 	public GuiAltar(EntityPlayer player){
 		this.player = player;
 	}
@@ -56,7 +55,6 @@ public class GuiAltar extends GuiScreen{
 	public void drawScreen(int mouseX, int mouseY, float partialTicks){
 		RenderHelper.disableStandardItemLighting();
 		RenderHelper.enableGUIStandardItemLighting();
-		String selected = "null";
 		
 		Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("goetia:textures/gui/guiSlot.png"));
 		ArrayList<CastSpell> validSpells = new ArrayList<CastSpell>();

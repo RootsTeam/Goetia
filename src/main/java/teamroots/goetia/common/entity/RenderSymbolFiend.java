@@ -4,12 +4,13 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
+import teamroots.goetia.client.model.ModelManager;
 import teamroots.goetia.common.symbol.SymbolManager;
 
 public class RenderSymbolFiend extends RenderLiving<EntitySymbolFiend> {
 
-	public RenderSymbolFiend(RenderManager renderManager, ModelBase modelBase, float shadowSize) {
-		super(renderManager, modelBase, shadowSize);
+	public RenderSymbolFiend(RenderManager renderManager) {
+		super(renderManager, ModelManager.entityModels.get("symbol"), 0f);
 	}
 	
 	@Override

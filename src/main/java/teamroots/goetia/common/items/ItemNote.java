@@ -2,6 +2,7 @@ package teamroots.goetia.common.items;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
@@ -30,12 +31,15 @@ import teamroots.goetia.lib.LibMain;
  */
 public class ItemNote extends ItemBase
 {
-
-    public ItemNote(String name)
+	public Block block;
+	public String[] knowledge;
+    public ItemNote(String name, Block block, String[] knowledge)
     {
         super(name,"0","1","2","3","4","5");
+        this.block = block;
         this.setCustomMaxStackSize(1);
         this.setHasSubtypes(true);
+        this.knowledge = knowledge;
     }
     
     @Override
@@ -54,7 +58,7 @@ public class ItemNote extends ItemBase
     public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
     	if(playerIn.isSneaking()){
-    		worldIn.setBlockState(pos.up(), MainRegistry.blockLostNote.getDefaultState().withProperty(BlockLostNote.FACING, playerIn.getHorizontalFacing().getOpposite()), 2);
+    		worldIn.setBlockState(pos.up(), block.getDefaultState().withProperty(BlockLostNote.FACING, playerIn.getHorizontalFacing().getOpposite()), 2);
     		TileEntityScroll tes = (TileEntityScroll)worldIn.getTileEntity(pos.up());
     		tes.setKnowledge(stack.getTagCompound().getString("knowledge"));
     		stack.stackSize--;
@@ -67,7 +71,7 @@ public class ItemNote extends ItemBase
     public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean isSelected){
     	if (!stack.hasTagCompound()){
     		stack.setTagCompound(new NBTTagCompound());
-    		stack.getTagCompound().setString("knowledge", LibMain.LibKnowledge.validKnowledge[(itemRand.nextInt(LibMain.LibKnowledge.validKnowledge.length))]);
+    		stack.getTagCompound().setString("knowledge", this.knowledge[(itemRand.nextInt(this.knowledge.length))]);
     	}
     }
     
@@ -79,9 +83,14 @@ public class ItemNote extends ItemBase
     	
     	NBTTagCompound tag = stack.getTagCompound();
     	if(!tag.hasKey("knowledge")){
-    		tag.setString("knowledge", LibMain.LibKnowledge.validKnowledge[stack.getItemDamage()]);
+    		tag.setString("knowledge", this.knowledge[stack.getItemDamage()]);
     	}
-    	tooltip.add(TextFormatting.DARK_RED+"Knowledge: "+I18n.format("goetia.knowledge."+tag.getString("knowledge")));
+    	if(this == MainRegistry.lostDemonNotes){
+    		tooltip.add(TextFormatting.DARK_RED+"Knowledge: "+I18n.format("goetia.knowledge."+tag.getString("knowledge")));
+    	} else {
+    		tooltip.add(TextFormatting.AQUA+"Knowledge: "+I18n.format("goetia.knowledge."+tag.getString("knowledge")));
+    	}
+    	
     }
     
     @SideOnly(Side.CLIENT)

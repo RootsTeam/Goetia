@@ -5,9 +5,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.WorldServer;
+import teamroots.goetia.ConfigHandler;
 import teamroots.goetia.common.network.GoetiaPacketHandler;
 import teamroots.goetia.common.network.ImpurityUpdateMessage;
-import teamroots.goetia.common.util.handler.ConfigHandler;
 import teamroots.goetia.spellcasting.AlignmentType;
 
 /**
@@ -19,6 +19,8 @@ public class DefaultGoetiaCapability implements IGoetiaCapability
 	
     public int impurity = 0;
     public int purity = 0;
+    
+    public String lastSpell = "none";
     
 
     @Override
@@ -79,25 +81,6 @@ public class DefaultGoetiaCapability implements IGoetiaCapability
 		dataChanged(player);
 	}
 
-    @Override
-    public NBTTagCompound saveData() {
-        return (NBTTagCompound)GoetiaCapabilityStorage.storage.writeNBT(GoetiaProvider.goetiaCapability, this,null);
-    }
-
-    @Override
-    public void loadNBTData(NBTTagCompound tagCompound) {
-    	GoetiaCapabilityStorage.storage.readNBT(GoetiaProvider.goetiaCapability,this,null,tagCompound);
-    }
-
-    @Override
-    public void dataChanged(EntityPlayer player) {
-    	if(player != null && !player.getEntityWorld().isRemote){
-			GoetiaPacketHandler.INSTANCE.sendTo(new ImpurityUpdateMessage(player, saveData()), (EntityPlayerMP) player);
-			EntityTracker entitytracker = ((WorldServer)player.worldObj).getEntityTracker();
-			entitytracker.sendToAllTrackingEntity(player, GoetiaPacketHandler.INSTANCE.getPacketFrom(new ImpurityUpdateMessage(player, saveData())));
-    	}
-    }
-
 	@Override
 	public AlignmentType getAligningTowards() {
 		if(this.impurity > this.purity){
@@ -115,4 +98,33 @@ public class DefaultGoetiaCapability implements IGoetiaCapability
 		}
 		return AlignmentType.HUMAN;
 	}
+
+	@Override
+	public void setLastUsedSpell(String spell) {
+		this.lastSpell = spell;
+	}
+
+	@Override
+	public String getLastUsedSpell() {
+		return this.lastSpell;
+	}
+	
+	@Override
+    public NBTTagCompound saveData() {
+        return (NBTTagCompound)GoetiaCapabilityStorage.storage.writeNBT(GoetiaProvider.goetiaCapability, this,null);
+    }
+
+    @Override
+    public void loadNBTData(NBTTagCompound tagCompound) {
+    	GoetiaCapabilityStorage.storage.readNBT(GoetiaProvider.goetiaCapability,this,null,tagCompound);
+    }
+
+    @Override
+    public void dataChanged(EntityPlayer player) {
+    	if(player != null && !player.getEntityWorld().isRemote){
+			GoetiaPacketHandler.INSTANCE.sendTo(new ImpurityUpdateMessage(player, saveData()), (EntityPlayerMP) player);
+			EntityTracker entitytracker = ((WorldServer)player.worldObj).getEntityTracker();
+			entitytracker.sendToAllTrackingEntity(player, GoetiaPacketHandler.INSTANCE.getPacketFrom(new ImpurityUpdateMessage(player, saveData())));
+    	}
+    }
 }

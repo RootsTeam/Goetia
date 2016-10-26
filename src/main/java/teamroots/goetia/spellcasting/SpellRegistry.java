@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import teamroots.goetia.spellcasting.angel.SpellAngelicGrowth;
 import teamroots.goetia.spellcasting.angel.SpellAngelicWings;
 import teamroots.goetia.spellcasting.angel.SpellInnerGrace;
+import teamroots.goetia.spellcasting.angel.SpellSmite;
+import teamroots.goetia.spellcasting.angel.SpellStorm;
 import teamroots.goetia.spellcasting.demon.SpellBurningTouch;
 import teamroots.goetia.spellcasting.demon.SpellChainedStrikes;
 import teamroots.goetia.spellcasting.demon.SpellEbonWings;
@@ -38,6 +40,8 @@ public class SpellRegistry
     	addSpell(new SpellInnerGrace());
     	addSpell(new SpellAngelicWings());
     	addSpell(new SpellAngelicGrowth());
+    	addSpell(new SpellSmite());
+    	addSpell(new SpellStorm());
     }
 
     public static void addSpell(CastSpell castSpell)

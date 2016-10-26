@@ -17,56 +17,57 @@ public class ModelHorns extends ModelBase
 
 	public ModelHorns()
 	{
-		textureWidth = 64;
-		textureHeight = 32;
+		textureWidth = 16;
+		textureHeight = 16;
 
 		//Cube
 		Elem11 = new ModelRenderer(this, 0, 0);
 		Elem11.addBox(0F, 0F, 0F, 1, 1, 1);
 		Elem11.setRotationPoint(2F, 20F, -1F);
-		Elem11.setTextureSize(64, 32);
+		Elem11.setTextureSize(16, 16);
+		//Elem11.setTextureOffset(7, 1);
 		setRotation(Elem11, -0F, -0F, -0F);
 		//Cube
 		Elem10 = new ModelRenderer(this, 0, 0);
 		Elem10.addBox(0F, 0F, 0F, 2, 1, 1);
 		Elem10.setRotationPoint(2F, 21F, -1F);
-		Elem10.setTextureSize(64, 32);
+		Elem10.setTextureSize(16, 16);
 		setRotation(Elem10, -0F, -0F, -0F);
 		//Cube
 		Elem9 = new ModelRenderer(this, 0, 0);
 		Elem9.addBox(0F, 0F, 0F, 2, 1, 1);
 		Elem9.setRotationPoint(2.5F, 22F, -1F);
-		Elem9.setTextureSize(64, 32);
+		Elem9.setTextureSize(16, 16);
 		setRotation(Elem9, -0F, -0F, -0F);
 		//Cube
 		Elem8 = new ModelRenderer(this, 0, 0);
 		Elem8.addBox(0F, 0F, 0F, 1, 1, 1);
 		Elem8.setRotationPoint(-3F, 20F, -1F);
-		Elem8.setTextureSize(64, 32);
+		Elem8.setTextureSize(16, 3216);
 		setRotation(Elem8, -0F, -0F, -0F);
 		//Cube
 		Elem7 = new ModelRenderer(this, 0, 0);
 		Elem7.addBox(0F, 0F, 0F, 2, 1, 1);
 		Elem7.setRotationPoint(-4F, 21F, -1F);
-		Elem7.setTextureSize(64, 32);
+		Elem7.setTextureSize(16, 16);
 		setRotation(Elem7, -0F, -0F, -0F);
 		//Cube
 		Elem6 = new ModelRenderer(this, 0, 0);
 		Elem6.addBox(0F, 0F, 0F, 2, 1, 1);
 		Elem6.setRotationPoint(-4.5F, 22F, -1F);
-		Elem6.setTextureSize(64, 32);
+		Elem6.setTextureSize(16, 16);
 		setRotation(Elem6, -0F, -0F, -0F);
 		//Cube
 		Elem5 = new ModelRenderer(this, 0, 0);
 		Elem5.addBox(0F, 0F, 0F, 2, 1, 1);
 		Elem5.setRotationPoint(2F, 23F, -1F);
-		Elem5.setTextureSize(64, 32);
+		Elem5.setTextureSize(16, 16);
 		setRotation(Elem5, -0F, -0F, -0F);
 		//Cube
 		Elem4 = new ModelRenderer(this, 0, 0);
 		Elem4.addBox(0F, 0F, 0F, 2, 1, 1);
 		Elem4.setRotationPoint(-4F, 23F, -1F);
-		Elem4.setTextureSize(64, 32);
+		Elem4.setTextureSize(16, 16);
 		setRotation(Elem4, -0F, -0F, -0F);
 	}
 

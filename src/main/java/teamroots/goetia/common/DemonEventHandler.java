@@ -31,7 +31,7 @@ public class DemonEventHandler {
 						float offX = 0.5f*(float)Math.sin(Math.toRadians(i));
 						float offZ = 0.5f*(float)Math.cos(Math.toRadians(i));
 						if (random.nextInt(2) == 0){
-							player.getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_LARGE, player.posX+offX, player.posY+player.getEyeHeight()/2.0, player.posZ+offZ, 0, 0.015*random.nextFloat(), 0, 0);
+							player.getEntityWorld().spawnParticle(EnumParticleTypes.REDSTONE, player.posX+offX, player.posY+player.getEyeHeight()/2.0, player.posZ+offZ, 0, 0.015*random.nextFloat(), 0, 0);
 						}
 						player.getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, player.posX+offX, player.posY+player.getEyeHeight()/2.0, player.posZ+offZ, 0, 0.015*random.nextFloat(), 0, 0);
 					}
