@@ -1,4 +1,4 @@
-package teamroots.goetia.demonforge;
+package teamroots.goetia.recipes;
 
 import java.util.HashMap;
 import java.util.Map;

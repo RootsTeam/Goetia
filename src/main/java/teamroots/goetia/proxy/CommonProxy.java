@@ -19,9 +19,11 @@ import teamroots.goetia.common.DemonEventHandler;
 import teamroots.goetia.common.GeneralEventHandler;
 import teamroots.goetia.common.network.GoetiaPacketHandler;
 import teamroots.goetia.common.symbol.SymbolManager;
+import teamroots.goetia.common.tiles.TileEntityBowl;
 import teamroots.goetia.common.tiles.TileEntityScroll;
 import teamroots.goetia.fluids.Fluids;
 import teamroots.goetia.lib.LibMain;
+import teamroots.goetia.rituals.RitualManager;
 import teamroots.goetia.spellcasting.SpellRegistry;
 
 /**
@@ -40,8 +42,10 @@ public abstract class CommonProxy implements IProxy
         MainRegistry.registerEntities();
         SpellRegistry.register();
         GameRegistry.registerTileEntity(TileEntityScroll.class, "lostnote");
+        GameRegistry.registerTileEntity(TileEntityBowl.class, "bowl");
         KeyHandler.init();
         Fluids.preInit();
+        RitualManager.init();
     }
 
     @Override

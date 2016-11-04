@@ -65,7 +65,6 @@ public class GuiFocus extends GuiScreen{
 						//System.out.println(validSpells.get(i).name);
 						validSpells.get(i).doEffect(player);
 						GoetiaPacketHandler.INSTANCE.sendToServer(new FocusCastMessage(validSpells.get(i).name,player));
-						GoetiaProvider.get(player).setLastUsedSpell(validSpells.get(i).name);
 						this.mc.displayGuiScreen(null);
 						return;
 					}

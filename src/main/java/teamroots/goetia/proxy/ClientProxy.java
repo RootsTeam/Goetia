@@ -7,6 +7,8 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import teamroots.goetia.MainRegistry;
 import teamroots.goetia.client.model.ModelManager;
+import teamroots.goetia.common.blocks.BlockBowl;
+import teamroots.goetia.common.items.ItemBloodBottle;
 import teamroots.goetia.renderlayers.LayerAngel;
 import teamroots.goetia.renderlayers.LayerDemon;
 
@@ -34,6 +36,8 @@ public class ClientProxy extends CommonProxy
         RenderPlayer renderSlim = Minecraft.getMinecraft().getRenderManager().getSkinMap().get("slim");
         renderSlim.addLayer(new LayerDemon());
         renderSlim.addLayer(new LayerAngel());
+        Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new ItemBloodBottle.ColorHandler(), MainRegistry.liquidBottle);
+        Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(new BlockBowl.ColorHandler(), MainRegistry.fullBowl);
     }
 
     @Override

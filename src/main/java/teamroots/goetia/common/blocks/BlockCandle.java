@@ -17,6 +17,7 @@ import net.minecraft.world.World;
  */
 public class BlockCandle extends BlockBase
 {
+	private AxisAlignedBB BOUNDS = new AxisAlignedBB(0.375,0,0.375,0.625,0.375,0.625);
     public BlockCandle(String blockName, Material material) {
         super(blockName,material);
         setLightLevel(1.0f);
@@ -51,7 +52,7 @@ public class BlockCandle extends BlockBase
     
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos){
-    	return new AxisAlignedBB(0.375,0,0.375,0.625,0.375,0.625);
+    	return BOUNDS;
     }
     
     @Override

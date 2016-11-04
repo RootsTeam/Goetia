@@ -21,8 +21,8 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import teamroots.goetia.MainRegistry;
 import teamroots.goetia.common.symbol.SymbolManager;
-import teamroots.goetia.demonforge.DemonForgeRecipe;
-import teamroots.goetia.demonforge.DemonForgeRecipeManager;
+import teamroots.goetia.recipes.DemonForgeRecipe;
+import teamroots.goetia.recipes.DemonForgeRecipeManager;
 
 public class EntitySymbolForge extends EntityFlying implements ISymbol {
     public static DataParameter<Boolean> activated = EntityDataManager.<Boolean>createKey(EntitySymbolForge.class, DataSerializers.BOOLEAN);

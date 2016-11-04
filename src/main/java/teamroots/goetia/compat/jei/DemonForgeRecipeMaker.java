@@ -11,8 +11,8 @@ import mezz.jei.plugins.vanilla.furnace.SmeltingRecipe;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import teamroots.goetia.demonforge.DemonForgeRecipe;
-import teamroots.goetia.demonforge.DemonForgeRecipeManager;
+import teamroots.goetia.recipes.DemonForgeRecipe;
+import teamroots.goetia.recipes.DemonForgeRecipeManager;
 
 public class DemonForgeRecipeMaker {
 	

@@ -20,6 +20,7 @@ public class GoetiaCapabilityStorage implements IStorage<IGoetiaCapability>
         NBTTagCompound tagCompound = new NBTTagCompound();
         tagCompound.setInteger(LibMain.LibNBT.impurity_tag,((DefaultGoetiaCapability)instance).impurity);
         tagCompound.setInteger(LibMain.LibNBT.purity_tag, ((DefaultGoetiaCapability)instance).purity);
+        tagCompound.setBoolean("locked", ((DefaultGoetiaCapability)instance).locked);
         return tagCompound;
     }
 
@@ -28,5 +29,6 @@ public class GoetiaCapabilityStorage implements IStorage<IGoetiaCapability>
         NBTTagCompound tag =(NBTTagCompound)nbt;
         ((DefaultGoetiaCapability)instance).impurity = tag.getInteger(LibMain.LibNBT.impurity_tag);
         ((DefaultGoetiaCapability)instance).purity = tag.getInteger(LibMain.LibNBT.purity_tag);
+        ((DefaultGoetiaCapability)instance).locked = tag.getBoolean("locked");
     }
 }

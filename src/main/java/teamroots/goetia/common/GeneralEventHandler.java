@@ -1,6 +1,5 @@
 package teamroots.goetia.common;
 
-import java.awt.Color;
 import java.util.Random;
 
 import net.minecraft.client.Minecraft;
@@ -10,8 +9,10 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.storage.loot.LootEntry;
 import net.minecraft.world.storage.loot.LootEntryTable;
 import net.minecraft.world.storage.loot.LootPool;
@@ -20,7 +21,6 @@ import net.minecraft.world.storage.loot.conditions.LootCondition;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.event.LootTableLoadEvent;
-import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
@@ -32,15 +32,14 @@ import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import teamroots.goetia.ConfigHandler;
-import teamroots.goetia.Goetia;
 import teamroots.goetia.MainRegistry;
 import teamroots.goetia.capability.capabilites.GoetiaProvider;
 import teamroots.goetia.capability.capabilites.KnowledgeProvider;
 import teamroots.goetia.common.entity.IClickableSymbol;
 import teamroots.goetia.common.entity.ISymbol;
+import teamroots.goetia.common.items.ItemBloodBottle;
 import teamroots.goetia.common.network.GoetiaPacketHandler;
 import teamroots.goetia.common.network.ImpurityUpdateMessage;
-import teamroots.goetia.lib.EnumIDs;
 import teamroots.goetia.lib.LibMain;
 import teamroots.goetia.spellcasting.AlignmentType;
 
@@ -83,13 +82,6 @@ public class GeneralEventHandler
 			else if (event.getTarget() instanceof IClickableSymbol && ((ISymbol)event.getTarget()).isActivated()){
 				((IClickableSymbol)event.getTarget()).onRightClick(event.getWorld(), event.getTarget(), event.getEntityPlayer());
 			}
-		}
-	}
-	
-	@SubscribeEvent
-	public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event){
-		if (event.getWorld().getBlockState(event.getPos()).getBlock() == MainRegistry.altar){
-			event.getEntityPlayer().openGui(Goetia.instance, EnumIDs.GUI_ID_ALTAR.ordinal(), event.getWorld(), (int)event.getEntityPlayer().posX, (int)event.getEntityPlayer().posY, (int)event.getEntityPlayer().posZ);
 		}
 	}
 	
@@ -137,12 +129,16 @@ public class GeneralEventHandler
 			
 			int offsetX = ConfigHandler.alignmentBarPosX;
 			int offsetY = ConfigHandler.alignmentBarPosY;
+			int color = GoetiaProvider.get(player).getAligningTowards().color;
+			if(GoetiaProvider.get(player).isLocked()){
+				color = 16775680;
+			}
 			if(GoetiaProvider.get(player).getAligningTowards() == AlignmentType.DEMON){
 				Gui.drawModalRectWithCustomSizedTexture(e.getResolution().getScaledWidth() - offsetX, e.getResolution().getScaledHeight() - offsetY, 0, 0, 20, 20, 256, 256);
-				Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(Integer.toString(GoetiaProvider.get(player).getImpurity()), (w - offsetX) + 20, (h - offsetY) + 8, GoetiaProvider.get(player).getAligningTowards().color);
+				Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(Integer.toString(GoetiaProvider.get(player).getImpurity()), (w - offsetX) + 20, (h - offsetY) + 8, color);
 			} else {
 				Gui.drawModalRectWithCustomSizedTexture(e.getResolution().getScaledWidth() - offsetX, e.getResolution().getScaledHeight() - offsetY, 21, 0, 20, 20, 256, 256);
-				Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(Integer.toString(GoetiaProvider.get(player).getPurity()), (w - offsetX) + 20, (h - offsetY) + 8, GoetiaProvider.get(player).getAligningTowards().color);
+				Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(Integer.toString(GoetiaProvider.get(player).getPurity()), (w - offsetX) + 20, (h - offsetY) + 8, color);
 			}
 			
 			GlStateManager.pushMatrix();
@@ -150,18 +146,38 @@ public class GeneralEventHandler
 	}
 	
 	@SubscribeEvent
-	public void entityDeath(LivingDeathEvent e){
-		if(e.getEntity() instanceof EntityMob && e.getSource().damageType == "player"){
-			EntityPlayer player = (EntityPlayer) e.getSource().getEntity();
+	public void entityDeath(LivingDeathEvent evt){
+		if(evt.getEntity() instanceof EntityMob && evt.getSource().damageType == "player"){
+			EntityPlayer player = (EntityPlayer) evt.getSource().getEntity();
 			if(!player.worldObj.isRemote){
 				GoetiaProvider.get(player).addPurity(player, 2);
 			}
 			
 		}
-		if(e.getEntity() instanceof EntityAnimal && e.getSource().damageType == "player"){
-			EntityPlayer player = (EntityPlayer) e.getSource().getEntity();
+		if(evt.getEntity() instanceof EntityAnimal && evt.getSource().damageType == "player"){
+			EntityPlayer player = (EntityPlayer) evt.getSource().getEntity();
 			if(!player.worldObj.isRemote){
 				GoetiaProvider.get(player).addImpurity(player, 1);
+			}
+		}
+		
+		if(evt.getSource().damageType == "player"){
+			EntityPlayer player = (EntityPlayer) evt.getSource().getEntity();
+			if(player.getHeldItemMainhand().getItem() == MainRegistry.bloodKnife){
+				if(player.inventory.hasItemStack(new ItemStack(Items.GLASS_BOTTLE))){
+					int slot = player.inventory.getSlotFor(new ItemStack(Items.GLASS_BOTTLE));
+					ItemStack bottle = player.inventory.getStackInSlot(slot);
+					if(bottle.stackSize > 1){
+						bottle.stackSize--;
+					} else {
+						player.inventory.removeStackFromSlot(slot);
+					}
+					player.inventory.addItemStackToInventory(new ItemStack(MainRegistry.liquidBottle));
+					int slot2 = player.inventory.getSlotFor(new ItemStack(MainRegistry.liquidBottle));
+					ItemBloodBottle bloodBottle = (ItemBloodBottle) player.inventory.getStackInSlot(slot2).getItem();
+					player.inventory.addItemStackToInventory(bloodBottle.setBloodType(new ItemStack(MainRegistry.liquidBottle), evt.getEntity()));
+					player.inventory.removeStackFromSlot(slot2);
+				}
 			}
 		}
 	}

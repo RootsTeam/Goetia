@@ -1,17 +1,26 @@
 gui.jei.category.demon_forge=Demon Forge
 
 tile.altar.name=Altar
+tile.angelCandle.name=Angel Candlestick
+tile.angelCandleStand.name=Angel Candle
 tile.demonCandle.name=Demon Candlestick
 tile.demonCandleStand.name=Demon Candle
+tile.candle.name=Candle
+tile.candleStand-Candlestick
+tile.emptyBowl.name=Bowl
+
 item.abyssalBlade.name=Abyssal Blade
 item.demonHide.name=Demon Hide
 item.demonHorn.name=Demon Horn
 item.demonHornSpear.name=Demon Horn Spear
 item.demonicChalk.name=Demonic Chalk
 item.impTallow.name=Imp Tallow
+item.tallow.name=Tallow
 item.soulFocus.name=Soul Focus
 item.bottleHolyWater.name=Holy Water Bottle
 item.holyCross.name=Holy Cross
+item.liquidBottle.name=Blood bottle
+item.bloodKnife.name=Blood Knife
 
 item.lostDemonNotes.0.name=Lost Scroll
 item.lostDemonNotes.1.name=Lost Scroll
@@ -42,6 +51,7 @@ goetia.knowledge.forgeSymbol=Demon Forge
 goetia.knowledge.forgeSymbol.desc=Imbues certain items with bound demons.
 goetia.knowledge.openSoulSymbol=Open Soul
 goetia.knowledge.openSoulSymbol.desc=Binds demons to your soul itself.
+goetia.knowledge.WIP=WIP
 
 goetia.tooltip.symbol=Symbol: 
 goetia.tooltip.levelcost=XP Cost: 

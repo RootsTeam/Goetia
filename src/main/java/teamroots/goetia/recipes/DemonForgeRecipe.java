@@ -1,4 +1,4 @@
-package teamroots.goetia.demonforge;
+package teamroots.goetia.recipes;
 
 import net.minecraft.item.ItemStack;
 

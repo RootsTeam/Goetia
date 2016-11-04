@@ -6,6 +6,7 @@ import java.util.List;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -15,9 +16,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
-import teamroots.goetia.client.model.ModelManager;
 import teamroots.goetia.common.blocks.BlockAltar;
 import teamroots.goetia.common.blocks.BlockBase;
+import teamroots.goetia.common.blocks.BlockBowl;
 import teamroots.goetia.common.blocks.BlockCandle;
 import teamroots.goetia.common.blocks.BlockCandleStand;
 import teamroots.goetia.common.blocks.BlockLostNote;
@@ -42,6 +43,8 @@ import teamroots.goetia.common.entity.RenderSymbolImp;
 import teamroots.goetia.common.entity.RenderSymbolOpenSoul;
 import teamroots.goetia.common.items.ItemAbyssalBlade;
 import teamroots.goetia.common.items.ItemBase;
+import teamroots.goetia.common.items.ItemBloodBottle;
+import teamroots.goetia.common.items.ItemBloodKnife;
 import teamroots.goetia.common.items.ItemDemonHorn;
 import teamroots.goetia.common.items.ItemDemonicChalk;
 import teamroots.goetia.common.items.ItemDemonicSpear;
@@ -52,9 +55,9 @@ import teamroots.goetia.common.items.ItemSoulFocus;
 import teamroots.goetia.common.items.ItemSpellIcon;
 import teamroots.goetia.common.items.ItemSwordBase;
 import teamroots.goetia.common.items.ItemSymbolIcon;
-import teamroots.goetia.demonforge.DemonForgeRecipe;
-import teamroots.goetia.demonforge.DemonForgeRecipeManager;
 import teamroots.goetia.lib.LibMain;
+import teamroots.goetia.recipes.DemonForgeRecipe;
+import teamroots.goetia.recipes.DemonForgeRecipeManager;
 
 /**
  * Created by TeamRoots on 4.8.2016.
@@ -68,15 +71,19 @@ public class MainRegistry
     public static BlockBase altar = new BlockAltar("altar",Material.ROCK);
     public static BlockBase demonCandle = new BlockCandle("demonCandle",Material.CLOTH);
     public static BlockBase demonCandleStand = new BlockCandleStand("demonCandleStand",Material.CLOTH);
-    
     public static BlockBase angelCandle = new BlockCandle("angelCandle",Material.CLOTH);
     public static BlockBase angelCandleStand = new BlockCandleStand("angelCandleStand",Material.CLOTH);
+    public static BlockBase candle = new BlockCandle("candle",Material.CLOTH);
+    public static BlockBase candleStand = new BlockCandleStand("candleStand",Material.CLOTH);
+    public static BlockBase fullBowl = new BlockBowl("fullBowl", false);
+    public static BlockBase emptyBowl = new BlockBowl("emptyBowl", true);
     
     public static BlockBase blockAngelLostNote = new BlockLostNote("blockAngelLostNote",Material.CLOTH);
     public static BlockBase blockDemonLostNote = new BlockLostNote("blockDemonLostNote",Material.CLOTH);
 
     public static ItemBase demonHorn = new ItemDemonHorn("demonHorn");
     public static ItemBase impTallow = new ItemBase("impTallow");
+    public static ItemBase tallow = new ItemBase("tallow");
     public static ItemBase demonHide = new ItemBase("demonHide");
     public static ItemSwordBase demonHornSpear = new ItemDemonicSpear();
     public static ItemSwordBase abyssalBlade = new ItemAbyssalBlade();
@@ -84,7 +91,9 @@ public class MainRegistry
     public static ItemBase lostDemonNotes = new ItemNote("lostDemonNotes", blockDemonLostNote, LibMain.LibKnowledge.validDemonKnowledge);
     
     public static ItemBase soulFocus = new ItemSoulFocus("soulFocus");
-   
+    public static ItemBase liquidBottle = new ItemBloodBottle("liquidBottle");
+    public static ItemSwordBase bloodKnife = new ItemBloodKnife("bloodKnife");
+    
     public static ItemBase holyCross = new ItemHolyCross("holyCross");
     public static ItemBase bottleHolyWater = new ItemHolyWater("bottleHolyWater");
     public static ItemBase lostAngelNotes = new ItemNote("lostAngelNotes", blockAngelLostNote, LibMain.LibKnowledge.validAngelKnowledge);
@@ -119,9 +128,15 @@ public class MainRegistry
     	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(demonCandle,4),true,new Object[]{" S ", " T ", 'S', Items.STRING, 'T', MainRegistry.impTallow}));
     	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(demonCandleStand,1),true,new Object[]{" S ", " T ", " T ", 'S', MainRegistry.demonCandle, 'T', "nuggetGold"}));
     	GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(demonicChalk,1),new Object[]{Items.GUNPOWDER,Items.REDSTONE,new ItemStack(Items.DYE,1,1),new ItemStack(Items.COAL,1,1)}));
+    	GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(angelCandle,1),new Object[]{candle, bottleHolyWater}));
+    	GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(angelCandleStand,1),new Object[]{candleStand, bottleHolyWater}));
+    	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(candle,4),true,new Object[]{" S ", " T ", 'S', Items.STRING, 'T', MainRegistry.tallow}));
+    	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(candleStand,1),true,new Object[]{" S ", " T ", " T ", 'S', MainRegistry.candle, 'T', "nuggetGold"}));
     	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(altar,1),true,new Object[]{"SCS", "SCS",  'S', "stone", 'C', "blockCoal"}));
     	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(holyCross,1),true,new Object[]{" S ", "SSS", " S ",  'S', "stone"}));
     	GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(bottleHolyWater,1),new Object[]{new ItemStack(Items.POTIONITEM,1,0),new ItemStack(holyCross.setContainerItem(holyCross))}));
+    	GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(tallow,1),new Object[]{Items.BEEF, Items.BEEF}));
+    	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(bloodKnife,1),true,new Object[]{" I ", "RGR", " S ", 'S', Items.STICK, 'I', Items.IRON_INGOT, 'R', Items.REDSTONE, 'G', Items.GOLD_INGOT}));
     	
     	DemonForgeRecipeManager.instance.addDemonForgeRecipe(demonHorn, new DemonForgeRecipe(new ItemStack(demonHornSpear,1),45));
     	DemonForgeRecipeManager.instance.addDemonForgeRecipe(Items.DIAMOND_SWORD, new DemonForgeRecipe(new ItemStack(abyssalBlade,1),45));

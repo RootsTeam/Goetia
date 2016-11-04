@@ -38,6 +38,7 @@ public class BlockLostNote extends BlockDirectional implements ITileEntityProvid
 	
 	public BlockLostNote(String blockName, Material material) {
 		super(blockName, material);
+		setCreativeTab(null);
 		this.setBlockUnbreakable();
 	}
 	

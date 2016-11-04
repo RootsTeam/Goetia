@@ -20,7 +20,7 @@ public class DefaultGoetiaCapability implements IGoetiaCapability
     public int impurity = 0;
     public int purity = 0;
     
-    public String lastSpell = "none";
+    public boolean locked = false;
     
 
     @Override
@@ -40,7 +40,7 @@ public class DefaultGoetiaCapability implements IGoetiaCapability
     
     @Override
 	public void addImpurity(EntityPlayer player, int impurity) {
-    	if(purity < thresh){
+    	if(purity < thresh && !locked){
     		this.impurity += impurity;
     		dataChanged(player);
     	}	
@@ -69,7 +69,7 @@ public class DefaultGoetiaCapability implements IGoetiaCapability
 	
 	@Override
 	public void addPurity(EntityPlayer player, int purity) {
-		if(impurity < thresh){
+		if(impurity < thresh && !locked){
 			this.purity += purity;
 			dataChanged(player);
 		}
@@ -98,16 +98,6 @@ public class DefaultGoetiaCapability implements IGoetiaCapability
 		}
 		return AlignmentType.HUMAN;
 	}
-
-	@Override
-	public void setLastUsedSpell(String spell) {
-		this.lastSpell = spell;
-	}
-
-	@Override
-	public String getLastUsedSpell() {
-		return this.lastSpell;
-	}
 	
 	@Override
     public NBTTagCompound saveData() {
@@ -127,4 +117,14 @@ public class DefaultGoetiaCapability implements IGoetiaCapability
 			entitytracker.sendToAllTrackingEntity(player, GoetiaPacketHandler.INSTANCE.getPacketFrom(new ImpurityUpdateMessage(player, saveData())));
     	}
     }
+
+	@Override
+	public boolean isLocked() {
+		return this.locked;
+	}
+
+	@Override
+	public void setLock(boolean locked) {
+		this.locked = locked;
+	}
 }

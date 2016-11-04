@@ -17,11 +17,11 @@ public interface IGoetiaCapability
     void setPurity(EntityPlayer player, int purity);
     void addPurity(EntityPlayer player, int purity);
     void addPurityRegardless(EntityPlayer player, int purity);
-    void setLastUsedSpell(String spell);
-    String getLastUsedSpell();
     AlignmentType getAligningTowards();
     AlignmentType getAlignment();
     NBTTagCompound saveData();
     void loadNBTData(NBTTagCompound tagCompound);
     void dataChanged(EntityPlayer player);
+    boolean isLocked();
+    void setLock(boolean locked);
 }
