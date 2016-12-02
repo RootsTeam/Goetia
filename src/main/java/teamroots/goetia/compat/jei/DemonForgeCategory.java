@@ -7,9 +7,9 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
-import mezz.jei.util.Translator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
+import teamroots.goetia.common.util.Utils;
 import teamroots.goetia.lib.LibMain;
 
 public class DemonForgeCategory extends BlankRecipeCategory{
@@ -24,7 +24,7 @@ public class DemonForgeCategory extends BlankRecipeCategory{
 	
 	public DemonForgeCategory(IGuiHelper gui){
 		background = gui.createDrawable(new ResourceLocation(LibMain.LibCore.MOD_ID, "textures/gui/jei_demon_forge.png"), 30, 16, 110, 60);
-		title = Translator.translateToLocal("gui.jei.category.demon_forge");
+		title = Utils.localizeName("gui.jei.category.demon_forge");
 		slotDrawable = gui.getSlotDrawable();
 	}
 	
