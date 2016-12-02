@@ -14,23 +14,29 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-
-version = "${minecraft_version}-${mod_version}.${System.getenv("BUILD_NUMBER") ?: 0}"
-group= mod_group 
+version = mod_version
+group= mod_group
 archivesBaseName = mod_artifact_basename
 
 minecraft {
-    version = minecraft_version + "-" + forge_version
+    version = "1.10.2-12.18.1.2093"
     runDir = "run"
-   
     mappings = mcp_mappings_version
+}
+
+repositories {
+	maven {
+		url "http://dvs1.progwml6.com/files/maven"
+	}
 }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-dependencies {
 
+dependencies {
+deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}:api"
+runtime "mezz.jei:jei_${minecraft_version}:${jei_version}"
 }
 
 processResources
