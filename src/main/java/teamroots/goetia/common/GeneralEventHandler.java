@@ -122,7 +122,7 @@ public class GeneralEventHandler
 			int w = e.getResolution().getScaledWidth();
 			int h = e.getResolution().getScaledHeight();
 			
-			GlStateManager.popMatrix();
+			GlStateManager.pushMatrix();
 			GlStateManager.color(1, 1, 1, 1);
 			
 			Minecraft.getMinecraft().renderEngine.bindTexture(	new ResourceLocation("goetia:textures/gui/guiOverlay.png"));
@@ -141,7 +141,7 @@ public class GeneralEventHandler
 				Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(Integer.toString(GoetiaProvider.get(player).getPurity()), (w - offsetX) + 20, (h - offsetY) + 8, color);
 			}
 			
-			GlStateManager.pushMatrix();
+			GlStateManager.popMatrix();
 		}
 	}
 	
