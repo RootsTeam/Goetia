@@ -119,12 +119,11 @@ public class GeneralEventHandler
 	public void onGameOverlayRender(RenderGameOverlayEvent.Post e){
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 		if (e.getType() == ElementType.TEXT){
-			int w = e.getResolution().getScaledWidth();
-			int h = e.getResolution().getScaledHeight();
+			int width = e.getResolution().getScaledWidth();
+			int height = e.getResolution().getScaledHeight();
 			
 			GlStateManager.pushMatrix();
-			GlStateManager.disableDepth();
-			GlStateManager.color(1, 1, 1, 1);
+	GlStateManager.disableDepth();			GlStateManager.color(1, 1, 1, 1);
 			
 			Minecraft.getMinecraft().renderEngine.bindTexture(	new ResourceLocation("goetia:textures/gui/guiOverlay.png"));
 			
@@ -135,13 +134,19 @@ public class GeneralEventHandler
 				color = 16775680;
 			}
 			if(GoetiaProvider.get(player).getAligningTowards() == AlignmentType.DEMON){
-				Gui.drawModalRectWithCustomSizedTexture(w - offsetX, h - offsetY, 0, 0, 20, 20, 256, 256);
+		Gui.drawModalRectWithCustomSizedTexture(w - offsetX, h - offsetY, 0, 0, 20, 20, 256, 256);
 				Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(Integer.toString(GoetiaProvider.get(player).getImpurity()), (w - offsetX) + 20, (h - offsetY) + 8, color);
 			} else {
 				Gui.drawModalRectWithCustomSizedTexture(w - offsetX, h - offsetY, 21, 0, 20, 20, 256, 256);
 				Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(Integer.toString(GoetiaProvider.get(player).getPurity()), (w - offsetX) + 20, (h - offsetY) + 8, color);
 			}
 			GlStateManager.enableDepth();
+				Gui.drawModalRectWithCustomSizedTexture(8+offsetX, height-28-offsetY, 0, 0, 20, 20, 256, 256);
+				Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(Integer.toString(GoetiaProvider.get(player).getImpurity()), 26 + offsetX, height - 16 - offsetY, color);
+			} else {
+				Gui.drawModalRectWithCustomSizedTexture(8+offsetX, height-28-offsetY, 0, 0, 21, 20, 256, 256);
+				Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(Integer.toString(GoetiaProvider.get(player).getPurity()), 26 + offsetX, height - 16 - offsetY, color);
+			}
 			GlStateManager.popMatrix();
 		}
 	}
