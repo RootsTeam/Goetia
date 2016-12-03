@@ -44,7 +44,6 @@ public abstract class CommonProxy implements IProxy
         GameRegistry.registerTileEntity(TileEntityScroll.class, "lostnote");
         GameRegistry.registerTileEntity(TileEntityBowl.class, "bowl");
         KeyHandler.init();
-        Fluids.preInit();
         RitualManager.init();
     }
 

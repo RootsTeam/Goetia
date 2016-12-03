@@ -9,6 +9,7 @@ import teamroots.goetia.MainRegistry;
 import teamroots.goetia.client.model.ModelManager;
 import teamroots.goetia.common.blocks.BlockBowl;
 import teamroots.goetia.common.items.ItemBloodBottle;
+import teamroots.goetia.fluids.Fluids;
 import teamroots.goetia.renderlayers.LayerAngel;
 import teamroots.goetia.renderlayers.LayerDemon;
 
@@ -23,6 +24,8 @@ public class ClientProxy extends CommonProxy
         ModelManager.init();
         MainRegistry.initTextures();
         MainRegistry.registerEntityRenderers();
+        Fluids.preInit();
+        MainRegistry.guideInit();
     }
 
     @Override

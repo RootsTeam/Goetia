@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -16,6 +14,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+import teamroots.goetia.client.gui.guide.GuideEntry;
+import teamroots.goetia.client.gui.guide.GuideGroup;
+import teamroots.goetia.client.gui.guide.GuideInfoPage;
+import teamroots.goetia.client.gui.guide.GuideManager;
+import teamroots.goetia.client.gui.guide.pages.GuideDemonForgePage;
+import teamroots.goetia.client.gui.guide.pages.GuideRitualPage;
 import teamroots.goetia.common.blocks.BlockAltar;
 import teamroots.goetia.common.blocks.BlockBase;
 import teamroots.goetia.common.blocks.BlockBowl;
@@ -48,6 +52,7 @@ import teamroots.goetia.common.items.ItemBloodKnife;
 import teamroots.goetia.common.items.ItemDemonHorn;
 import teamroots.goetia.common.items.ItemDemonicChalk;
 import teamroots.goetia.common.items.ItemDemonicSpear;
+import teamroots.goetia.common.items.ItemGuide;
 import teamroots.goetia.common.items.ItemHolyCross;
 import teamroots.goetia.common.items.ItemHolyWater;
 import teamroots.goetia.common.items.ItemNote;
@@ -100,6 +105,28 @@ public class MainRegistry
     
     public static ItemBase symbolIcon = new ItemSymbolIcon("symbolIcon");
     public static ItemBase spellIcon = new ItemSpellIcon("spellIcon");
+    
+    public static GuideManager manager = new GuideManager();
+    //public static ItemBase guide = new ItemGuide(manager);
+    
+    public static void guideInit(){
+    	GuideGroup main = new GuideGroup("Getting started");
+    	manager.registerEntryGroup(main);
+    	
+    	main.addEntry(new GuideEntry("goetia", "Goetia!", new ItemStack(demonCandle), 25, 25));
+    	manager.registerInfoPage("goetia", new GuideInfoPage("goetia"));
+    	main.addEntry(new GuideEntry("notes", "Lost Notes", new ItemStack(lostDemonNotes), 25, 45));
+    	manager.registerInfoPage("notes", new GuideInfoPage("notes"));
+    	main.addEntry(new GuideEntry("demonHorn", "Demon Spear", new ItemStack(demonHorn), 25, 65));
+    	manager.registerInfoPage("demonHorn", new GuideDemonForgePage("demonHorn", new ItemStack(demonHorn), new ItemStack(demonHornSpear), 45));
+    	main.addEntry(new GuideEntry("demonBlade", "Abyssal Blade", new ItemStack(abyssalBlade), 25, 85));
+    	manager.registerInfoPage("demonBlade", new GuideDemonForgePage("demonBlade", new ItemStack(Items.DIAMOND_SWORD), new ItemStack(abyssalBlade), 45));
+    	
+    	GuideGroup rituals = new GuideGroup("Rituals");
+    	manager.registerEntryGroup(rituals);
+    	rituals.addEntry(new GuideEntry("clean", "Ritual: Cleanse", new ItemStack(angelCandle), 40, 25));
+    	manager.registerInfoPage("clean", new GuideRitualPage("clean"));
+    }
     
     public static void register()
     {

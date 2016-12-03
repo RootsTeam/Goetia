@@ -15,7 +15,7 @@ public class LibMain
         public static final String
         MOD_ID = "goetia",
         MOD_NAME = "Goetia",
-        VERSION = "0.3",
+        VERSION = "0.3.3",
         CLIENT_PROXY_CLASS = "teamroots.goetia.proxy.ClientProxy",
         SERVER_PROXY_CLASS = "teamroots.goetia.proxy.ServerProxy",
         GUI_FACTORY_CLASS = "teamroots.goetia.client.gui.GuiFactory",

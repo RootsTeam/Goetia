@@ -4,9 +4,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
+import teamroots.goetia.MainRegistry;
 import teamroots.goetia.client.gui.GuiAltar;
 import teamroots.goetia.client.gui.GuiChalk;
 import teamroots.goetia.client.gui.GuiFocus;
+import teamroots.goetia.client.gui.guide.GuiGuide;
 import teamroots.goetia.lib.EnumIDs;
 
 /**
@@ -36,6 +38,8 @@ public class GuiHandler implements IGuiHandler
         	return new GuiFocus(player);
 		case GUI_ID_ALTAR:
 			return new GuiAltar(player);
+		case GUI_GUIDE:
+			return new GuiGuide(player, MainRegistry.manager);
 		default:
 			break;
 

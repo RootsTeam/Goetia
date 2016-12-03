@@ -1,5 +1,6 @@
 gui.jei.category.demon_forge=Demon Forge
 
+//BLOCKS
 tile.altar.name=Altar
 tile.angelCandle.name=Angel Candlestick
 tile.angelCandleStand.name=Angel Candle
@@ -9,6 +10,7 @@ tile.candle.name=Candle
 tile.candleStand-Candlestick
 tile.emptyBowl.name=Bowl
 
+//ITEMS
 item.abyssalBlade.name=Abyssal Blade
 item.demonHide.name=Demon Hide
 item.demonHorn.name=Demon Horn
@@ -35,10 +37,12 @@ item.lostAngelNotes.3.name=Lost Scroll
 item.lostAngelNotes.4.name=Lost Scroll
 item.lostAngelNotes.5.name=Lost Scroll
 
+//ENTITY
 entity.goetia.imp.name=Imp
 entity.goetia.fiend.name=Fiend
 entity.goetia.demon.name=Demon
 
+//KNOWLEDGES
 goetia.knowledge.impSymbol=Summon Imp
 goetia.knowledge.impSymbol.desc=Summons an Imp above the symbol.
 goetia.knowledge.fiendSymbol=Summon Fiend
@@ -63,6 +67,8 @@ goetia.tooltip.spellSteps=Steps:
 
 itemGroup.goetia=Goetia
 
+
+//SPELLS
 goetia.spell.burningTouch=Burning Touch
 goetia.spell.burningTouch.desc=Scorch all foes that you strike.
 goetia.spell.fireball=Blast
@@ -95,3 +101,9 @@ goetia.spell.storm.desc=Command the sky to punish those around you
 
 //FLUIDS
 fluid.goetia.holywater=Holy Water
+
+//GUIDE
+guide.goetia.goetia.title=Goetia
+guide.goetia.goetia.desc=Goetia is a mod made for the first "The Modding Trials", created in under 96 hours. It's a magic mod based around summoning demons and other entities to use them for various magical purposes.
+guide.goetia.notes.title=Lost Notes
+guide.goetia.notes.desc=You can find long lost notes in dungeon chest that contain knowledge about the various symbols you can make use of. 

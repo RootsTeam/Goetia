@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -44,7 +45,7 @@ public class ItemNote extends ItemBase
     
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand){
-    	if (player.hasCapability(KnowledgeProvider.knowledgeCapability, null) && stack.hasTagCompound() && !player.isSneaking()){
+    	if (player.hasCapability(KnowledgeProvider.knowledgeCapability, null) && stack.hasTagCompound() && !player.isSneaking() && this != MainRegistry.lostAngelNotes){
     		if (!world.isRemote && !KnowledgeProvider.get(player).hasKnowledge(stack.getTagCompound().getString("knowledge"))){
     			KnowledgeProvider.get(player).addKnowledge(player, stack.getTagCompound().getString("knowledge"));
     			player.setItemStackToSlot(hand == EnumHand.MAIN_HAND ? EntityEquipmentSlot.MAINHAND : EntityEquipmentSlot.OFFHAND, null);
@@ -58,11 +59,14 @@ public class ItemNote extends ItemBase
     public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
     	if(playerIn.isSneaking()){
-    		worldIn.setBlockState(pos.up(), block.getDefaultState().withProperty(BlockLostNote.FACING, playerIn.getHorizontalFacing().getOpposite()), 2);
-    		TileEntityScroll tes = (TileEntityScroll)worldIn.getTileEntity(pos.up());
-    		tes.setKnowledge(stack.getTagCompound().getString("knowledge"));
-    		stack.stackSize--;
-    		return EnumActionResult.PASS;
+    		if(worldIn.getBlockState(pos.up()).getBlock() == Blocks.AIR){
+    			worldIn.setBlockState(pos.up(), block.getDefaultState().withProperty(BlockLostNote.FACING, playerIn.getHorizontalFacing().getOpposite()), 2);
+        		TileEntityScroll tes = (TileEntityScroll)worldIn.getTileEntity(pos.up());
+        		tes.setKnowledge(stack.getTagCompound().getString("knowledge"));
+        		stack.stackSize--;
+        		return EnumActionResult.PASS;
+    		}
+    		return EnumActionResult.FAIL;
     	}
     	return EnumActionResult.FAIL;
     }
