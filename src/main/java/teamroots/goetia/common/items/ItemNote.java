@@ -71,8 +71,12 @@ public class ItemNote extends ItemBase
     public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean isSelected){
     	if (!stack.hasTagCompound()){
     		stack.setTagCompound(new NBTTagCompound());
-    		stack.getTagCompound().setString("knowledge", this.knowledge[(itemRand.nextInt(this.knowledge.length))]);
-    	}
+			if(!world.isRemote) {
+				stack.getTagCompound().setString("knowledge", this.knowledge[(itemRand.nextInt(this.knowledge.length))]);
+			}
+    	} else if(!stack.getTagCompound().hasKey("knowledge") && !world.isRemote){
+			stack.getTagCompound().setString("knowledge", this.knowledge[(itemRand.nextInt(this.knowledge.length))]);
+		}
     }
     
     @Override
