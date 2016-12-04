@@ -7,6 +7,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumActionResult;
@@ -19,6 +20,7 @@ import teamroots.goetia.MainRegistry;
 import teamroots.goetia.capability.capabilites.GoetiaProvider;
 import teamroots.goetia.common.entity.IDemonic;
 import teamroots.goetia.common.util.BlockUtils;
+import teamroots.goetia.common.util.EntityRaycasting;
 import teamroots.goetia.fluids.FluidBlockHolyWater;
 import teamroots.goetia.spellcasting.AlignmentType;
 
@@ -32,6 +34,14 @@ public class ItemHolyCross extends ItemBase{
 
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean isSelected){
+		if(!stack.hasTagCompound()){
+			stack.setTagCompound(new NBTTagCompound());
+		}
+		if(!stack.getTagCompound().hasKey("cooldown")){
+			stack.getTagCompound().setInteger("cooldown", 0);
+		} else if(stack.getTagCompound().getInteger("cooldown") > 0){
+			stack.getTagCompound().setInteger("cooldown", stack.getTagCompound().getInteger("cooldown")-1);
+		}
 		EntityPlayer player = (EntityPlayer) entity;
 		if(GoetiaProvider.get(player).getAlignment() == AlignmentType.DEMON){
 			player.attackEntityFrom(DamageSource.magic, 1F);
@@ -49,6 +59,23 @@ public class ItemHolyCross extends ItemBase{
 				if(player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() == MainRegistry.holyCross){
 					mob.attackEntityFrom(DamageSource.magic, 1F);
 				}	
+			}
+			Entity target;
+			if(player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof ItemHolyCross && stack.getTagCompound().getInteger("cooldown") <=0) {
+				if ((target = EntityRaycasting.raycastEntity(player, 5)) != null) {
+					if (target instanceof IDemonic || (target instanceof EntityPlayer && GoetiaProvider.get((EntityPlayer) target).getAlignment() == AlignmentType.DEMON)) {
+						target.addVelocity(player.getLookVec().xCoord, player.getLookVec().yCoord, player.getLookVec().zCoord);
+						stack.getTagCompound().setInteger("cooldown", 10);
+					}
+				}
+			}
+			if(player.getHeldItemOffhand() != null && player.getHeldItemOffhand().getItem() instanceof ItemHolyCross && stack.getTagCompound().getInteger("cooldown") <=0){
+				if ((target = EntityRaycasting.raycastEntity(player, 5)) != null) {
+					if (target instanceof IDemonic || (target instanceof EntityPlayer && GoetiaProvider.get((EntityPlayer) target).getAlignment() == AlignmentType.DEMON)) {
+						target.addVelocity(player.getLookVec().xCoord, player.getLookVec().yCoord, player.getLookVec().zCoord);
+						stack.getTagCompound().setInteger("cooldown", 10);
+					}
+				}
 			}
 		}
 	}
@@ -70,5 +97,10 @@ public class ItemHolyCross extends ItemBase{
 			
 		}
 		return new ActionResult(EnumActionResult.FAIL, itemStackIn);
+	}
+
+	@Override
+	public boolean shouldCauseReequipAnimation(ItemStack old, ItemStack newS, boolean slotChanged){
+		return slotChanged;
 	}
 }
