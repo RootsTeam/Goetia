@@ -135,11 +135,11 @@ public class GeneralEventHandler
 				color = 16775680;
 			}
 			if(GoetiaProvider.get(player).getAligningTowards() == AlignmentType.DEMON){
-				Gui.drawModalRectWithCustomSizedTexture(w - offsetX, h - offsetY, 0, 0, 20, 20, 256, 256);
-				Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(Integer.toString(GoetiaProvider.get(player).getImpurity()), (w - offsetX) + 20, (h - offsetY) + 8, color);
+				Gui.drawModalRectWithCustomSizedTexture(8 + offsetX, h - offsetY - 28, 0, 0, 20, 20, 256, 256);
+				Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(Integer.toString(GoetiaProvider.get(player).getImpurity()), offsetX + 26, h - offsetY - 15, color);
 			} else {
-				Gui.drawModalRectWithCustomSizedTexture(w - offsetX, h - offsetY, 21, 0, 20, 20, 256, 256);
-				Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(Integer.toString(GoetiaProvider.get(player).getPurity()), (w - offsetX) + 20, (h - offsetY) + 8, color);
+				Gui.drawModalRectWithCustomSizedTexture(8 + offsetX, h - offsetY - 28, 21, 0, 20, 20, 256, 256);
+				Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(Integer.toString(GoetiaProvider.get(player).getPurity()), offsetX + 26, h - offsetY - 15, color);
 			}
 			GlStateManager.popMatrix();
 		}
