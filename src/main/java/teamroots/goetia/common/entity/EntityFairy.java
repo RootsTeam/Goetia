@@ -21,11 +21,19 @@ import teamroots.goetia.common.util.Utils;
  * Created by Andrew Graber on 12/7/2016.
  */
 public class EntityFairy extends EntityCreature implements IAngelic {
+    float wingRotation;
+    boolean goingUp;
+    int floatHeight;
+    boolean floatingUp;
 
     public EntityFairy(World worldIn) {
         super(worldIn);
-        this.setSize(0.6f*0.2f, 1.95f*0.2f);
+        this.setSize(0.6f*0.4f, 1.2f);
         this.experienceValue = 10;
+        this.wingRotation = 0;
+        this.floatHeight = 0;
+        this.goingUp = true;
+        this.floatingUp = true;
     }
 
     @Override
@@ -71,5 +79,37 @@ public class EntityFairy extends EntityCreature implements IAngelic {
     @Override
     protected SoundEvent getDeathSound(){
         return MainRegistry.sad;
+    }
+
+    public float getWingRotation(){
+        return wingRotation;
+    }
+
+    public void setWingRotation(float rotation){
+        wingRotation = rotation;
+    }
+
+    public int getFloatHeight(){
+        return floatHeight;
+    }
+
+    public void setFloatHeight(int height){
+        floatHeight = height;
+    }
+
+    public boolean getGoingUp(){
+        return goingUp;
+    }
+
+    public void setGoingUp(boolean goingUp){
+        this.goingUp = goingUp;
+    }
+
+    public boolean getFloatingUp(){
+        return floatingUp;
+    }
+
+    public void setFloatingUp(boolean floatingUp){
+        this.floatingUp = floatingUp;
     }
 }

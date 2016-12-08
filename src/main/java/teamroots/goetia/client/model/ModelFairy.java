@@ -4,6 +4,7 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import org.lwjgl.opengl.GL11;
+import teamroots.goetia.common.entity.EntityFairy;
 
 public class ModelFairy extends ModelBase
 {
@@ -79,10 +80,11 @@ public class ModelFairy extends ModelBase
       setRotation(wand, -0.3717861F, 0F, 0F);
   }
   
-  public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
+  public void render(Entity entityIn, float f, float f1, float f2, float f3, float f4, float f5)
   {
-    GL11.glTranslatef(0, 1.2f, 0);
-    GL11.glScalef(0.2f, 0.2f, 0.2f);
+    EntityFairy entity = (EntityFairy)entityIn;
+    GL11.glTranslatef(0, 0.0012f*entity.getFloatHeight(), 0);
+    GL11.glScalef(0.4f, 0.4f, 0.4f);
     super.render(entity, f, f1, f2, f3, f4, f5);
     setRotationAngles(f, f1, f2, f3, f4, f5, entity);
     head.render(f5);
@@ -91,9 +93,41 @@ public class ModelFairy extends ModelBase
     leftarm.render(f5);
     rightleg.render(f5);
     leftleg.render(f5);
-    leftwing.render(f5);
-    rightwing.render(f5);
+    drawWings(entity, f5);
     wand.render(f5);
+    GL11.glTranslatef(0, 0.0012f*entity.getFloatHeight(), 0);
+  }
+
+  private void drawWings(EntityFairy entity, float f5){
+    if(entity.getGoingUp() && entity.getWingRotation() < 60){
+      entity.setWingRotation(entity.getWingRotation()+1);
+      if(entity.getWingRotation() >= 60){
+        entity.setGoingUp(false);
+      }
+    } else {
+      entity.setWingRotation(entity.getWingRotation()-1);
+      if(entity.getWingRotation() <= 0){
+        entity.setGoingUp(true);
+      }
+    }
+
+    if(entity.getFloatingUp()){
+      entity.setFloatHeight(entity.getFloatHeight()+1);
+      if(entity.getFloatHeight() >= 500){
+        entity.setFloatingUp(false);
+      }
+    } else {
+      entity.setFloatHeight(entity.getFloatHeight()-1);
+      if(entity.getFloatHeight() <= 0){
+        entity.setFloatingUp(true);
+      }
+    }
+
+    GL11.glRotatef(-entity.getWingRotation(), 0, 1, 0);
+    leftwing.render(f5);
+    GL11.glRotatef(2*entity.getWingRotation(), 0, 1, 0);
+    rightwing.render(f5);
+    GL11.glRotatef(-entity.getWingRotation(), 0, 1, 0);
   }
   
   private void setRotation(ModelRenderer model, float x, float y, float z)
