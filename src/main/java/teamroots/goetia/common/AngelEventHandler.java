@@ -28,10 +28,11 @@ public class AngelEventHandler {
 					for (float i = 0; i < 360; i += 45.0f+45.0f*random.nextFloat()){
 						float offX = 0.5f*(float)Math.sin(Math.toRadians(i));
 						float offZ = 0.5f*(float)Math.cos(Math.toRadians(i));
+						float offY = 2*random.nextFloat();
 						if (random.nextInt(2) == 0){
-							player.getEntityWorld().spawnParticle(EnumParticleTypes.CRIT_MAGIC, player.posX+offX, player.posY+player.getEyeHeight()/2.0, player.posZ+offZ, 0, 0.015*random.nextFloat(), 0, 0);
+							player.getEntityWorld().spawnParticle(EnumParticleTypes.CRIT_MAGIC, player.posX+offX, player.posY+offY, player.posZ+offZ, 0, 0.015*random.nextFloat(), 0, 0);
 						}
-						player.getEntityWorld().spawnParticle(EnumParticleTypes.CRIT, player.posX+offX, player.posY+player.getEyeHeight()/2.0, player.posZ+offZ, 0, 0.015*random.nextFloat(), 0, 0);
+						player.getEntityWorld().spawnParticle(EnumParticleTypes.CRIT, player.posX+offX, player.posY+offY, player.posZ+offZ, 0, 0.015*random.nextFloat(), 0, 0);
 					}
 				}
 				

@@ -1,6 +1,7 @@
 {
     "parent" : "item/generated",
     "textures" : {
-        "layer0" : "goetia:items/soulFocus"
+        "layer0" : "goetia:items/soulFocusBase",
+        "layer1" : "goetia:items/soulFocusGems"
     }
 }

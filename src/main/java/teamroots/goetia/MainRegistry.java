@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -26,25 +29,7 @@ import teamroots.goetia.common.blocks.BlockBowl;
 import teamroots.goetia.common.blocks.BlockCandle;
 import teamroots.goetia.common.blocks.BlockCandleStand;
 import teamroots.goetia.common.blocks.BlockLostNote;
-import teamroots.goetia.common.entity.EntityBloodProjectile;
-import teamroots.goetia.common.entity.EntityDemon;
-import teamroots.goetia.common.entity.EntityFiend;
-import teamroots.goetia.common.entity.EntityImp;
-import teamroots.goetia.common.entity.EntitySymbolDemon;
-import teamroots.goetia.common.entity.EntitySymbolDevilsTrap;
-import teamroots.goetia.common.entity.EntitySymbolFiend;
-import teamroots.goetia.common.entity.EntitySymbolForge;
-import teamroots.goetia.common.entity.EntitySymbolImp;
-import teamroots.goetia.common.entity.EntitySymbolOpenSoul;
-import teamroots.goetia.common.entity.RenderDemon;
-import teamroots.goetia.common.entity.RenderFiend;
-import teamroots.goetia.common.entity.RenderImp;
-import teamroots.goetia.common.entity.RenderSymbolDemon;
-import teamroots.goetia.common.entity.RenderSymbolDevilsTrap;
-import teamroots.goetia.common.entity.RenderSymbolFiend;
-import teamroots.goetia.common.entity.RenderSymbolForge;
-import teamroots.goetia.common.entity.RenderSymbolImp;
-import teamroots.goetia.common.entity.RenderSymbolOpenSoul;
+import teamroots.goetia.common.entity.*;
 import teamroots.goetia.common.items.ItemAbyssalBlade;
 import teamroots.goetia.common.items.ItemBase;
 import teamroots.goetia.common.items.ItemBloodBottle;
@@ -108,6 +93,9 @@ public class MainRegistry
     
     public static GuideManager manager = new GuideManager();
     //public static ItemBase guide = new ItemGuide(manager);
+
+	public static SoundEvent fairyMagic = new SoundEvent(new ResourceLocation(LibMain.LibCore.MOD_ID, "fairyMagic"));
+	public static SoundEvent sad = new SoundEvent(new ResourceLocation(LibMain.LibCore.MOD_ID, "sad"));
     
     public static void guideInit(){
     	GuideGroup main = new GuideGroup("Getting started");
@@ -146,6 +134,8 @@ public class MainRegistry
         }
 
         recipesRegistry();
+
+		registerSounds();
     }
 
     private static void recipesRegistry()
@@ -183,6 +173,8 @@ public class MainRegistry
 		EntityRegistry.registerModEntity(EntitySymbolForge.class, "symbolForge", 7, Goetia.instance, 64, 3, true);
 		EntityRegistry.registerModEntity(EntitySymbolOpenSoul.class, "symbolOpenSoul", 8, Goetia.instance, 64, 3, true);
 		EntityRegistry.registerModEntity(EntityBloodProjectile.class, "bloodProjectile", 9, Goetia.instance, 64, 3, true);
+		EntityRegistry.registerModEntity(EntityFairy.class, "fairy", 10, Goetia.instance, 64, 3, true);
+		EntityRegistry.registerEgg(EntityFairy.class, 0xffe0bd, 0xf9f9f9);
 	}
     
 	@SideOnly(Side.CLIENT)
@@ -196,6 +188,7 @@ public class MainRegistry
 		RenderingRegistry.registerEntityRenderingHandler(EntitySymbolDevilsTrap.class, RenderSymbolDevilsTrap::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntitySymbolForge.class, RenderSymbolForge::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntitySymbolOpenSoul.class, RenderSymbolOpenSoul::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityFairy.class, RenderFairy::new);
 	}
 
     @SideOnly(Side.CLIENT)
@@ -207,4 +200,19 @@ public class MainRegistry
         //Block textures
         BLOCKS.forEach(BlockBase::initModels);
     }
+
+	@SideOnly(Side.CLIENT)
+	public static void registerColorHandlers(){
+		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new ItemBloodBottle.ColorHandler(), liquidBottle);
+		Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(new BlockBowl.ColorHandler(), fullBowl);
+		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new ItemSoulFocus.ColorHandler(), soulFocus);
+	}
+
+	public static void registerSounds(){
+		fairyMagic.setRegistryName(new ResourceLocation(LibMain.LibCore.MOD_ID, "fairyMagic"));
+		sad.setRegistryName(new ResourceLocation(LibMain.LibCore.MOD_ID, "sad"));
+
+		GameRegistry.register(fairyMagic);
+		GameRegistry.register(sad);
+	}
 }

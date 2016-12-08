@@ -10,4 +10,17 @@ public enum AlignmentType {
 	private AlignmentType(int color){
 		this.color = color;
 	}
+
+	public static String getString(AlignmentType type){
+		switch (type){
+			case DEMON:
+				return "demon";
+			case ANGEL:
+				return "angel";
+			case HUMAN:
+				return "human";
+			default:
+				return "human";
+		}
+	}
 }

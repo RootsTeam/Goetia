@@ -41,6 +41,7 @@ item.lostAngelNotes.5.name=Lost Scroll
 entity.goetia.imp.name=Imp
 entity.goetia.fiend.name=Fiend
 entity.goetia.demon.name=Demon
+entity.goetia.fairy.name=Fairy
 
 //KNOWLEDGES
 goetia.knowledge.impSymbol=Summon Imp

@@ -12,5 +12,6 @@ public class ModelManager {
 		entityModels.put("fiend", new ModelFiend());
 		entityModels.put("demon", new ModelDemon());
 		entityModels.put("symbol", new ModelSymbol());
+		entityModels.put("fairy", new ModelFairy());
 	}
 }

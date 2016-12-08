@@ -1,0 +1,14 @@
+{
+	"fairyMagic": {
+	  "category": "neutral",
+	  "sounds": [
+	    "goetia:fairyMagic"
+	  ]
+	},	
+	"sad": {
+	  "category": "neutral",
+	  "sounds": [ 
+	    "goetia:sad"
+	  ]
+	}
+}

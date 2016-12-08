@@ -39,8 +39,7 @@ public class ClientProxy extends CommonProxy
         RenderPlayer renderSlim = Minecraft.getMinecraft().getRenderManager().getSkinMap().get("slim");
         renderSlim.addLayer(new LayerDemon());
         renderSlim.addLayer(new LayerAngel());
-        Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new ItemBloodBottle.ColorHandler(), MainRegistry.liquidBottle);
-        Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(new BlockBowl.ColorHandler(), MainRegistry.fullBowl);
+        MainRegistry.registerColorHandlers();
     }
 
     @Override
